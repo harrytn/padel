@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Settings not found" }, { status: 500 });
     }
 
-    const bookedSlots = new Set(bookings.map((b) => b.slot_start));
+    const bookedSlots = new Set(bookings.map((b: any) => b.slot_start));
     const peakSlots = parsePeakSlots(settings.peak_slots);
 
     const slots = ALL_SLOTS.map((slotStart) => ({
