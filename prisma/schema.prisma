@@ -1,0 +1,41 @@
+// Padel Court Booking System — Prisma Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Settings {
+  id                    Int    @id @default(1)
+  base_price            Float  @default(100)
+  racket_price_with_balls Float @default(5)
+  balls_only_price      Float  @default(10)
+  lighting_price        Float  @default(20)
+  peak_premium          Float  @default(10)
+  open_hour             Int    @default(8)
+  close_hour            Int    @default(22)
+  lighting_trigger_hour String @default("18:30")
+  peak_slots            String @default("[\"17:00\",\"18:30\",\"20:00\"]")
+}
+
+model Booking {
+  id                  String        @id @default(uuid())
+  booking_pin         String
+  type                String        @default("TOURIST_BOOKING")
+  customer_first_name String?
+  customer_last_name  String?
+  room_number         String?
+  date                String
+  slot_start          String
+  racket_count        Int           @default(0)
+  bought_balls_only   Boolean       @default(false)
+  needs_lighting      Boolean       @default(false)
+  total_price         Float         @default(0)
+  status              String        @default("PENDING_PAYMENT")
+  created_at          DateTime      @default(now())
+
+  @@unique([date, slot_start])
+}
