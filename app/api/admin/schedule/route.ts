@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { Booking } from "@prisma/client";
 import { ALL_SLOTS, isPeakSlot, parsePeakSlots } from "@/lib/slots";
 import { cookies } from "next/headers";
 
@@ -34,7 +35,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Settings not found" }, { status: 500 });
     }
 
-    const bookingMap = new Map<string, any>(bookings.map((b) => [b.slot_start, b]));
+    const bookingMap = new Map<string, Booking>(bookings.map((b: Booking) => [b.slot_start, b]));
     const peakSlots = parsePeakSlots(settings.peak_slots);
 
     const schedule = ALL_SLOTS.map((slotStart) => ({
