@@ -13,6 +13,12 @@ function todayISO(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
+function maxISO(): string {
+  const d = new Date();
+  d.setDate(d.getDate() + 14);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 function formatDateDisplay(isoDate: string): string {
   if (!isoDate) return "";
   const d = new Date(isoDate + "T12:00:00");
@@ -102,6 +108,7 @@ export default function BookPage() {
                 type="date"
                 value={selectedDate}
                 min={todayISO()}
+                max={maxISO()}
                 onChange={(e) => {
                   setSelectedDate(e.target.value);
                   setSelectedSlot(null);
