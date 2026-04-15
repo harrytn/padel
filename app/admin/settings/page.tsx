@@ -128,7 +128,7 @@ export default function AdminSettingsPage() {
   }
 
   return (
-    <div className="p-8 max-w-2xl">
+    <div className="max-w-2xl">
       {/* Toast */}
       {toast && (
         <div

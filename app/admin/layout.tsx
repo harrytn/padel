@@ -1,7 +1,6 @@
-"use server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import AdminSidebar from "../../components/admin/AdminSidebar";
+import AdminLayoutClient from "../../components/admin/AdminLayoutClient";
 
 export default async function AdminLayout({
   children,
@@ -16,10 +15,5 @@ export default async function AdminLayout({
     redirect("/login");
   }
 
-  return (
-    <div className="min-h-screen flex" style={{ background: "#0f172a" }}>
-      <AdminSidebar />
-      <div className="ml-56 flex-1 min-h-screen w-[calc(100%-14rem)] overflow-x-hidden">{children}</div>
-    </div>
-  );
+  return <AdminLayoutClient>{children}</AdminLayoutClient>;
 }

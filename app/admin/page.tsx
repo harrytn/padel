@@ -138,7 +138,7 @@ export default function AdminSchedulePage() {
   };
 
   return (
-    <div className="p-8">
+    <div>
       {/* Toast */}
       {toast && (
         <div

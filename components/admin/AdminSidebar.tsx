@@ -1,7 +1,21 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { 
+  Calendar, 
+  Settings, 
+  LogOut, 
+  ChevronLeft, 
+  ChevronRight,
+  Menu,
+  Wind
+} from "lucide-react";
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  isCollapsed: boolean;
+  toggleCollapse: () => void;
+}
+
+export default function AdminSidebar({ isCollapsed, toggleCollapse }: AdminSidebarProps) {
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -12,43 +26,56 @@ export default function AdminSidebar() {
 
   return (
     <div
-      className="fixed left-0 top-0 bottom-0 w-56 flex flex-col"
+      className={`relative h-screen flex flex-col transition-all duration-300 ease-in-out shrink-0 ${isCollapsed ? "w-20" : "w-64"}`}
       style={{ background: "#1e293b", borderRight: "1px solid #334155" }}
     >
-      <div className="p-5 border-b" style={{ borderColor: "#334155" }}>
-        <div className="flex items-center gap-2 mb-1">
-          <span className="text-lg">🎾</span>
-          <span
-            className="font-bold text-white text-sm"
-            style={{ fontFamily: "var(--font-outfit)" }}
-          >
-            Caribbean World
-          </span>
+      {/* Toggle Button */}
+      <button
+        onClick={toggleCollapse}
+        className="absolute -right-3 top-10 w-6 h-6 rounded-full bg-[#334155] text-white flex items-center justify-center hover:bg-[#475569] transition-colors z-50 border border-[#1e293b]"
+      >
+        {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
+      </button>
+
+      {/* Header / Logo */}
+      <div className={`p-6 border-b flex items-center gap-3 ${isCollapsed ? "justify-center" : ""}`} style={{ borderColor: "#334155" }}>
+        <div className="shrink-0 text-teal-400">
+          <Wind size={24} strokeWidth={1.5} />
         </div>
-        <p className="text-xs text-slate-400">Admin Dashboard</p>
+        {!isCollapsed && (
+          <div>
+            <h1 className="font-bold text-white text-sm tracking-tight uppercase">Caribbean</h1>
+            <p className="text-[10px] text-slate-400 font-medium tracking-widest leading-none">Admin Panel</p>
+          </div>
+        )}
       </div>
 
-      <nav className="flex-1 p-4 space-y-1">
+      {/* Navigation */}
+      <nav className="flex-1 p-4 space-y-2 mt-4">
         <a
           href="/admin"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all group ${isCollapsed ? "justify-center" : ""} text-slate-400 hover:text-white hover:bg-white/5`}
         >
-          <span>📅</span> Planning
+          <Calendar size={18} strokeWidth={1.5} className="shrink-0" />
+          {!isCollapsed && <span>Planning</span>}
         </a>
         <a
           href="/admin/settings"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-white/10 transition-colors"
+          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all group ${isCollapsed ? "justify-center" : ""} text-slate-400 hover:text-white hover:bg-white/5`}
         >
-          <span>⚙️</span> Paramètres
+          <Settings size={18} strokeWidth={1.5} className="shrink-0" />
+          {!isCollapsed && <span>Paramètres</span>}
         </a>
       </nav>
 
+      {/* Footer / Logout */}
       <div className="p-4 border-t" style={{ borderColor: "#334155" }}>
         <button
           onClick={handleLogout}
-          className="w-full px-3 py-2 text-sm text-slate-400 hover:text-white rounded-lg hover:bg-white/10 transition-colors text-left"
+          className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all group ${isCollapsed ? "justify-center" : ""} text-slate-400 hover:text-white hover:bg-red-500/10 hover:text-red-400`}
         >
-          🚪 Déconnexion
+          <LogOut size={18} strokeWidth={1.5} className="shrink-0" />
+          {!isCollapsed && <span>Déconnexion</span>}
         </button>
       </div>
     </div>
