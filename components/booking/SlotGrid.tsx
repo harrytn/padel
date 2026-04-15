@@ -2,13 +2,14 @@
 import { SlotData } from "./SlotCard";
 import SlotCard from "./SlotCard";
 import { useI18n } from "@/lib/i18n";
-import { Calendar } from "lucide-react";
+import { Calendar, AlertCircle } from "lucide-react";
 
 interface SlotGridProps {
   slots: SlotData[];
   selectedSlot: string | null;
   onSelectSlot: (slot: SlotData) => void;
   loading: boolean;
+  error?: string | null;
 }
 
 export default function SlotGrid({
@@ -16,6 +17,7 @@ export default function SlotGrid({
   selectedSlot,
   onSelectSlot,
   loading,
+  error,
 }: SlotGridProps) {
   const { t } = useI18n();
 
@@ -29,6 +31,19 @@ export default function SlotGrid({
             style={{ background: "rgba(27, 67, 50, 0.02)" }}
           />
         ))}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-20 bg-[#F28482]/5 rounded-2xl border border-dashed border-[#F28482]/20">
+        <div className="flex justify-center mb-4">
+          <AlertCircle size={48} strokeWidth={1} className="text-[#F28482] opacity-40" />
+        </div>
+        <p className="text-sm font-bold text-[#F28482] opacity-80 tracking-tight">
+          {error}
+        </p>
       </div>
     );
   }

@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useI18n } from "@/lib/i18n";
 import LanguageToggle from "@/components/ui/LanguageToggle";
 import SlotGrid from "@/components/booking/SlotGrid";
 import CheckoutModal from "@/components/booking/CheckoutModal";
 import { SlotData } from "@/components/booking/SlotCard";
-import { Calendar as CalendarIcon, MapPin, ChevronRight, Flower2 } from "lucide-react";
+import { Calendar as CalendarIcon, MapPin, ChevronRight } from "lucide-react";
 
 function todayISO(): string {
   const d = new Date();
@@ -22,37 +23,6 @@ function formatDateDisplay(isoDate: string): string {
   });
 }
 
-/** 
- * Minimalist Tropical Logo Component: Crossed Rackets + Hibiscus
- */
-function TropicalLogo() {
-  return (
-    <div className="flex items-center gap-4">
-      <div className="relative w-12 h-12 flex items-center justify-center">
-        {/* Simple Crossed Rackets Line Art */}
-        <svg viewBox="0 0 24 24" className="w-full h-full text-[#1B4332]" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round">
-          <path d="M7 17l10-10M17 17L7 7" strokeOpacity="0.3" />
-          <circle cx="17" cy="7" r="3" />
-          <circle cx="7" cy="7" r="3" />
-        </svg>
-        {/* Minimalist Hibiscus overlap */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Flower2 size={24} strokeWidth={1.5} className="text-[#F28482]" />
-        </div>
-      </div>
-      <div>
-        <h1 className="text-sm font-bold tracking-[0.2em] text-[#1B4332] uppercase">
-          Padel Caribbean
-        </h1>
-        <div className="flex items-center gap-1 text-[10px] text-[#1A1A1A]/40 font-medium tracking-wider uppercase">
-          <MapPin size={10} />
-          Caribbean World Djerba
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function BookPage() {
   const { t } = useI18n();
   const [selectedDate, setSelectedDate] = useState<string>(todayISO());
@@ -65,24 +35,34 @@ export default function BookPage() {
     peak_premium: number;
   } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [selectedSlot, setSelectedSlot] = useState<SlotData | null>(null);
   const [slotTakenError, setSlotTakenError] = useState(false);
 
   const fetchSlots = useCallback(async (date: string) => {
     if (!date) return;
     setLoading(true);
+    setError(null);
     setSlotTakenError(false);
     try {
       const res = await fetch(`/api/slots?date=${date}`);
       if (res.ok) {
         const data = await res.json();
-        setSlots(data.slots);
+        setSlots(data.slots || []);
         setSettings(data.settings);
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        setError(errData.error || t.error_generic);
+        setSlots([]);
       }
+    } catch (err) {
+      console.error("fetchSlots error:", err);
+      setError(t.error_generic);
+      setSlots([]);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [t.error_generic]);
 
   useEffect(() => {
     fetchSlots(selectedDate);
@@ -98,7 +78,20 @@ export default function BookPage() {
     <div className="max-w-5xl mx-auto px-6 py-12 lg:px-12 bg-transparent min-h-screen">
       {/* Header Bar */}
       <header className="flex flex-col sm:flex-row items-center justify-between gap-8 mb-20">
-        <TropicalLogo />
+        <div className="flex flex-col items-center sm:items-start gap-4">
+          <Image 
+            src="/logo.png" 
+            alt="Padel Caribbean Logo" 
+            width={150} 
+            height={50} 
+            className="object-contain"
+            priority
+          />
+          <div className="flex items-center gap-1 text-[10px] text-[#1A1A1A]/40 font-medium tracking-wider uppercase">
+            <MapPin size={10} />
+            Caribbean World Djerba
+          </div>
+        </div>
         <LanguageToggle />
       </header>
 
@@ -177,6 +170,7 @@ export default function BookPage() {
               setSlotTakenError(false);
             }}
             loading={loading}
+            error={error}
           />
 
           <div className="mt-20 pt-10 border-t border-[#1B4332]/5 flex flex-col sm:flex-row items-center justify-between gap-6">
