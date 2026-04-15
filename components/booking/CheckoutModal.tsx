@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { calculatePrice } from "@/lib/pricing";
 import { SlotData } from "./SlotCard";
+import { X, User, Home, Lightbulb, ShoppingBag, ArrowRight } from "lucide-react";
 
 interface CheckoutModalProps {
   slot: SlotData;
@@ -119,12 +120,12 @@ export default function CheckoutModal({
     if (amount === 0) return null;
     return (
       <div
-        className={`flex justify-between items-center text-sm ${
-          highlight ? "font-semibold text-slate-800" : "text-slate-600"
+        className={`flex justify-between items-center text-[13px] ${
+          highlight ? "font-bold text-[#1B4332]" : "text-[#1A1A1A]/60"
         }`}
       >
         <span>{label}</span>
-        <span style={{ color: highlight ? "#0891b2" : undefined }}>
+        <span className={highlight ? "text-[#1B4332]" : "text-[#1A1A1A]/80"}>
           +{amount} DT
         </span>
       </div>
@@ -132,211 +133,148 @@ export default function CheckoutModal({
   };
 
   return (
-    <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-content">
+    <div className="fixed inset-0 bg-[#1B4332]/20 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="simple-modal max-h-[90vh] overflow-y-auto bg-[#FCFBF8] border border-[#1B4332]/10">
         {/* Header */}
-        <div
-          className="p-6 pb-4"
-          style={{
-            background: "linear-gradient(135deg, #0891b2 0%, #14b8a6 100%)",
-            borderRadius: "24px 24px 0 0",
-          }}
-        >
-          <div className="flex justify-between items-start">
-            <div>
-              <h2 className="text-xl font-bold text-white">{t.checkout_title}</h2>
-              <p className="text-teal-100 text-sm mt-1">
-                {t.checkout_selected_slot}:{" "}
-                <span className="font-bold text-white">{slot.slotStart}</span>
-                {slot.isPeak && (
-                  <span className="ml-2 text-xs bg-white/20 px-2 py-0.5 rounded-full">
-                    ⚡ Peak
-                  </span>
-                )}
-              </p>
+        <div className="flex justify-between items-start mb-8">
+          <div>
+            <h2 className="text-xl font-bold text-[#1B4332] tracking-tight">{t.checkout_title}</h2>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="text-sm font-medium text-[#1A1A1A]/60">{slot.slotStart}</span>
+              {slot.isPeak && (
+                <span className="slot-peak-badge">⚡ Peak</span>
+              )}
             </div>
-            <button
-              onClick={onClose}
-              className="text-white/70 hover:text-white transition-colors text-2xl leading-none"
-            >
-              ✕
-            </button>
           </div>
+          <button
+            onClick={onClose}
+            className="p-2 hover:bg-[#1B4332]/5 rounded-full transition-colors text-[#1A1A1A]/40"
+          >
+            <X size={20} strokeWidth={1.5} />
+          </button>
         </div>
 
-        <div className="p-6 space-y-5">
+        <div className="space-y-6">
           {/* Guest Details */}
-          <div className="space-y-3">
-            <input
-              id="checkout-firstname"
-              className="form-input"
-              placeholder={t.checkout_first_name_placeholder}
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              aria-label={t.checkout_first_name}
-            />
-            <input
-              id="checkout-lastname"
-              className="form-input"
-              placeholder={t.checkout_last_name_placeholder}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              aria-label={t.checkout_last_name}
-            />
-            <input
-              id="checkout-room"
-              className="form-input"
-              placeholder={t.checkout_room_placeholder}
-              value={roomNumber}
-              onChange={(e) => setRoomNumber(e.target.value)}
-              aria-label={t.checkout_room_number}
-              inputMode="numeric"
-            />
+          <div className="space-y-4">
+            <div className="relative">
+              <User size={16} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
+              <input
+                id="checkout-firstname"
+                className="minimal-input pl-10"
+                placeholder={t.checkout_first_name_placeholder}
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            <div className="relative">
+              <User size={16} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
+              <input
+                id="checkout-lastname"
+                className="minimal-input pl-10"
+                placeholder={t.checkout_last_name_placeholder}
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            <div className="relative">
+              <Home size={16} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
+              <input
+                id="checkout-room"
+                className="minimal-input pl-10"
+                placeholder={t.checkout_room_placeholder}
+                value={roomNumber}
+                onChange={(e) => setRoomNumber(e.target.value)}
+                inputMode="numeric"
+              />
+            </div>
           </div>
 
           {/* Rackets Add-on */}
-          <div className="glass-card p-4 space-y-3">
-            <div>
-              <p className="font-semibold text-slate-700">{t.checkout_rackets_label}</p>
-              <p className="text-sm text-slate-500">{t.checkout_rackets_desc}</p>
+          <div className="flat-card p-5 space-y-4">
+            <div className="flex items-center gap-2 text-[#1B4332]">
+              <ShoppingBag size={16} strokeWidth={1.5} />
+              <p className="text-sm font-bold tracking-tight">{t.checkout_rackets_label}</p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between">
               {[0, 1, 2, 3, 4].map((n) => (
                 <button
                   key={n}
-                  id={`racket-count-${n}`}
                   onClick={() => setRacketCount(n)}
-                  className="w-10 h-10 rounded-full font-bold text-sm transition-all duration-200"
-                  style={{
-                    background:
-                      racketCount === n
-                        ? "linear-gradient(135deg, #0891b2, #14b8a6)"
-                        : "#f1f5f9",
-                    color: racketCount === n ? "white" : "#475569",
-                    boxShadow:
-                      racketCount === n
-                        ? "0 4px 12px rgba(8,145,178,0.35)"
-                        : "none",
-                    transform: racketCount === n ? "scale(1.1)" : "scale(1)",
-                  }}
+                  className={`w-9 h-9 rounded-full text-sm font-bold transition-all border ${
+                    racketCount === n
+                      ? "bg-[#1B4332] border-[#1B4332] text-white"
+                      : "bg-white border-[#1B4332]/10 text-[#1B4332]/60 hover:border-[#1B4332]/40"
+                  }`}
                 >
                   {n}
                 </button>
               ))}
             </div>
 
-            {/* Balls-only toggle (only when rackets = 0) */}
             {racketCount === 0 && (
-              <div className="flex items-center justify-between pt-2 border-t border-slate-100">
-                <div>
-                  <p className="font-medium text-slate-700 text-sm">
-                    {t.checkout_balls_only_label}
-                  </p>
-                  <p className="text-xs text-slate-400">{t.checkout_balls_only_desc}</p>
-                </div>
-                <label className="toggle-switch">
-                  <input
-                    type="checkbox"
-                    id="balls-only-toggle"
-                    checked={ballsOnly}
-                    onChange={(e) => setBallsOnly(e.target.checked)}
-                  />
-                  <span className="toggle-knob" />
-                </label>
+              <div className="flex items-center justify-between pt-4 border-t border-[#1B4332]/5">
+                <span className="text-[13px] font-bold text-[#1B4332]/80">{t.checkout_balls_only_label}</span>
+                <button 
+                  onClick={() => setBallsOnly(!ballsOnly)}
+                  className={`w-10 h-5 rounded-full relative transition-colors ${ballsOnly ? 'bg-[#1B4332]' : 'bg-[#1B4332]/10'}`}
+                >
+                  <div className={`absolute top-1 w-3 h-3 rounded-full bg-white transition-all ${ballsOnly ? 'left-6' : 'left-1'}`} />
+                </button>
               </div>
             )}
           </div>
 
           {/* Lighting Add-on */}
           {slot.hasLighting && (
-            <div className="glass-card p-4 flex items-center justify-between">
-              <div>
-                <p className="font-semibold text-slate-700">
-                  💡 {t.checkout_lighting_label}
-                </p>
-                <p className="text-sm text-slate-500">{t.checkout_lighting_desc}</p>
+            <div className="flat-card p-5 flex items-center justify-between">
+              <div className="flex items-center gap-2 text-[#1B4332]">
+                <Lightbulb size={16} strokeWidth={1.5} />
+                <p className="text-sm font-bold tracking-tight">{t.checkout_lighting_label}</p>
               </div>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  id="lighting-toggle"
-                  checked={needsLighting}
-                  onChange={(e) => setNeedsLighting(e.target.checked)}
-                />
-                <span className="toggle-knob" />
-              </label>
+              <button 
+                onClick={() => setNeedsLighting(!needsLighting)}
+                className={`w-10 h-5 rounded-full relative transition-colors ${needsLighting ? 'bg-[#1B4332]' : 'bg-[#1B4332]/10'}`}
+              >
+                <div className={`absolute top-1 w-3 h-3 rounded-full bg-white transition-all ${needsLighting ? 'left-6' : 'left-1'}`} />
+              </button>
             </div>
           )}
 
           {/* Price Breakdown */}
-          <div className="glass-card p-4 space-y-2">
-            <p className="font-semibold text-slate-700 text-sm mb-3">
-              {t.checkout_price_breakdown}
-            </p>
+          <div className="bg-[#1B4332]/5 rounded-xl p-5 space-y-3">
             <PriceRow label={t.checkout_base} amount={breakdown.base} />
-            <PriceRow
-              label={t.checkout_peak_surcharge}
-              amount={breakdown.peakSurcharge}
-            />
+            <PriceRow label={t.checkout_peak_surcharge} amount={breakdown.peakSurcharge} />
             <PriceRow label={t.checkout_rackets_fee} amount={breakdown.rackets} />
             <PriceRow label={t.checkout_balls_fee} amount={breakdown.ballsOnly} />
-            <PriceRow
-              label={t.checkout_lighting_fee}
-              amount={breakdown.lighting}
-            />
-            <div className="flex justify-between items-center pt-3 border-t-2 border-teal-100">
-              <span className="font-bold text-slate-800">{t.checkout_total}</span>
-              <span
-                className="text-2xl font-bold"
-                style={{
-                  fontFamily: "var(--font-outfit)",
-                  color: "#0891b2",
-                }}
-              >
-                {breakdown.total} DT
-              </span>
+            <PriceRow label={t.checkout_lighting_fee} amount={breakdown.lighting} />
+            
+            <div className="flex justify-between items-center pt-3 border-t border-[#1B4332]/10">
+              <span className="text-sm font-bold text-[#1B4332]">{t.checkout_total}</span>
+              <span className="text-xl font-bold text-[#1B4332]">{breakdown.total} DT</span>
             </div>
           </div>
 
           {/* Error */}
           {error && (
-            <div className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">
-              {error}
-            </div>
+            <p className="text-xs font-semibold text-[#F28482] text-center">{error}</p>
           )}
 
           {/* Actions */}
-          <div className="flex gap-3 pt-2">
-            <button
-              onClick={onClose}
-              className="flex-1 py-3 rounded-xl font-semibold text-slate-600 bg-slate-100 hover:bg-slate-200 transition-colors"
-            >
-              {t.checkout_cancel_btn}
-            </button>
-            <button
-              id="confirm-booking-btn"
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className="flex-1 py-3 rounded-xl font-bold text-white transition-all duration-200 flex items-center justify-center gap-2"
-              style={{
-                background: isSubmitting
-                  ? "#94a3b8"
-                  : "linear-gradient(135deg, #0891b2, #14b8a6)",
-                boxShadow: isSubmitting
-                  ? "none"
-                  : "0 4px 16px rgba(8,145,178,0.4)",
-              }}
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="spinner" />
-                  {t.checkout_processing}
-                </>
-              ) : (
-                `${t.checkout_confirm_btn} — ${breakdown.total} DT`
-              )}
-            </button>
-          </div>
+          <button
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            className="btn-primary w-full flex items-center justify-center gap-2 h-12"
+          >
+            {isSubmitting ? (
+              <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+            ) : (
+              <>
+                <span className="tracking-tight">{t.checkout_confirm_btn}</span>
+                <ArrowRight size={16} strokeWidth={1.5} />
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>

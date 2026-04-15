@@ -3,15 +3,15 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { useI18n } from "@/lib/i18n";
 import LanguageToggle from "@/components/ui/LanguageToggle";
+import { CheckCircle2, Calendar, Clock, DollarSign, ArrowLeft, Download } from "lucide-react";
 
 function formatDateDisplay(isoDate: string): string {
   if (!isoDate) return "";
   const d = new Date(isoDate + "T12:00:00");
   return d.toLocaleDateString(undefined, {
     weekday: "long",
-    year: "numeric",
-    month: "long",
     day: "numeric",
+    month: "long",
   });
 }
 
@@ -27,125 +27,91 @@ function ConfirmationContent() {
   const name = params.get("name") ?? "";
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12">
-      {/* Background decorative */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div
-          className="absolute -top-40 -right-40 w-96 h-96 rounded-full opacity-20"
-          style={{ background: "radial-gradient(circle, #14b8a6, transparent)" }}
-        />
-        <div
-          className="absolute top-1/2 -left-40 w-80 h-80 rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, #f59e0b, transparent)" }}
-        />
-      </div>
-
-      <div className="relative w-full max-w-md">
-        {/* Header with lang toggle */}
-        <div className="flex justify-end mb-6">
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-12 lg:px-12 bg-transparent">
+      <div className="w-full max-w-lg">
+        {/* Top Navigation */}
+        <div className="flex items-center justify-between mb-12">
+          <button 
+           onClick={() => router.push("/book")}
+           className="flex items-center gap-2 text-[11px] font-bold text-[#1B4332]/40 hover:text-[#1B4332] uppercase tracking-[0.15em] transition-colors"
+          >
+            <ArrowLeft size={14} />
+            {t.confirm_another_btn}
+          </button>
           <LanguageToggle />
         </div>
 
-        {/* Success card */}
-        <div className="glass-card overflow-hidden">
-          {/* Green success banner */}
-          <div
-            className="p-6 text-center"
-            style={{ background: "linear-gradient(135deg, #0891b2 0%, #14b8a6 100%)" }}
-          >
-            <div
-              className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl pulse-glow"
-              style={{ background: "rgba(255,255,255,0.2)" }}
-            >
-              ✅
+        {/* Confirmation Card */}
+        <div className="flat-card bg-white p-8 sm:p-12 space-y-12">
+          {/* Status Header */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-16 h-16 rounded-full bg-[#1B4332]/5 flex items-center justify-center mb-6">
+              <CheckCircle2 size={32} strokeWidth={1.5} className="text-[#1B4332]" />
             </div>
-            <h1
-              className="text-2xl font-bold text-white"
-              style={{ fontFamily: "var(--font-outfit)" }}
-            >
+            <h1 className="text-2xl font-bold text-[#1B4332] tracking-tight mb-2">
               {t.confirm_title}
             </h1>
-            {name && (
-              <p className="text-teal-100 mt-1 text-sm">{name}</p>
-            )}
+            <p className="text-[13px] font-medium text-[#1A1A1A]/40 uppercase tracking-widest">
+              Réservation confirmée
+            </p>
           </div>
 
-          {/* PIN display */}
-          <div className="p-6 text-center border-b border-slate-100">
-            <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-3">
+          {/* PIN Area */}
+          <div className="py-10 border-y border-[#1B4332]/5 text-center">
+            <span className="text-[10px] font-bold text-[#1A1A1A]/30 uppercase tracking-[0.2em] mb-4 block">
               {t.confirm_pin_label}
-            </p>
-            <div id="booking-pin-display" className="pin-display">
+            </span>
+            <div className="flat-pin">
               {pin}
             </div>
-            <p className="text-sm text-slate-400 mt-3">
+            <p className="text-[11px] font-medium text-[#1B4332] mt-4 opacity-40 flex items-center justify-center gap-2">
+              <Download size={12} />
               {t.confirm_screenshot_hint}
             </p>
           </div>
 
-          {/* Booking Details */}
-          <div className="p-6 space-y-3 border-b border-slate-100">
-            <p className="text-sm font-semibold text-slate-500 uppercase tracking-widest mb-3">
-              {t.confirm_booking_details}
-            </p>
-            {[
-              { label: t.confirm_date, value: formatDateDisplay(date) },
-              { label: t.confirm_slot, value: `${slot} (90 min)` },
-              {
-                label: t.confirm_total,
-                value: `${total} DT`,
-                highlight: true,
-              },
-            ].map(({ label, value, highlight }) => (
-              <div key={label} className="flex justify-between items-center">
-                <span className="text-sm text-slate-500">{label}</span>
-                <span
-                  className={`font-semibold ${highlight ? "text-teal-600 text-lg" : "text-slate-700"}`}
-                  style={
-                    highlight
-                      ? { fontFamily: "var(--font-outfit)" }
-                      : undefined
-                  }
-                >
-                  {value}
-                </span>
+          {/* Details Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-[#1A1A1A]/40 mb-1">
+                <Calendar size={13} strokeWidth={1.5} />
+                <span className="text-[10px] font-bold uppercase tracking-widest">{t.confirm_date}</span>
               </div>
-            ))}
+              <p className="text-sm font-bold text-[#1B4332]">{formatDateDisplay(date)}</p>
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-[#1A1A1A]/40 mb-1">
+                <Clock size={13} strokeWidth={1.5} />
+                <span className="text-[10px] font-bold uppercase tracking-widest">{t.confirm_slot}</span>
+              </div>
+              <p className="text-sm font-bold text-[#1B4332]">{slot} — 90 min</p>
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-[#1A1A1A]/40 mb-1">
+                <DollarSign size={13} strokeWidth={1.5} />
+                <span className="text-[10px] font-bold uppercase tracking-widest">{t.confirm_total}</span>
+              </div>
+              <p className="text-lg font-bold text-[#1B4332]">{total} DT</p>
+            </div>
           </div>
 
-          {/* Instructions */}
-          <div className="p-6 space-y-2" style={{ background: "#fffbeb" }}>
-            <p className="font-semibold text-amber-800 text-sm">
-              ℹ️ {t.confirm_instruction_title}
+          {/* Important Notice */}
+          <div className="bg-[#F28482]/5 border border-[#F28482]/10 rounded-xl p-6">
+            <p className="text-[11px] font-bold text-[#F28482] uppercase tracking-[0.1em] mb-2">
+              Instructions
             </p>
-            <p className="text-sm text-amber-700 leading-relaxed">
+            <p className="text-[13px] font-medium text-[#F28482]/80 leading-relaxed">
               {t.confirm_instruction_body.replace(/\*\*/g, "")}
             </p>
           </div>
-
-          {/* Action button */}
-          <div className="p-6">
-            <button
-              id="book-another-btn"
-              onClick={() => router.push("/book")}
-              className="w-full py-3 rounded-xl font-bold text-white transition-all duration-200"
-              style={{
-                background: "linear-gradient(135deg, #0891b2, #14b8a6)",
-                boxShadow: "0 4px 16px rgba(8,145,178,0.35)",
-              }}
-            >
-              {t.confirm_another_btn}
-            </button>
-          </div>
         </div>
-
-        {/* Branding footer */}
-        <p
-          className="text-center text-sm text-slate-400 mt-6"
-          style={{ fontFamily: "var(--font-outfit)" }}
-        >
-          Caribbean World Djerba · Court de Padel
-        </p>
+        
+        {/* Footer branding */}
+        <div className="mt-12 text-center opacity-30">
+          <p className="text-[10px] font-bold tracking-[0.25em] text-[#1B4332] uppercase">
+            Caribbean World Djerba
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -153,7 +119,7 @@ function ConfirmationContent() {
 
 export default function ConfirmationPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-[11px] font-bold text-[#1B4332]/40 tracking-widest uppercase">Loading...</div>}>
       <ConfirmationContent />
     </Suspense>
   );

@@ -5,6 +5,7 @@ import LanguageToggle from "@/components/ui/LanguageToggle";
 import SlotGrid from "@/components/booking/SlotGrid";
 import CheckoutModal from "@/components/booking/CheckoutModal";
 import { SlotData } from "@/components/booking/SlotCard";
+import { Calendar as CalendarIcon, MapPin, ChevronRight, Flower2 } from "lucide-react";
 
 function todayISO(): string {
   const d = new Date();
@@ -16,10 +17,40 @@ function formatDateDisplay(isoDate: string): string {
   const d = new Date(isoDate + "T12:00:00");
   return d.toLocaleDateString(undefined, {
     weekday: "long",
-    year: "numeric",
-    month: "long",
     day: "numeric",
+    month: "long",
   });
+}
+
+/** 
+ * Minimalist Tropical Logo Component: Crossed Rackets + Hibiscus
+ */
+function TropicalLogo() {
+  return (
+    <div className="flex items-center gap-4">
+      <div className="relative w-12 h-12 flex items-center justify-center">
+        {/* Simple Crossed Rackets Line Art */}
+        <svg viewBox="0 0 24 24" className="w-full h-full text-[#1B4332]" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round">
+          <path d="M7 17l10-10M17 17L7 7" strokeOpacity="0.3" />
+          <circle cx="17" cy="7" r="3" />
+          <circle cx="7" cy="7" r="3" />
+        </svg>
+        {/* Minimalist Hibiscus overlap */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Flower2 size={24} strokeWidth={1.5} className="text-[#F28482]" />
+        </div>
+      </div>
+      <div>
+        <h1 className="text-sm font-bold tracking-[0.2em] text-[#1B4332] uppercase">
+          Padel Caribbean
+        </h1>
+        <div className="flex items-center gap-1 text-[10px] text-[#1A1A1A]/40 font-medium tracking-wider uppercase">
+          <MapPin size={10} />
+          Caribbean World Djerba
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function BookPage() {
@@ -63,150 +94,104 @@ export default function BookPage() {
     fetchSlots(selectedDate);
   };
 
-  const availableCount = slots.filter((s) => s.isAvailable).length;
-
   return (
-    <div className="min-h-screen">
-      {/* Background decorative elements */}
-      <div
-        className="fixed inset-0 pointer-events-none overflow-hidden"
-        aria-hidden="true"
-      >
-        <div
-          className="absolute -top-40 -right-40 w-96 h-96 rounded-full opacity-20"
-          style={{
-            background: "radial-gradient(circle, #14b8a6, transparent)",
-          }}
-        />
-        <div
-          className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full opacity-15"
-          style={{
-            background: "radial-gradient(circle, #f59e0b, transparent)",
-          }}
-        />
-      </div>
+    <div className="max-w-5xl mx-auto px-6 py-12 lg:px-12 bg-transparent min-h-screen">
+      {/* Header Bar */}
+      <header className="flex flex-col sm:flex-row items-center justify-between gap-8 mb-20">
+        <TropicalLogo />
+        <LanguageToggle />
+      </header>
 
-      <div className="relative max-w-4xl mx-auto px-4 py-8">
-        {/* Header */}
-        <header className="flex items-start justify-between mb-10">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg"
-                style={{ background: "linear-gradient(135deg, #0891b2, #14b8a6)" }}
-              >
-                🎾
-              </div>
-              <div>
-                <h1
-                  className="text-xl font-bold leading-tight"
-                  style={{ fontFamily: "var(--font-outfit)", color: "#0e7490" }}
-                >
-                  {t.nav_title}
-                </h1>
-                <p className="text-sm text-slate-500">{t.nav_subtitle}</p>
-              </div>
+      <main className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16">
+        {/* Sidebar Controls */}
+        <aside className="space-y-12">
+          <section>
+            <h2 className="text-[11px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-6">
+              {t.book_select_date}
+            </h2>
+            <div className="relative group">
+              <CalendarIcon size={16} strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
+              <input
+                id="date-picker"
+                type="date"
+                value={selectedDate}
+                min={todayISO()}
+                onChange={(e) => {
+                  setSelectedDate(e.target.value);
+                  setSelectedSlot(null);
+                }}
+                className="minimal-input pl-11 h-12"
+              />
             </div>
-          </div>
-          <LanguageToggle />
-        </header>
-
-        {/* Page Title */}
-        <div className="mb-8">
-          <h2
-            className="text-3xl font-bold text-slate-800 mb-2"
-            style={{ fontFamily: "var(--font-outfit)" }}
-          >
-            {t.book_title}
-          </h2>
-          <p className="text-slate-500">{t.book_subtitle}</p>
-        </div>
-
-        {/* Date Picker */}
-        <div className="glass-card p-5 mb-6">
-          <label
-            htmlFor="date-picker"
-            className="block text-sm font-semibold text-slate-600 mb-2"
-          >
-            📅 {t.book_select_date}
-          </label>
-          <div className="flex items-center gap-4">
-            <input
-              id="date-picker"
-              type="date"
-              value={selectedDate}
-              min={todayISO()}
-              onChange={(e) => {
-                setSelectedDate(e.target.value);
-                setSelectedSlot(null);
-              }}
-              className="form-input"
-              style={{ maxWidth: "220px" }}
-            />
             {selectedDate && (
-              <p className="text-slate-700 font-medium">
+              <p className="mt-4 text-[13px] font-bold text-[#1B4332]/60 flex items-center gap-2">
+                <ChevronRight size={14} />
                 {formatDateDisplay(selectedDate)}
               </p>
             )}
+          </section>
+
+          <section className="pt-8 border-t border-[#1B4332]/5">
+            <h2 className="text-[11px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-4">
+              Légende
+            </h2>
+            <ul className="space-y-4">
+              <li className="flex items-center gap-3 text-[13px] font-medium text-[#1A1A1A]/40">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#1B4332]" />
+                Disponible
+              </li>
+              <li className="flex items-center gap-3 text-[13px] font-medium text-[#1A1A1A]/40">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#F4A261]" />
+                Pleine saison (Peak)
+              </li>
+              <li className="flex items-center gap-3 text-[13px] font-medium text-[#1A1A1A]/40">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#E2E8F0]" />
+                Occupé
+              </li>
+            </ul>
+          </section>
+        </aside>
+
+        {/* Schedule Grid Area */}
+        <section>
+          <div className="flex items-baseline justify-between mb-8">
+            <h3 className="text-lg font-bold text-[#1B4332] tracking-tight">
+              {t.book_title}
+            </h3>
+            <span className="text-[11px] font-bold text-[#1A1A1A]/30 uppercase tracking-widest">
+              9 slots par jour
+            </span>
           </div>
-        </div>
 
-        {/* Availability Summary */}
-        {!loading && slots.length > 0 && (
-          <div className="flex items-center gap-4 mb-5">
-            <div className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ background: "#14b8a6" }}
-              />
-              <span className="text-sm text-slate-600">
-                {availableCount} {t.book_available}
-              </span>
+          {slotTakenError && (
+            <div className="mb-8 p-4 bg-[#F28482]/10 border border-[#F28482]/20 rounded-xl text-[13px] font-bold text-[#F28482] text-center">
+              ⚠️ {t.checkout_slot_taken}
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-slate-300" />
-              <span className="text-sm text-slate-600">
-                {9 - availableCount} {t.book_booked}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ background: "#f59e0b" }}
-              />
-              <span className="text-sm text-slate-600">⚡ Peak +10 DT</span>
-            </div>
+          )}
+
+          <SlotGrid
+            slots={slots}
+            selectedSlot={selectedSlot?.slotStart ?? null}
+            onSelectSlot={(slot) => {
+              setSelectedSlot(slot);
+              setSlotTakenError(false);
+            }}
+            loading={loading}
+          />
+
+          <div className="mt-20 pt-10 border-t border-[#1B4332]/5 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <p className="text-[11px] font-medium text-[#1A1A1A]/30 max-w-sm text-center sm:text-left">
+              Merci de vous présenter à la reception 15 minutes avant votre session.
+            </p>
+            <a
+              href="/admin"
+              className="text-[11px] font-bold text-[#1B4332]/40 hover:text-[#1B4332] tracking-widest uppercase transition-colors"
+            >
+              Accès Staff →
+            </a>
           </div>
-        )}
-
-        {/* Slot taken error banner */}
-        {slotTakenError && (
-          <div className="mb-5 px-4 py-3 rounded-xl text-sm font-medium bg-amber-50 border border-amber-200 text-amber-800 flex items-center gap-2">
-            ⚠️ {t.checkout_slot_taken}
-          </div>
-        )}
-
-        {/* Slot Grid */}
-        <SlotGrid
-          slots={slots}
-          selectedSlot={selectedSlot?.slotStart ?? null}
-          onSelectSlot={(slot) => {
-            setSelectedSlot(slot);
-            setSlotTakenError(false);
-          }}
-          loading={loading}
-        />
-
-        {/* Admin link */}
-        <div className="mt-12 text-center">
-          <a
-            href="/admin"
-            className="text-sm text-slate-400 hover:text-teal-600 transition-colors"
-          >
-            Staff access →
-          </a>
-        </div>
-      </div>
+        </section>
+      </main>
 
       {/* Checkout Modal */}
       {selectedSlot && settings && (

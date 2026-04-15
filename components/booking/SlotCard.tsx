@@ -1,6 +1,6 @@
 "use client";
 import { useI18n } from "@/lib/i18n";
-import { getSlotEnd } from "@/lib/slots";
+import { Clock, Zap } from "lucide-react";
 
 export interface SlotData {
   slotStart: string;
@@ -20,109 +20,47 @@ interface SlotCardProps {
 
 export default function SlotCard({ slot, isSelected, onClick }: SlotCardProps) {
   const { t } = useI18n();
-  const { slotStart, isAvailable, isPeak, hasLighting, basePrice, peakPremium } = slot;
-  const slotEnd = getSlotEnd(slotStart);
-
-  const stateClass = !isAvailable
-    ? "slot-booked"
-    : isSelected
-    ? "slot-selected"
-    : isPeak
-    ? "slot-available slot-peak"
-    : "slot-available";
+  const { slotStart, isAvailable, isPeak, basePrice, peakPremium } = slot;
 
   const displayPrice = basePrice + (isPeak ? peakPremium : 0);
 
   return (
-    <div
+    <button
       onClick={isAvailable ? onClick : undefined}
-      role={isAvailable ? "button" : undefined}
-      tabIndex={isAvailable ? 0 : -1}
-      onKeyDown={(e) => e.key === "Enter" && isAvailable && onClick()}
-      className={`glass-card p-4 flex flex-col gap-2 select-none ${stateClass}`}
+      disabled={!isAvailable}
+      className={`
+        slot-btn flex flex-col gap-3 group
+        ${isSelected ? "slot-selected" : isAvailable ? "ready-to-book" : "slot-booked"}
+      `}
     >
-      {/* Time Range */}
-      <div className="flex items-center justify-between">
-        <span
-          className="text-2xl font-bold"
-          style={{
-            fontFamily: "var(--font-outfit)",
-            color: isSelected ? "white" : isPeak ? "#b45309" : "#0e7490",
-          }}
-        >
-          {slotStart}
+      <div className="flex items-start justify-between w-full">
+        <div className="flex flex-col gap-0.5">
+          <div className="flex items-center gap-1.5">
+            <Clock size={14} strokeWidth={1.5} className={isSelected ? "text-white" : "text-[#1B4332] opacity-60"} />
+            <span className="text-sm font-bold tracking-tight">{slotStart}</span>
+          </div>
+          <span className={`text-[10px] uppercase font-medium tracking-wider opacity-60 ${isSelected ? "text-white" : "text-[#1A1A1A]"}`}>
+            90 minutes
+          </span>
+        </div>
+        
+        {isPeak && !isSelected && (
+          <div className="slot-peak-badge">
+            <Zap size={10} fill="currentColor" />
+          </div>
+        )}
+      </div>
+
+      <div className="flex items-end justify-between w-full mt-1">
+        <span className={`text-xs font-semibold ${isSelected ? "text-white" : "text-[#1B4332]"}`}>
+          {isAvailable ? `${displayPrice} DT` : t.book_booked}
         </span>
-        <span
-          className="text-xs font-medium px-2 py-0.5 rounded-full"
-          style={{
-            background: isSelected
-              ? "rgba(255,255,255,0.2)"
-              : isAvailable
-              ? isPeak
-                ? "rgba(245,158,11,0.12)"
-                : "rgba(20,184,166,0.1)"
-              : "rgba(148,163,184,0.15)",
-            color: isSelected
-              ? "white"
-              : isAvailable
-              ? isPeak
-                ? "#b45309"
-                : "#0e7490"
-              : "#94a3b8",
-          }}
-        >
-          {t.book_duration}
-        </span>
-      </div>
-
-      {/* End time */}
-      <p
-        className="text-sm"
-        style={{ color: isSelected ? "rgba(255,255,255,0.9)" : "#64748b" }}
-      >
-        {t.book_ends_at} {slotEnd}
-      </p>
-
-      {/* Badges row */}
-      <div className="flex items-center gap-1.5 flex-wrap mt-auto pt-1">
-        {isPeak && (
-          <span
-            className="text-xs font-semibold px-2 py-0.5 rounded-full"
-            style={{
-              background: isSelected
-                ? "rgba(255,255,255,0.25)"
-                : "rgba(245,158,11,0.15)",
-              color: isSelected ? "white" : "#92400e",
-            }}
-          >
-            ⚡ {t.book_peak_badge}
-          </span>
-        )}
-        {hasLighting && isAvailable && !isSelected && (
-          <span
-            className="text-xs px-2 py-0.5 rounded-full"
-            style={{ background: "rgba(139,92,246,0.1)", color: "#6d28d9" }}
-          >
-            💡 {t.book_lighting_badge}
-          </span>
-        )}
-        {!isAvailable && (
-          <span className="text-xs font-medium text-slate-400">
-            🚫 {t.book_booked}
+        {isAvailable && !isSelected && (
+          <span className="text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            Réserver →
           </span>
         )}
       </div>
-
-      {/* Price */}
-      <div
-        className="font-bold text-lg mt-1"
-        style={{
-          fontFamily: "var(--font-outfit)",
-          color: isSelected ? "white" : isPeak ? "#d97706" : "#0891b2",
-        }}
-      >
-        {isAvailable ? `${displayPrice} DT` : "—"}
-      </div>
-    </div>
+    </button>
   );
 }

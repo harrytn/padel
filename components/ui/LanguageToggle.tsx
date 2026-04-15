@@ -1,34 +1,35 @@
 "use client";
 import { useI18n } from "@/lib/i18n";
 import { Language } from "@/lib/i18n/translations";
+import { Globe } from "lucide-react";
 
-const LANGUAGES: { code: Language; flag: string }[] = [
-  { code: "fr", flag: "🇫🇷" },
-  { code: "en", flag: "🇬🇧" },
-  { code: "de", flag: "🇩🇪" },
+const LANGUAGES: { code: Language; name: string }[] = [
+  { code: "fr", name: "FR" },
+  { code: "en", name: "EN" },
+  { code: "de", name: "DE" },
 ];
 
 export default function LanguageToggle() {
-  const { lang, setLang, t } = useI18n();
+  const { lang, setLang } = useI18n();
 
   return (
-    <div className="flex items-center gap-1 bg-white/60 backdrop-blur-sm rounded-full p-1 border border-white/80 shadow-sm">
-      {LANGUAGES.map(({ code, flag }) => (
-        <button
-          key={code}
-          onClick={() => setLang(code)}
-          title={t[`lang_${code}` as keyof typeof t] as string}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ${
-            lang === code
-              ? "bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-sm"
-              : "text-slate-600 hover:text-teal-700 hover:bg-teal-50"
-          }`}
-          style={lang === code ? { background: "linear-gradient(135deg, #0891b2, #14b8a6)" } : {}}
-        >
-          <span>{flag}</span>
-          <span className="hidden sm:inline">{code.toUpperCase()}</span>
-        </button>
-      ))}
+    <div className="flex items-center gap-4 px-4 py-2 bg-white/40 rounded-full border border-[#1B4332]/10">
+      <Globe size={14} strokeWidth={1.5} className="text-[#1B4332]/40" />
+      <div className="flex items-center gap-3">
+        {LANGUAGES.map(({ code, name }) => (
+          <button
+            key={code}
+            onClick={() => setLang(code)}
+            className={`text-[11px] font-bold tracking-widest transition-colors ${
+              lang === code
+                ? "text-[#1B4332]"
+                : "text-[#1A1A1A]/30 hover:text-[#1B4332]/60"
+            }`}
+          >
+            {name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
