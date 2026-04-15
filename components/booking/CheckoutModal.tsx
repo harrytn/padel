@@ -158,35 +158,35 @@ export default function CheckoutModal({
           {/* Guest Details */}
           <div className="space-y-4">
             <div className="relative">
-              <User size={16} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
               <input
                 id="checkout-firstname"
-                className="minimal-input pl-10"
+                className="minimal-input pr-10"
                 placeholder={t.checkout_first_name_placeholder}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
+              <User size={16} strokeWidth={1.5} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
             </div>
             <div className="relative">
-              <User size={16} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
               <input
                 id="checkout-lastname"
-                className="minimal-input pl-10"
+                className="minimal-input pr-10"
                 placeholder={t.checkout_last_name_placeholder}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
+              <User size={16} strokeWidth={1.5} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
             </div>
             <div className="relative">
-              <Home size={16} strokeWidth={1.5} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
               <input
                 id="checkout-room"
-                className="minimal-input pl-10"
+                className="minimal-input pr-10"
                 placeholder={t.checkout_room_placeholder}
                 value={roomNumber}
                 onChange={(e) => setRoomNumber(e.target.value)}
                 inputMode="numeric"
               />
+              <Home size={16} strokeWidth={1.5} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
             </div>
           </div>
 

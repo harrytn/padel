@@ -77,8 +77,7 @@ export default function BookPage() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12 lg:px-12 bg-transparent min-h-screen">
       {/* Header Bar */}
-      <header className="flex items-center justify-end gap-6 mb-20">
-        <LanguageToggle />
+      <header className="flex items-center justify-between mb-20">
         <Image 
           src="/logo.png" 
           alt="Padel Caribbean Logo" 
@@ -87,6 +86,7 @@ export default function BookPage() {
           className="object-contain"
           priority
         />
+        <LanguageToggle />
       </header>
 
       <main className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16">
@@ -97,7 +97,6 @@ export default function BookPage() {
               {t.book_select_date}
             </h2>
             <div className="relative group">
-              <CalendarIcon size={16} strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
               <input
                 id="date-picker"
                 type="date"
@@ -107,7 +106,7 @@ export default function BookPage() {
                   setSelectedDate(e.target.value);
                   setSelectedSlot(null);
                 }}
-                className="minimal-input pl-11 h-12"
+                className="minimal-input pl-4 h-12"
               />
             </div>
             {selectedDate && (
