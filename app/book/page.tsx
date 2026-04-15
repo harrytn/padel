@@ -77,22 +77,16 @@ export default function BookPage() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12 lg:px-12 bg-transparent min-h-screen">
       {/* Header Bar */}
-      <header className="flex flex-col sm:flex-row items-center justify-between gap-8 mb-20">
-        <div className="flex flex-col items-center sm:items-start gap-4">
-          <Image 
-            src="/logo.png" 
-            alt="Padel Caribbean Logo" 
-            width={150} 
-            height={50} 
-            className="object-contain"
-            priority
-          />
-          <div className="flex items-center gap-1 text-[10px] text-[#1A1A1A]/40 font-medium tracking-wider uppercase">
-            <MapPin size={10} />
-            Caribbean World Djerba
-          </div>
-        </div>
+      <header className="flex items-center justify-end gap-6 mb-20">
         <LanguageToggle />
+        <Image 
+          src="/logo.png" 
+          alt="Padel Caribbean Logo" 
+          width={150} 
+          height={50} 
+          className="object-contain"
+          priority
+        />
       </header>
 
       <main className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16">
