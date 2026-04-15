@@ -19,7 +19,7 @@ export default function AdminLayoutClient({ children }: AdminLayoutClientProps) 
       
       {/* Main Content - flex-1 pushes beside the sidebar */}
       <main className="flex-1 min-h-screen overflow-x-auto min-w-0">
-        <div className="p-8">
+        <div className="px-8 py-10">
           {children}
         </div>
       </main>

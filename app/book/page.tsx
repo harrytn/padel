@@ -81,7 +81,7 @@ export default function BookPage() {
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12 lg:px-12 bg-transparent min-h-screen">
+    <div className="max-w-5xl mx-auto px-6 md:px-12 py-12 bg-transparent min-h-screen">
       {/* Header Bar */}
       <header className="flex items-center justify-between mb-20">
         <Image 
