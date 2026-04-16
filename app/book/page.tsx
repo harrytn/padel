@@ -97,7 +97,7 @@ export default function BookPage() {
 
       <main className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16">
         {/* Sidebar Controls */}
-        <aside className="space-y-12">
+        <aside className="space-y-12 bg-white/95 p-6 md:p-8 rounded-2xl shadow-sm h-fit">
           <section>
             <h2 className="text-[11px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-6">
               {t.book_select_date}
@@ -146,7 +146,7 @@ export default function BookPage() {
         </aside>
 
         {/* Schedule Grid Area */}
-        <section>
+        <section className="bg-white/95 p-6 md:p-8 rounded-2xl shadow-sm h-fit">
           <div className="flex items-baseline justify-between mb-8">
             <h3 className="text-lg font-bold text-[#1B4332] tracking-tight">
               {t.book_title}

@@ -267,7 +267,7 @@ export default function CheckoutModal({
             className="btn-primary w-full flex items-center justify-center gap-2 h-12"
           >
             {isSubmitting ? (
-              <span className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+              <span className="w-4 h-4 border-2 border-[#1A1A1A]/20 border-t-[#1A1A1A] rounded-full animate-spin" />
             ) : (
               <>
                 <span className="tracking-tight">{t.checkout_confirm_btn}</span>

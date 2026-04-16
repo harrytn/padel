@@ -36,10 +36,10 @@ export default function SlotCard({ slot, isSelected, onClick }: SlotCardProps) {
       <div className="flex items-start justify-between w-full">
         <div className="flex flex-col gap-0.5">
           <div className="flex items-center gap-1.5">
-            <Clock size={14} strokeWidth={1.5} className={isSelected ? "text-white" : "text-[#1B4332] opacity-60"} />
+            <Clock size={14} strokeWidth={1.5} className={isSelected ? "text-white" : isAvailable ? "text-[#1B4332] opacity-60" : "opacity-60"} />
             <span className="text-sm font-bold tracking-tight">{slotStart}</span>
           </div>
-          <span className={`text-[10px] uppercase font-medium tracking-wider opacity-60 ${isSelected ? "text-white" : "text-[#1A1A1A]"}`}>
+          <span className={`text-[10px] uppercase font-medium tracking-wider opacity-60 ${isSelected ? "text-white" : isAvailable ? "text-[#1A1A1A]" : ""}`}>
             90 minutes
           </span>
         </div>
@@ -52,7 +52,7 @@ export default function SlotCard({ slot, isSelected, onClick }: SlotCardProps) {
       </div>
 
       <div className="flex items-end justify-between w-full mt-1">
-        <span className={`text-xs font-semibold ${isSelected ? "text-white" : "text-[#1B4332]"}`}>
+        <span className={`text-xs font-semibold ${isSelected ? "text-white" : isAvailable ? "text-[#1B4332]" : ""}`}>
           {isAvailable ? `${displayPrice} DT` : t.book_booked}
         </span>
         {isAvailable && !isSelected && (
