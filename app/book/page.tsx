@@ -81,8 +81,8 @@ export default function BookPage() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 py-8 sm:py-12">
+    <div className="min-h-screen bg-[url('/bg_pattern.jpg')] bg-repeat bg-fixed">
+      <div className="max-w-7xl mx-auto p-4 md:p-8 lg:p-12">
 
         {/* Header Bar */}
         <header className="flex items-center justify-between mb-10 sm:mb-16">
