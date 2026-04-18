@@ -8,8 +8,8 @@
   --highlight-coral: #F28482;
   --highlight-yellow: #F4A261;
   --font-body: var(--font-inter), "Inter", sans-serif;
-  --btn-interactive: #f3ffbf;
-  --btn-interactive-hover: #e0f296;
+  --btn-interactive: #bbf7d0;
+  --btn-interactive-hover: #86efac;
   --slot-booked-bg: #ffbfbf;
   --slot-booked-text: rgba(26, 26, 26, 0.4);
 }

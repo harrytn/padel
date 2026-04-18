@@ -81,21 +81,8 @@ export default function BookPage() {
   };
 
   return (
-    <>
-      {/* Background pattern layer */}
-      <div
-        className="fixed inset-0 -z-20"
-        style={{
-          backgroundImage: "url('/bg_pattern.jpg')",
-          backgroundRepeat: "repeat",
-          backgroundSize: "auto",
-          backgroundPosition: "center",
-        }}
-      />
-      {/* White overlay to fade the pattern */}
-      <div className="fixed inset-0 -z-10 bg-white/80" />
-
-      <div className="max-w-5xl mx-auto px-6 md:px-12 py-12 min-h-screen">
+    <div className="min-h-screen bg-[url('/bg_pattern.jpg')] bg-no-repeat bg-cover bg-center bg-fixed">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-12">
         {/* Header Bar */}
         <header className="flex items-center justify-between mb-20">
           <Image 
@@ -212,6 +199,6 @@ export default function BookPage() {
           />
         )}
       </div>
-    </>
+    </div>
   );
 }
