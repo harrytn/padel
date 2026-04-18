@@ -6,7 +6,7 @@ import LanguageToggle from "@/components/ui/LanguageToggle";
 import SlotGrid from "@/components/booking/SlotGrid";
 import CheckoutModal from "@/components/booking/CheckoutModal";
 import { SlotData } from "@/components/booking/SlotCard";
-import { Calendar as CalendarIcon, MapPin, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 function todayISO(): string {
   const d = new Date();
@@ -82,28 +82,33 @@ export default function BookPage() {
 
   return (
     <div className="min-h-screen bg-[url('/bg_pattern.jpg')] bg-no-repeat bg-cover bg-center bg-fixed">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-12">
-        {/* Header Bar */}
-        <header className="flex items-center justify-between mb-20">
-          <Image 
-            src="/logo.png" 
-            alt="Padel Caribbean Logo" 
-            width={150} 
-            height={50} 
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
+
+        {/* Compact Header */}
+        <header className="flex items-center justify-between py-4 md:py-5">
+          <Image
+            src="/logo.png"
+            alt="Padel Caribbean Logo"
+            width={120}
+            height={40}
             className="object-contain"
             priority
           />
           <LanguageToggle />
         </header>
 
-        <main className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-16">
-          {/* Sidebar Controls */}
-          <aside className="space-y-12 bg-white p-6 md:p-8 rounded-2xl shadow-md shadow-black/5 h-fit">
-            <section>
-              <h2 className="text-[11px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-6">
-                {t.book_select_date}
-              </h2>
-              <div className="relative group">
+        {/* Main Content: sidebar + grid aligned at top */}
+        <main className="flex flex-col lg:flex-row gap-6 lg:gap-8 mt-4 lg:mt-6 items-start">
+
+          {/* Left Sidebar — compact */}
+          <aside className="w-full lg:w-[260px] lg:shrink-0">
+            <div className="bg-white rounded-xl shadow-md shadow-black/5 p-5 space-y-6">
+
+              {/* Date Picker */}
+              <section>
+                <h2 className="text-[10px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-3">
+                  {t.book_select_date}
+                </h2>
                 <input
                   id="date-picker"
                   type="date"
@@ -114,91 +119,98 @@ export default function BookPage() {
                     setSelectedDate(e.target.value);
                     setSelectedSlot(null);
                   }}
-                  className="minimal-input pl-4 h-12"
+                  className="minimal-input pl-3 h-10 text-sm"
                 />
-              </div>
-              {selectedDate && (
-                <p className="mt-4 text-[13px] font-bold text-[#1B4332]/60 flex items-center gap-2">
-                  <ChevronRight size={14} />
-                  {formatDateDisplay(selectedDate)}
-                </p>
-              )}
-            </section>
+                {selectedDate && (
+                  <p className="mt-2.5 text-[12px] font-semibold text-[#1B4332]/50 flex items-center gap-1.5">
+                    <ChevronRight size={12} />
+                    {formatDateDisplay(selectedDate)}
+                  </p>
+                )}
+              </section>
 
-            <section className="pt-8 border-t border-[#1B4332]/5">
-              <h2 className="text-[11px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-4">
-                Légende
-              </h2>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-[13px] font-medium text-[#1A1A1A]/40">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#1B4332]" />
-                  Disponible
-                </li>
-                <li className="flex items-center gap-3 text-[13px] font-medium text-[#1A1A1A]/40">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#F4A261]" />
-                  Pleine saison (Peak)
-                </li>
-                <li className="flex items-center gap-3 text-[13px] font-medium text-[#1A1A1A]/40">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#E2E8F0]" />
-                  Occupé
-                </li>
-              </ul>
-            </section>
+              {/* Legend */}
+              <section className="pt-4 border-t border-[#1B4332]/5">
+                <h2 className="text-[10px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-3">
+                  Légende
+                </h2>
+                <ul className="space-y-2.5">
+                  <li className="flex items-center gap-2.5 text-[12px] font-medium text-[#1A1A1A]/45">
+                    <div className="w-2.5 h-2.5 rounded-sm bg-[#bbf7d0] border border-[#1B4332]/10" />
+                    Disponible
+                  </li>
+                  <li className="flex items-center gap-2.5 text-[12px] font-medium text-[#1A1A1A]/45">
+                    <div className="w-2.5 h-2.5 rounded-sm bg-[#F4A261]" />
+                    Pleine saison
+                  </li>
+                  <li className="flex items-center gap-2.5 text-[12px] font-medium text-[#1A1A1A]/45">
+                    <div className="w-2.5 h-2.5 rounded-sm bg-[#ffbfbf]" />
+                    Occupé
+                  </li>
+                </ul>
+              </section>
+
+              {/* Staff link */}
+              <div className="pt-4 border-t border-[#1B4332]/5">
+                <a
+                  href="/admin"
+                  className="text-[10px] font-bold text-[#1B4332]/30 hover:text-[#1B4332] tracking-widest uppercase transition-colors"
+                >
+                  Accès Staff →
+                </a>
+              </div>
+            </div>
           </aside>
 
-          {/* Schedule Grid Area */}
-          <section className="bg-white p-6 md:p-8 rounded-2xl shadow-md shadow-black/5 h-fit">
-            <div className="flex items-baseline justify-between mb-8">
-              <h3 className="text-lg font-bold text-[#1B4332] tracking-tight">
-                {t.book_title}
-              </h3>
-              <span className="text-[11px] font-bold text-[#1A1A1A]/30 uppercase tracking-widest">
-                9 slots par jour
-              </span>
-            </div>
+          {/* Right — Booking Grid */}
+          <section className="flex-1 min-w-0">
+            <div className="bg-white rounded-xl shadow-md shadow-black/5 p-5 md:p-6">
 
-            {slotTakenError && (
-              <div className="mb-8 p-4 bg-[#F28482]/10 border border-[#F28482]/20 rounded-xl text-[13px] font-bold text-[#F28482] text-center">
-                ⚠️ {t.checkout_slot_taken}
+              <div className="flex items-baseline justify-between mb-5">
+                <h3 className="text-base font-bold text-[#1B4332] tracking-tight">
+                  {t.book_title}
+                </h3>
+                <span className="text-[10px] font-bold text-[#1A1A1A]/25 uppercase tracking-widest">
+                  9 slots / jour
+                </span>
               </div>
-            )}
 
-            <SlotGrid
-              slots={slots}
-              selectedSlot={selectedSlot?.slotStart ?? null}
-              onSelectSlot={(slot) => {
-                setSelectedSlot(slot);
-                setSlotTakenError(false);
-              }}
-              loading={loading}
-              error={error}
-            />
+              {slotTakenError && (
+                <div className="mb-5 p-3 bg-[#F28482]/10 border border-[#F28482]/20 rounded-lg text-[12px] font-bold text-[#F28482] text-center">
+                  ⚠️ {t.checkout_slot_taken}
+                </div>
+              )}
 
-            <div className="mt-20 pt-10 border-t border-[#1B4332]/5 flex flex-col sm:flex-row items-center justify-between gap-6">
-              <p className="text-[11px] font-medium text-[#1A1A1A]/30 max-w-sm text-center sm:text-left">
+              <SlotGrid
+                slots={slots}
+                selectedSlot={selectedSlot?.slotStart ?? null}
+                onSelectSlot={(slot) => {
+                  setSelectedSlot(slot);
+                  setSlotTakenError(false);
+                }}
+                loading={loading}
+                error={error}
+              />
+
+              <p className="mt-6 pt-4 border-t border-[#1B4332]/5 text-[10px] font-medium text-[#1A1A1A]/25 text-center">
                 Merci de vous présenter à la reception 15 minutes avant votre session.
               </p>
-              <a
-                href="/admin"
-                className="text-[11px] font-bold text-[#1B4332]/40 hover:text-[#1B4332] tracking-widest uppercase transition-colors"
-              >
-                Accès Staff →
-              </a>
             </div>
           </section>
-        </main>
 
-        {/* Checkout Modal */}
-        {selectedSlot && settings && (
-          <CheckoutModal
-            slot={selectedSlot}
-            settings={settings}
-            date={selectedDate}
-            onClose={() => setSelectedSlot(null)}
-            onSlotTaken={handleSlotTaken}
-          />
-        )}
+        </main>
       </div>
+
+      {/* Checkout Modal */}
+      {selectedSlot && settings && (
+        <CheckoutModal
+          slot={selectedSlot}
+          settings={settings}
+          date={selectedDate}
+          onClose={() => setSelectedSlot(null)}
+          onSlotTaken={handleSlotTaken}
+        />
+      )}
     </div>
   );
 }

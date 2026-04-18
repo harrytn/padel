@@ -23,11 +23,11 @@ export default function SlotGrid({
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {Array.from({ length: 9 }).map((_, i) => (
           <div
             key={i}
-            className="flat-card h-32 animate-pulse"
+            className="flat-card h-24 animate-pulse"
             style={{ background: "rgba(27, 67, 50, 0.02)" }}
           />
         ))}
@@ -37,7 +37,7 @@ export default function SlotGrid({
 
   if (error) {
     return (
-      <div className="text-center py-20 bg-[#F28482]/5 rounded-2xl border border-dashed border-[#F28482]/20">
+      <div className="text-center py-12 bg-[#F28482]/5 rounded-xl border border-dashed border-[#F28482]/20">
         <div className="flex justify-center mb-4">
           <AlertCircle size={48} strokeWidth={1} className="text-[#F28482] opacity-40" />
         </div>
@@ -50,7 +50,7 @@ export default function SlotGrid({
 
   if (!slots.length) {
     return (
-      <div className="text-center py-20 bg-white/40 rounded-2xl border border-dashed border-[#1B4332]/20">
+      <div className="text-center py-12 bg-white/40 rounded-xl border border-dashed border-[#1B4332]/20">
         <div className="flex justify-center mb-4">
           <Calendar size={48} strokeWidth={1} className="text-[#1B4332] opacity-20" />
         </div>
@@ -62,7 +62,7 @@ export default function SlotGrid({
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       {slots.map((slot) => (
         <SlotCard
           key={slot.slotStart}

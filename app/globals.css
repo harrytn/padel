@@ -45,13 +45,14 @@ h1, h2, h3, h4, h5, h6 {
 /* Slot button styles */
 .slot-btn {
   width: 100%;
-  padding: 1rem;
+  padding: 0.75rem 0.875rem;
   text-align: left;
-  border: 1px solid rgba(27, 67, 50, 0.15);
-  border-radius: 8px;
+  border: 1px solid rgba(27, 67, 50, 0.12);
+  border-radius: 10px;
   transition: all 0.2s ease;
   background: var(--btn-interactive);
   color: var(--primary-green);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .ready-to-book:hover {
