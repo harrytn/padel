@@ -81,8 +81,8 @@ export default function BookPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[url('/bg_pattern.jpg')] bg-no-repeat bg-cover bg-center bg-fixed">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
+    <div className="min-h-screen">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-6 md:px-10 lg:px-12 pb-8">
 
         {/* Compact Header */}
         <header className="flex items-center justify-between py-4 md:py-5">
@@ -101,7 +101,7 @@ export default function BookPage() {
         <main className="flex flex-col lg:flex-row gap-6 lg:gap-8 mt-4 lg:mt-6 items-start">
 
           {/* Left Sidebar — compact */}
-          <aside className="w-full lg:w-[260px] lg:shrink-0">
+          <aside className="w-full max-w-sm mx-auto lg:max-w-none lg:mx-0 lg:w-[260px] lg:shrink-0">
             <div className="bg-white rounded-xl shadow-md shadow-black/5 p-5 space-y-6">
 
               {/* Date Picker */}
@@ -163,7 +163,7 @@ export default function BookPage() {
           </aside>
 
           {/* Right — Booking Grid */}
-          <section className="flex-1 min-w-0">
+          <section className="flex-1 min-w-0 w-full max-w-sm mx-auto sm:max-w-none sm:mx-0">
             <div className="bg-white rounded-xl shadow-md shadow-black/5 p-5 md:p-6">
 
               <div className="flex items-baseline justify-between mb-5">

@@ -22,11 +22,20 @@
 
 body {
   font-family: var(--font-body);
-  background-color: var(--bg-sand);
+  background: var(--bg-sand) url('/bg_pattern.jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
   color: var(--text-charcoal);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+}
+
+/* Mobile fallback: bg-fixed doesn't work on iOS, use scroll instead */
+@supports (-webkit-touch-callout: none) {
+  body {
+    background-attachment: scroll;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
