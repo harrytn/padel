@@ -22,27 +22,11 @@
 
 body {
   font-family: var(--font-body);
-  background: var(--bg-sand) url('/bg_pattern.jpg') repeat fixed;
-  background-size: auto;
+  background-color: var(--bg-sand);
   color: var(--text-charcoal);
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-}
-
-/* Semi-transparent white overlay — lets the pattern bleed through subtly */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: rgba(250, 250, 248, 0.90);
-}
-
-/* Remove the old body::after accent */
-body::after {
-  display: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -53,52 +37,47 @@ h1, h2, h3, h4, h5, h6 {
 /* Minimalist Card */
 .flat-card {
   background: white;
-  border: 1px solid rgba(27, 67, 50, 0.08);
-  border-radius: 16px;
-  box-shadow: 0 1px 4px rgba(27, 67, 50, 0.04);
+  border: 1px solid rgba(27, 67, 50, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(27, 67, 50, 0.04);
 }
 
 /* Slot button styles */
 .slot-btn {
   width: 100%;
-  max-width: 240px;
-  padding: 1.15rem 1.25rem;
+  padding: 1rem;
   text-align: left;
   border: 1px solid rgba(27, 67, 50, 0.15);
-  border-radius: 16px;
+  border-radius: 8px;
   transition: all 0.2s ease;
   background: var(--btn-interactive);
   color: var(--primary-green);
-  box-shadow: 0 1px 3px rgba(27, 67, 50, 0.05);
 }
 
 .ready-to-book:hover {
   background: var(--btn-interactive-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(27, 67, 50, 0.08);
+  transform: translateY(-1px);
 }
 
 .slot-selected {
   background: var(--primary-green) !important;
   color: white !important;
   border-color: var(--primary-green) !important;
-  box-shadow: 0 4px 16px rgba(27, 67, 50, 0.25) !important;
 }
 
 .slot-booked {
   background: var(--slot-booked-bg) !important;
-  border-color: rgba(26, 26, 26, 0.04) !important;
+  border-color: rgba(26, 26, 26, 0.05) !important;
   color: var(--slot-booked-text) !important;
   cursor: not-allowed;
-  box-shadow: none !important;
 }
 
 .slot-peak-badge {
   background: var(--highlight-yellow);
   color: var(--primary-green);
   font-size: 0.65rem;
-  padding: 2px 8px;
-  border-radius: 6px;
+  padding: 2px 6px;
+  border-radius: 4px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -108,53 +87,50 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary {
   background: var(--btn-interactive);
   color: var(--text-charcoal);
-  padding: 0.875rem 1.75rem;
-  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
   font-weight: 600;
-  transition: all 0.2s ease;
-  border: 1px solid rgba(26, 26, 26, 0.08);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: background 0.2s ease;
+  border: 1px solid rgba(26, 26, 26, 0.1);
 }
 
 .btn-primary:hover {
   background: var(--btn-interactive-hover);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .btn-secondary {
   background: white;
   color: var(--primary-green);
   border: 1px solid var(--primary-green);
-  padding: 0.875rem 1.75rem;
-  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
   font-weight: 500;
 }
 
 /* Form inputs */
 .minimal-input {
   width: 100%;
-  padding: 0.875rem 1rem;
-  border: 1px solid rgba(27, 67, 50, 0.15);
-  border-radius: 12px;
-  background: white;
+  padding: 0.75rem;
+  border: 1px solid rgba(27, 67, 50, 0.2);
+  border-radius: 8px;
+  background: #FCFBF8;
   outline: none;
   font-size: 0.875rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .minimal-input:focus {
   border-color: var(--primary-green);
-  box-shadow: 0 0 0 3px rgba(27, 67, 50, 0.06);
+  box-shadow: 0 0 0 2px rgba(27, 67, 50, 0.05);
 }
 
 /* Modal */
 .simple-modal {
   background: white;
-  border-radius: 20px;
+  border-radius: 16px;
   width: 100%;
   max-width: 500px;
   padding: 2rem;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
 /* PIN */
