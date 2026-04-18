@@ -102,7 +102,7 @@ export default function BookPage() {
 
           {/* Sidebar Controls */}
           <aside className="w-full lg:w-[320px] lg:shrink-0">
-            <div className="bg-white rounded-2xl shadow-sm border border-[#1B4332]/5 p-6 sm:p-8 space-y-8">
+            <div className="bg-white rounded-2xl shadow-md shadow-black/5 border border-black/[0.03] p-6 sm:p-8 space-y-8">
 
               {/* Date Picker Section */}
               <section>
@@ -157,7 +157,7 @@ export default function BookPage() {
 
           {/* Schedule Grid Area */}
           <section className="flex-1 min-w-0">
-            <div className="bg-white rounded-2xl shadow-sm border border-[#1B4332]/5 p-6 sm:p-8">
+            <div className="bg-white rounded-2xl shadow-md shadow-black/5 border border-black/[0.03] p-6 sm:p-8">
 
               <div className="flex items-baseline justify-between mb-8">
                 <h3 className="text-lg font-bold text-[#1B4332] tracking-tight">
