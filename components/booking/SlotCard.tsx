@@ -20,124 +20,78 @@ interface SlotCardProps {
   isPast?: boolean;
 }
 
-const BASE = "relative box-border overflow-hidden rounded-[24px] min-h-[128px] px-[32px] py-[28px] w-full block transition-all";
+const BASE = "relative box-border overflow-hidden rounded-[24px] min-h-[128px] px-[32px] py-[28px] flex text-left transition-all outline outline-[4px] outline-red-500 w-full";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();
   const { slotStart, isAvailable, isPeak, basePrice, peakPremium } = slot;
   const displayPrice = basePrice + (isPeak ? peakPremium : 0);
 
-  // ── PAST STATE ───────────────────────────────────────────────────────────
+  let stateClasses = "";
+  let statusOrPrice = "";
+  let showReserveCta = false;
+  let isOccupied = false;
+
   if (isPast) {
-    return (
-      <button
-        disabled
-        className={`${BASE} bg-slate-200/55 border border-white/30 text-slate-600 cursor-not-allowed`}
-      >
-        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
-          <div className="flex flex-col items-start w-full">
-            <div className="flex items-center gap-[8px]">
-              <Clock className="h-[20px] w-[20px] text-slate-500 shrink-0" strokeWidth={2} />
-              <span className="text-[24px] font-bold leading-none">{slotStart}</span>
-            </div>
-            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-slate-500">
-              90 minutes
-            </span>
-          </div>
-          <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
-            <span className="text-[16px] font-bold leading-none text-slate-600">Passé</span>
-          </div>
-        </div>
-      </button>
-    );
+    stateClasses = "bg-slate-200/55 border border-white/30 text-slate-600 cursor-not-allowed";
+    statusOrPrice = "Passé";
+  } else if (!isAvailable) {
+    stateClasses = "bg-amber-100/70 border border-amber-300 text-slate-800 cursor-not-allowed";
+    statusOrPrice = t.book_booked;
+    isOccupied = true;
+  } else if (isSelected) {
+    stateClasses = "bg-[#E41E2D] border border-red-500 text-white shadow-xl";
+    statusOrPrice = `${displayPrice} DT`;
+    showReserveCta = true;
+  } else {
+    stateClasses = "bg-white/75 border border-cyan-400 text-slate-800 hover:bg-white hover:shadow-xl";
+    statusOrPrice = `${displayPrice} DT`;
+    showReserveCta = true;
   }
 
-  // ── OCCUPIED STATE ────────────────────────────────────────────────────────
-  if (!isAvailable) {
-    return (
-      <button
-        disabled
-        className={`${BASE} bg-amber-100/70 border border-amber-300 text-slate-800 cursor-not-allowed`}
-      >
-        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
-          <div className="flex flex-col items-start w-full">
-            <div className="flex items-center gap-[8px]">
-              <Clock className="h-[20px] w-[20px] text-slate-800/70 shrink-0" strokeWidth={2} />
-              <span className="text-[24px] font-bold leading-none">{slotStart}</span>
-            </div>
-            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-slate-800/70">
-              90 minutes
-            </span>
-          </div>
-          <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
-            <span className="text-[16px] font-bold leading-none text-slate-800">{t.book_booked}</span>
-          </div>
-        </div>
-      </button>
-    );
-  }
+  const iconColor = isPast ? "text-slate-500" : isOccupied ? "text-slate-800/70" : isSelected ? "text-white" : "text-cyan-600";
+  const durationColor = isPast ? "text-slate-500" : isOccupied ? "text-slate-800/70" : isSelected ? "text-white/90" : "text-slate-500";
+  const priceColor = isPast ? "text-slate-600" : isOccupied ? "text-slate-800" : isSelected ? "text-white" : "text-cyan-600";
+  const ctaColor = isSelected ? "text-white/90" : "text-cyan-600";
+  const timeColor = isSelected ? "text-white" : isOccupied ? "text-slate-800" : isPast ? "text-slate-500" : "text-slate-800";
 
-  // ── SELECTED STATE ────────────────────────────────────────────────────────
-  if (isSelected) {
-    return (
-      <button
-        onClick={onClick}
-        className={`${BASE} bg-[#E41E2D] border border-red-500 text-white shadow-xl`}
-      >
-        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
-          <div className="flex flex-col items-start w-full">
-            <div className="flex items-start justify-between w-full">
-              <div className="flex items-center gap-[8px]">
-                <Clock className="h-[20px] w-[20px] text-white shrink-0" strokeWidth={2} />
-                <span className="text-[24px] font-bold leading-none">{slotStart}</span>
-              </div>
-              {isPeak && (
-                <span className="bg-white/20 text-white text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0">
-                  <Zap size={10} fill="currentColor" /> Peak
-                </span>
-              )}
-            </div>
-            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-white/90">
-              90 minutes
-            </span>
-          </div>
-          <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
-            <span className="text-[16px] font-bold leading-none">{displayPrice} DT</span>
-            <span className="text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap text-white/90">✓ Sélectionné</span>
-          </div>
-        </div>
-      </button>
-    );
-  }
-
-  // ── AVAILABLE STATE (DEFAULT) ─────────────────────────────────────────────
   return (
     <button
-      onClick={onClick}
-      className={`${BASE} bg-white/75 border border-cyan-400 text-slate-800 hover:bg-white hover:shadow-xl`}
+      disabled={isPast || !isAvailable}
+      onClick={!isPast && isAvailable ? onClick : undefined}
+      className={`${BASE} ${stateClasses}`}
     >
-      <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
+      <div className="h-full w-full flex flex-col justify-between items-start gap-[20px]">
         <div className="flex flex-col items-start w-full">
-          <div className="flex items-start justify-between w-full">
+          <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-[8px]">
-              <Clock className="h-[20px] w-[20px] text-cyan-600 shrink-0" strokeWidth={2} />
-              <span className="text-[24px] font-bold leading-none">{slotStart}</span>
+              <Clock className={`h-[20px] w-[20px] shrink-0 ${iconColor}`} strokeWidth={2} />
+              <span className={`text-[24px] font-bold leading-none ${timeColor}`}>
+                {slotStart}
+              </span>
             </div>
             {isPeak && (
-              <span className="bg-amber-100 text-amber-700 border border-amber-300 text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0">
+              <span className={isSelected ? "bg-white/20 text-white text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0" : "bg-amber-100 text-amber-700 border border-amber-300 text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0"}>
                 <Zap size={10} fill="currentColor" /> Peak
               </span>
             )}
           </div>
-          <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-slate-500">
-            90 minutes
+
+          <span className={`mt-[8px] text-[12px] font-bold tracking-[0.12em] uppercase leading-none ${durationColor}`}>
+            90 MINUTES
           </span>
         </div>
+
         <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
-          <span className="text-[16px] font-bold leading-none text-cyan-600">{displayPrice} DT</span>
-          <span className="text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap opacity-0 lg:opacity-100 transition-opacity text-cyan-600">
-            Réserver →
+          <span className={`text-[16px] font-bold leading-none ${priceColor}`}>
+            {statusOrPrice}
           </span>
+
+          {showReserveCta && (
+            <span className={`text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap ${isSelected ? '' : 'opacity-0 lg:opacity-100 transition-opacity'} ${ctaColor}`}>
+              {isSelected ? "✓ Sélectionné" : "RÉSERVER →"}
+            </span>
+          )}
         </div>
       </div>
     </button>

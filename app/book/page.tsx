@@ -112,7 +112,7 @@ export default function BookPage() {
         </header>
 
         {/* ── MAIN CONTENT LAYOUT ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start mt-[40px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start mt-[48px] outline outline-[4px] outline-green-500">
           
           {/* ── SIDEBAR ── */}
           <aside className="w-full lg:w-[280px] rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[24px] py-[28px] flex flex-col gap-[28px]">
@@ -161,7 +161,7 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[36px] py-[32px] flex flex-col">
+          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[40px] py-[36px] flex flex-col outline outline-[4px] outline-blue-500">
             <div className="flex items-center justify-between mb-[32px]">
               <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
                 <span className="material-symbols-outlined text-[#2CAFC2] text-3xl">sports_tennis</span>
