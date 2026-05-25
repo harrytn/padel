@@ -20,7 +20,7 @@ interface SlotCardProps {
   isPast?: boolean;
 }
 
-const BASE = "relative box-border overflow-hidden rounded-[24px] min-h-[120px] px-[28px] py-[24px] w-full block transition-all";
+const BASE = "relative box-border overflow-hidden rounded-[24px] min-h-[128px] px-[32px] py-[28px] w-full block transition-all";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();
@@ -34,17 +34,17 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
         disabled
         className={`${BASE} bg-slate-200/55 border border-white/30 text-slate-600 cursor-not-allowed`}
       >
-        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[16px]">
+        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
           <div className="flex flex-col items-start w-full">
             <div className="flex items-center gap-[8px]">
-              <Clock size={24} strokeWidth={2} className="text-slate-500 shrink-0" />
+              <Clock className="h-[20px] w-[20px] text-slate-500 shrink-0" strokeWidth={2} />
               <span className="text-[24px] font-bold leading-none">{slotStart}</span>
             </div>
-            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] text-slate-500">
+            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-slate-500">
               90 minutes
             </span>
           </div>
-          <div className="w-full flex items-end justify-between gap-[16px] pt-[12px] mt-auto">
+          <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
             <span className="text-[16px] font-bold leading-none text-slate-600">Passé</span>
           </div>
         </div>
@@ -59,17 +59,17 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
         disabled
         className={`${BASE} bg-amber-100/70 border border-amber-300 text-slate-800 cursor-not-allowed`}
       >
-        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[16px]">
+        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
           <div className="flex flex-col items-start w-full">
             <div className="flex items-center gap-[8px]">
-              <Clock size={24} strokeWidth={2} className="text-slate-800/70 shrink-0" />
+              <Clock className="h-[20px] w-[20px] text-slate-800/70 shrink-0" strokeWidth={2} />
               <span className="text-[24px] font-bold leading-none">{slotStart}</span>
             </div>
-            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] text-slate-800/70">
+            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-slate-800/70">
               90 minutes
             </span>
           </div>
-          <div className="w-full flex items-end justify-between gap-[16px] pt-[12px] mt-auto">
+          <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
             <span className="text-[16px] font-bold leading-none text-slate-800">{t.book_booked}</span>
           </div>
         </div>
@@ -84,11 +84,11 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
         onClick={onClick}
         className={`${BASE} bg-[#E41E2D] border border-red-500 text-white shadow-xl`}
       >
-        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[16px]">
+        <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
           <div className="flex flex-col items-start w-full">
             <div className="flex items-start justify-between w-full">
               <div className="flex items-center gap-[8px]">
-                <Clock size={24} strokeWidth={2} className="text-white shrink-0" />
+                <Clock className="h-[20px] w-[20px] text-white shrink-0" strokeWidth={2} />
                 <span className="text-[24px] font-bold leading-none">{slotStart}</span>
               </div>
               {isPeak && (
@@ -97,13 +97,13 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
                 </span>
               )}
             </div>
-            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] text-white/90">
+            <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-white/90">
               90 minutes
             </span>
           </div>
-          <div className="w-full flex items-end justify-between gap-[16px] pt-[12px] mt-auto">
+          <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
             <span className="text-[16px] font-bold leading-none">{displayPrice} DT</span>
-            <span className="text-[12px] font-bold tracking-[0.14em] uppercase whitespace-nowrap text-white/90">✓ Sélectionné</span>
+            <span className="text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap text-white/90">✓ Sélectionné</span>
           </div>
         </div>
       </button>
@@ -116,11 +116,11 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
       onClick={onClick}
       className={`${BASE} bg-white/75 border border-cyan-400 text-slate-800 hover:bg-white hover:shadow-xl`}
     >
-      <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[16px]">
+      <div className="h-full w-full flex flex-col justify-between items-start text-left gap-[20px]">
         <div className="flex flex-col items-start w-full">
           <div className="flex items-start justify-between w-full">
             <div className="flex items-center gap-[8px]">
-              <Clock size={24} strokeWidth={2} className="text-cyan-600 shrink-0" />
+              <Clock className="h-[20px] w-[20px] text-cyan-600 shrink-0" strokeWidth={2} />
               <span className="text-[24px] font-bold leading-none">{slotStart}</span>
             </div>
             {isPeak && (
@@ -129,13 +129,13 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
               </span>
             )}
           </div>
-          <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] text-slate-500">
+          <span className="text-[12px] font-bold tracking-[0.12em] uppercase mt-[8px] leading-none text-slate-500">
             90 minutes
           </span>
         </div>
-        <div className="w-full flex items-end justify-between gap-[16px] pt-[12px] mt-auto">
+        <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
           <span className="text-[16px] font-bold leading-none text-cyan-600">{displayPrice} DT</span>
-          <span className="text-[12px] font-bold tracking-[0.14em] uppercase whitespace-nowrap opacity-0 lg:opacity-100 transition-opacity text-cyan-600">
+          <span className="text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap opacity-0 lg:opacity-100 transition-opacity text-cyan-600">
             Réserver →
           </span>
         </div>

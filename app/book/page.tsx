@@ -87,7 +87,7 @@ export default function BookPage() {
       <div className="max-w-[1500px] mx-auto px-8 py-8">
         
         {/* ── TOP HEADER ── */}
-        <header className="rounded-[28px] bg-white/55 backdrop-blur-sm border border-white/40 shadow-lg px-8 py-5 mb-[40px] flex items-center justify-between gap-8">
+        <header className="rounded-[28px] bg-white/55 backdrop-blur-sm border border-white/40 shadow-lg px-8 py-5 flex items-center justify-between gap-8">
           {/* Left: Brand */}
           <div className="flex items-center gap-[12px] shrink-0">
             <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={48} height={48} className="h-[48px] w-auto object-contain" priority />
@@ -112,7 +112,7 @@ export default function BookPage() {
         </header>
 
         {/* ── MAIN CONTENT LAYOUT ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start mt-[40px]">
           
           {/* ── SIDEBAR ── */}
           <aside className="w-full lg:w-[280px] rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[24px] py-[28px] flex flex-col gap-[28px]">
@@ -161,8 +161,8 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[32px] py-[32px] flex flex-col">
-            <div className="flex items-center justify-between mb-[28px]">
+          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[36px] py-[32px] flex flex-col">
+            <div className="flex items-center justify-between mb-[32px]">
               <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
                 <span className="material-symbols-outlined text-[#2CAFC2] text-3xl">sports_tennis</span>
                 Créneaux disponibles
