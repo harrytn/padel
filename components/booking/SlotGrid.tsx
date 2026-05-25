@@ -73,7 +73,7 @@ export default function SlotGrid({
   }
 
   return (
-    <div className="w-full px-[32px] pb-[16px]">
+    <div className="w-full px-[8px]">
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[24px]">
         {slots.map((slot) => (
           <SlotCard

@@ -87,7 +87,7 @@ export default function BookPage() {
       <div className="max-w-[1500px] mx-auto px-8 py-8">
         
         {/* ── TOP HEADER ── */}
-        <header className="rounded-[28px] bg-white/55 backdrop-blur-sm border border-white/40 shadow-lg px-8 py-5 mb-8 flex items-center justify-between gap-8">
+        <header className="rounded-[28px] bg-white/55 backdrop-blur-sm border border-white/40 shadow-lg px-8 py-5 mb-[40px] flex items-center justify-between gap-8">
           {/* Left: Brand */}
           <div className="flex items-center gap-[12px] shrink-0">
             <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={48} height={48} className="h-[48px] w-auto object-contain" priority />
@@ -115,19 +115,19 @@ export default function BookPage() {
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start">
           
           {/* ── SIDEBAR ── */}
-          <aside className="w-full lg:w-[280px] rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-6 py-7 flex flex-col gap-7">
+          <aside className="w-full lg:w-[280px] rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[24px] py-[28px] flex flex-col gap-[28px]">
             {/* Navigation */}
             <nav className="flex flex-col gap-3">
               <a
                 href="#"
-                className="h-12 px-4 rounded-2xl flex items-center gap-3 transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
+                className="h-[56px] px-[20px] flex items-center gap-[12px] rounded-[20px] transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
               >
                 <span className="material-symbols-outlined text-[20px] text-[#2CAFC2]">sports_tennis</span>
                 Courts
               </a>
               <a
                 href="/admin"
-                className="h-12 px-4 rounded-2xl flex items-center gap-3 transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
+                className="h-[56px] px-[20px] flex items-center gap-[12px] rounded-[20px] transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
               >
                 <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
                 Accès Staff
@@ -135,24 +135,24 @@ export default function BookPage() {
             </nav>
 
             {/* Legend */}
-            <div className="px-3">
+            <div className="px-[8px]">
               <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-4">
                 Légende
               </p>
               <ul className="flex flex-col space-y-3">
-                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
                   <span className="w-4 h-4 rounded-md border-2 border-cyan-400 bg-white shrink-0" />
                   Disponible
                 </li>
-                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
                   <span className="w-4 h-4 rounded-md bg-amber-200 border border-amber-300 shrink-0" />
                   Occupé
                 </li>
-                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
                   <span className="w-4 h-4 rounded-md bg-[#E41E2D] shrink-0" />
                   Sélectionné
                 </li>
-                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
                   <span className="w-4 h-4 rounded-md bg-slate-300 border border-slate-400 shrink-0" />
                   Passé
                 </li>
@@ -161,8 +161,8 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-7 py-7 flex flex-col">
-            <div className="flex items-center justify-between mb-7">
+          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[32px] py-[32px] flex flex-col">
+            <div className="flex items-center justify-between mb-[28px]">
               <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
                 <span className="material-symbols-outlined text-[#2CAFC2] text-3xl">sports_tennis</span>
                 Créneaux disponibles
