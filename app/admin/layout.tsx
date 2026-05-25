@@ -1,35 +1,22 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import { jwtVerify } from "jose";
 import AdminLayoutClient from "../../components/admin/AdminLayoutClient";
+import { getRole } from "@/lib/auth";
 import type { Role } from "@/lib/auth";
-
-async function getSessionRole(): Promise<Role | null> {
-  try {
-    const secret = process.env.JWT_SECRET;
-    if (!secret) return null;
-    const cookieStore = await cookies();
-    const token = cookieStore.get("admin_session")?.value;
-    if (!token) return null;
-    const { payload } = await jwtVerify(token, new TextEncoder().encode(secret));
-    const role = payload.role;
-    if (role === "admin" || role === "reception") return role;
-    return null;
-  } catch {
-    return null;
-  }
-}
 
 export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const role = await getSessionRole();
+  // Middleware already verified the JWT and redirected unauthenticated users
+  // before this layout runs. We only read the role here to pass it to the
+  // client component tree — we never redirect from a layout.
+  const role = await getRole();
 
+  // Graceful fallback: if role is somehow null (e.g. on the /admin/login page
+  // which middleware passes through), just render children without the shell.
   if (!role) {
-    redirect("/admin/login");
+    return <>{children}</>;
   }
 
-  return <AdminLayoutClient role={role}>{children}</AdminLayoutClient>;
+  return <AdminLayoutClient role={role as Role}>{children}</AdminLayoutClient>;
 }
