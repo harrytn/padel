@@ -20,8 +20,7 @@ interface SlotCardProps {
   isPast?: boolean;
 }
 
-/** Standard Premium Card Base - Explicit padding matching your UI reference layout */
-const BASE = "flex flex-col justify-between min-h-[120px] rounded-[20px] w-full text-left transition-all duration-200 border px-[24px] py-[24px]";
+const BASE = "px-6 py-5 rounded-[24px] flex flex-col justify-between items-start transition-all min-h-[112px] w-full text-left";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();
@@ -33,19 +32,19 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
     return (
       <button
         disabled
-        className={`${BASE} bg-white/40 border-white/20 text-gray-600 cursor-not-allowed`}
+        className={`${BASE} bg-slate-200/55 border border-white/30 text-slate-600 cursor-not-allowed`}
       >
-        <div className="flex flex-col text-left w-full">
-          <div className="flex items-center gap-[8px]">
-            <Clock size={18} strokeWidth={1.5} className="text-gray-500 shrink-0" />
-            <span className="text-xl font-bold leading-none text-gray-700">{slotStart}</span>
+        <div className="flex flex-col text-left">
+          <div className="flex items-center gap-2">
+            <Clock size={20} strokeWidth={2} className="text-slate-500 shrink-0" />
+            <span className="text-2xl font-bold leading-none">{slotStart}</span>
           </div>
-          <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-gray-500">
+          <span className="text-xs font-bold tracking-widest uppercase mt-2 text-slate-500">
             90 minutes
           </span>
         </div>
-        <div className="w-full mt-[16px]">
-          <span className="text-base font-bold text-gray-600">Passé</span>
+        <div className="mt-4">
+          <span className="text-base font-bold text-slate-600">Passé</span>
         </div>
       </button>
     );
@@ -56,19 +55,19 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
     return (
       <button
         disabled
-        className={`${BASE} bg-[#EEBB3B]/20 border-[#EEBB3B]/30 text-[#1E2438] cursor-not-allowed`}
+        className={`${BASE} bg-amber-100/70 border border-amber-300 text-slate-800 cursor-not-allowed`}
       >
-        <div className="flex flex-col text-left w-full">
-          <div className="flex items-center gap-[8px]">
-            <Clock size={18} strokeWidth={1.5} className="text-[#1E2438]/50 shrink-0" />
-            <span className="text-xl font-bold leading-none">{slotStart}</span>
+        <div className="flex flex-col text-left">
+          <div className="flex items-center gap-2">
+            <Clock size={20} strokeWidth={2} className="text-slate-800/70 shrink-0" />
+            <span className="text-2xl font-bold leading-none">{slotStart}</span>
           </div>
-          <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-[#1E2438]/60">
+          <span className="text-xs font-bold tracking-widest uppercase mt-2 text-slate-800/70">
             90 minutes
           </span>
         </div>
-        <div className="w-full mt-[16px]">
-          <span className="text-base font-bold">{t.book_booked}</span>
+        <div className="mt-4">
+          <span className="text-base font-bold text-slate-800">{t.book_booked}</span>
         </div>
       </button>
     );
@@ -79,27 +78,27 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
     return (
       <button
         onClick={onClick}
-        className={`${BASE} bg-[#E41E2D] border-[#E41E2D]/50 text-white shadow-md shadow-[#E41E2D]/20`}
+        className={`${BASE} bg-[#E41E2D] border border-red-500 text-white shadow-xl`}
       >
         <div className="flex items-start justify-between w-full">
           <div className="flex flex-col text-left">
-            <div className="flex items-center gap-[8px]">
-              <Clock size={18} strokeWidth={1.5} className="text-white/80 shrink-0" />
-              <span className="text-xl font-bold leading-none text-white">{slotStart}</span>
+            <div className="flex items-center gap-2">
+              <Clock size={20} strokeWidth={2} className="text-white shrink-0" />
+              <span className="text-2xl font-bold leading-none">{slotStart}</span>
             </div>
-            <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-white/80">
+            <span className="text-xs font-bold tracking-widest uppercase mt-2 text-white/90">
               90 minutes
             </span>
           </div>
           {isPeak && (
-            <span className="bg-white/20 text-white text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0">
+            <span className="bg-white/20 text-white text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 shrink-0">
               <Zap size={10} fill="currentColor" /> Peak
             </span>
           )}
         </div>
-        <div className="flex items-end justify-between w-full mt-[16px]">
-          <span className="text-base font-bold text-white">{displayPrice} DT</span>
-          <span className="text-xs font-semibold text-white/80">✓ Sélectionné</span>
+        <div className="flex items-end justify-between w-full mt-4">
+          <span className="text-base font-bold">{displayPrice} DT</span>
+          <span className="text-xs font-bold tracking-wider uppercase text-white/90">✓ Sélectionné</span>
         </div>
       </button>
     );
@@ -109,27 +108,27 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
   return (
     <button
       onClick={onClick}
-      className={`${BASE} bg-white border-[#2CAFC2]/30 text-[#2CAFC2] shadow-sm hover:bg-[#2CAFC2]/5 hover:border-[#2CAFC2] hover:shadow-md transition-all`}
+      className={`${BASE} bg-white/75 border border-cyan-400 text-slate-800 hover:bg-white hover:shadow-xl`}
     >
       <div className="flex items-start justify-between w-full">
         <div className="flex flex-col text-left">
-          <div className="flex items-center gap-[8px]">
-            <Clock size={18} strokeWidth={1.5} className="text-[#2CAFC2] shrink-0" />
-            <span className="text-xl font-bold leading-none text-[#1E2438]">{slotStart}</span>
+          <div className="flex items-center gap-2">
+            <Clock size={20} strokeWidth={2} className="text-cyan-600 shrink-0" />
+            <span className="text-2xl font-bold leading-none">{slotStart}</span>
           </div>
-          <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-[#1E2438]/50">
+          <span className="text-xs font-bold tracking-widest uppercase mt-2 text-slate-500">
             90 minutes
           </span>
         </div>
         {isPeak && (
-          <span className="bg-[#EEBB3B]/20 text-[#1E2438] text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0">
-            <Zap size={10} fill="currentColor" className="text-[#EEBB3B]" /> Peak
+          <span className="bg-amber-100 text-amber-700 border border-amber-300 text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1 shrink-0">
+            <Zap size={10} fill="currentColor" /> Peak
           </span>
         )}
       </div>
-      <div className="flex items-end justify-between w-full mt-[16px]">
-        <span className="text-base font-bold text-[#2CAFC2]">{displayPrice} DT</span>
-        <span className="text-xs font-semibold opacity-0 lg:opacity-100 transition-opacity text-[#2CAFC2]">
+      <div className="flex items-end justify-between w-full mt-4">
+        <span className="text-base font-bold text-cyan-600">{displayPrice} DT</span>
+        <span className="text-xs font-bold opacity-0 lg:opacity-100 transition-opacity text-cyan-600 uppercase tracking-widest">
           Réserver →
         </span>
       </div>

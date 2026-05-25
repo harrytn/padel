@@ -80,58 +80,54 @@ export default function BookPage() {
   };
 
   return (
-    <div className="bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed min-h-screen p-[16px] md:p-[32px]">
+    <div className="bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed min-h-screen">
       {/* Subtle dark tint */}
       <div className="fixed inset-0 bg-[#1E2438]/20 -z-10" />
 
-      {/* ── UNIFIED APP WINDOW ── */}
-      <div className="max-w-[1480px] mx-auto bg-white/40 backdrop-blur-md rounded-[32px] overflow-hidden shadow-2xl flex flex-col min-h-[85vh] border border-white/50">
+      <div className="max-w-[1500px] mx-auto px-8 py-8">
         
         {/* ── TOP HEADER ── */}
-        <header className="w-full bg-white/40 border-b border-white/30 px-[32px] h-[96px] flex items-center justify-between shrink-0">
+        <header className="rounded-[28px] bg-white/55 backdrop-blur-sm border border-white/40 shadow-lg px-8 py-5 mb-8 flex items-center justify-between gap-8">
           {/* Left: Brand */}
-          <div className="flex items-center gap-[12px] w-[260px] shrink-0">
+          <div className="flex items-center gap-[12px] shrink-0">
             <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={48} height={48} className="h-[48px] w-auto object-contain" priority />
             <span className="font-bold text-[18px] text-[#1E2438] tracking-tight hidden sm:block">Caribbean World</span>
           </div>
           
-          {/* Center: Title (Pushed away from brand) */}
-          <div className="flex-1 flex justify-start pl-[48px]">
-            <h1 className="text-[22px] font-extrabold text-[#1E2438] tracking-tight hidden md:block">
+          {/* Center: Title */}
+          <div className="flex-1 flex flex-col justify-center">
+            <h1 className="text-[26px] md:text-[32px] font-extrabold text-[#1E2438] tracking-tight">
               {t.book_title}
             </h1>
+            <span className="text-[15px] font-medium text-[#1E2438]/70 capitalize mt-1 hidden sm:block">
+              {selectedDate ? formatDateDisplay(selectedDate) : ""}
+            </span>
           </div>
 
           {/* Right: Controls */}
-          <div className="flex items-center gap-[32px]">
-            <div className="flex flex-col items-end hidden sm:flex">
-              <span className="text-[15px] font-bold text-[#1E2438] capitalize">
-                {selectedDate ? formatDateDisplay(selectedDate) : ""}
-              </span>
-            </div>
-            <input type="date" value={selectedDate} min={todayISO()} max={maxISO()} onChange={(e) => { setSelectedDate(e.target.value); setSelectedSlot(null); }} className="h-[44px] px-[20px] rounded-[14px] bg-white border border-black/10 shadow-sm text-[15px] font-bold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors cursor-pointer" />
-            <div className="w-[1px] h-[32px] bg-black/10 hidden sm:block"></div>
+          <div className="flex items-center gap-6 shrink-0">
+            <input type="date" value={selectedDate} min={todayISO()} max={maxISO()} onChange={(e) => { setSelectedDate(e.target.value); setSelectedSlot(null); }} className="h-12 px-5 rounded-2xl bg-white/80 border border-cyan-200 shadow-sm text-[15px] font-bold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors cursor-pointer" />
             <LanguageToggle />
           </div>
         </header>
 
         {/* ── MAIN CONTENT LAYOUT ── */}
-        <div className="flex flex-col lg:flex-row flex-1 p-[32px] gap-[48px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start">
           
           {/* ── SIDEBAR ── */}
-          <aside className="w-full lg:w-[260px] shrink-0 flex flex-col h-full">
+          <aside className="w-full lg:w-[280px] rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-6 py-7 flex flex-col gap-7">
             {/* Navigation */}
-            <nav className="flex flex-col gap-[8px] mb-[48px]">
+            <nav className="flex flex-col gap-3">
               <a
                 href="#"
-                className="h-[48px] px-[16px] rounded-[16px] flex items-center gap-[16px] bg-white/60 backdrop-blur-md text-[#1E2438] font-bold text-[15px] shadow-sm border border-white/50"
+                className="h-12 px-4 rounded-2xl flex items-center gap-3 transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
               >
                 <span className="material-symbols-outlined text-[20px] text-[#2CAFC2]">sports_tennis</span>
                 Courts
               </a>
               <a
                 href="/admin"
-                className="h-[48px] px-[16px] rounded-[16px] flex items-center gap-[16px] text-[#1E2438]/60 font-semibold text-[15px] hover:bg-black/5 transition-colors"
+                className="h-12 px-4 rounded-2xl flex items-center gap-3 transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
               >
                 <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
                 Accès Staff
@@ -139,25 +135,25 @@ export default function BookPage() {
             </nav>
 
             {/* Legend */}
-            <div className="mt-auto">
-              <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-[24px]">
+            <div className="px-3">
+              <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-4">
                 Légende
               </p>
-              <ul className="flex flex-col gap-[16px]">
-                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
-                  <span className="w-[16px] h-[16px] rounded-[4px] border-2 border-[#2CAFC2] bg-white shrink-0" />
+              <ul className="flex flex-col space-y-3">
+                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                  <span className="w-4 h-4 rounded-md border-2 border-cyan-400 bg-white shrink-0" />
                   Disponible
                 </li>
-                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
-                  <span className="w-[16px] h-[16px] rounded-[4px] bg-[#EEBB3B] shrink-0" />
+                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                  <span className="w-4 h-4 rounded-md bg-amber-200 border border-amber-300 shrink-0" />
                   Occupé
                 </li>
-                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
-                  <span className="w-[16px] h-[16px] rounded-[4px] bg-[#E41E2D] shrink-0" />
+                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                  <span className="w-4 h-4 rounded-md bg-[#E41E2D] shrink-0" />
                   Sélectionné
                 </li>
-                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
-                  <span className="w-[16px] h-[16px] rounded-[4px] bg-black/10 shrink-0" />
+                <li className="flex items-center gap-4 text-sm font-medium text-slate-700 leading-relaxed">
+                  <span className="w-4 h-4 rounded-md bg-slate-300 border border-slate-400 shrink-0" />
                   Passé
                 </li>
               </ul>
@@ -165,18 +161,19 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="flex-1 bg-white/50 backdrop-blur-lg rounded-[24px] shadow-sm border border-white/50 flex flex-col p-[40px]">
-            <div className="flex justify-between items-center mb-[40px] w-full">
-              <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight">
+          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-7 py-7 flex flex-col">
+            <div className="flex items-center justify-between mb-7">
+              <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
+                <span className="material-symbols-outlined text-[#2CAFC2] text-3xl">sports_tennis</span>
                 Créneaux disponibles
               </h2>
-              <span className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest bg-black/5 px-[16px] py-[8px] rounded-full">
-                9 slots / jour
+              <span className="px-4 py-2 rounded-full bg-white/60 text-xs font-bold tracking-widest text-slate-500 shadow-sm border border-white/40">
+                9 SLOTS / JOUR
               </span>
             </div>
 
             {slotTakenError && (
-              <div className="mb-[24px] px-[20px] py-[16px] bg-[#E41E2D]/10 border border-[#E41E2D]/30 rounded-[16px] text-[14px] font-bold text-[#E41E2D] text-center">
+              <div className="mb-7 px-[20px] py-[16px] bg-[#E41E2D]/10 border border-[#E41E2D]/30 rounded-[16px] text-[14px] font-bold text-[#E41E2D] text-center">
                 ⚠️ {t.checkout_slot_taken}
               </div>
             )}
@@ -193,8 +190,8 @@ export default function BookPage() {
               selectedDate={selectedDate}
             />
 
-            <div className="mt-auto pt-[40px]">
-              <p className="border-t border-[#1E2438]/10 pt-[24px] text-[13px] font-medium text-[#1E2438]/50 text-center">
+            <div className="mt-8 pt-6 border-t border-white/40 text-center">
+              <p className="text-[13px] font-medium text-[#1E2438]/60">
                 Merci de vous présenter à la réception 15 minutes avant votre session.
               </p>
             </div>
