@@ -125,7 +125,7 @@ export default function BookPage() {
         </header>
 
         {/* ── TITLE AREA ── */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white/85 backdrop-blur-md px-8 py-5 rounded-2xl shadow-sm mb-8">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-[#1E2438] tracking-tight">
               {t.book_title}
@@ -227,10 +227,10 @@ export default function BookPage() {
             )}
 
             {/* ── Main Booking Panel ── */}
-            <div className="p-6 rounded-[28px] bg-white/75 backdrop-blur-md flex flex-col">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-base font-bold text-[#1E2438] flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[#2CAFC2] text-xl">sports_tennis</span>
+            <div className="bg-white/75 backdrop-blur-md rounded-[28px] p-8 flex flex-col">
+              <div className="flex justify-between items-center mb-8 w-full">
+                <h2 className="text-xl font-bold text-[#1E2438] flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[#2CAFC2] text-2xl">sports_tennis</span>
                   Créneaux disponibles
                 </h2>
                 <span className="text-[10px] font-bold text-[#1E2438]/25 uppercase tracking-widest">

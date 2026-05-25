@@ -34,7 +34,7 @@ export default function SlotGrid({
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
         {Array.from({ length: 9 }).map((_, i) => (
           <div
             key={i}
@@ -73,7 +73,7 @@ export default function SlotGrid({
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
       {slots.map((slot) => (
         <SlotCard
           key={slot.slotStart}
