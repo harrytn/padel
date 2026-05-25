@@ -18,7 +18,7 @@ export async function PATCH(
     const body = await request.json();
     const { status } = body;
 
-    const validStatuses = ["PENDING_PAYMENT", "PAID", "CANCELLED"];
+    const validStatuses = ["PENDING_PAYMENT", "PAID", "CANCELLED", "ARRIVED", "NO_SHOW"];
     if (!validStatuses.includes(status)) {
       return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
@@ -26,7 +26,12 @@ export async function PATCH(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let updateData: any = { status };
 
+    if (status === "ARRIVED") updateData.checked_in_at = new Date();
+    if (status === "PAID") updateData.paid_at = new Date();
+    if (status === "NO_SHOW") updateData.no_show_at = new Date();
+    
     if (status === "CANCELLED") {
+      updateData.cancelled_at = new Date();
       const existing = await prisma.booking.findUnique({ where: { id } });
       if (existing && !existing.slot_start.includes("_CANCELLED")) {
         updateData.slot_start = `${existing.slot_start}_CANCELLED_${Date.now()}`;

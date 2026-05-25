@@ -2,9 +2,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useI18n } from "@/lib/i18n";
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const { t } = useI18n();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,10 +25,10 @@ export default function AdminLoginPage() {
         router.push("/admin");
         router.refresh();
       } else {
-        setError("Mot de passe incorrect.");
+        setError(t.login_error);
       }
     } catch {
-      setError("Erreur de connexion.");
+      setError(t.error_generic);
     } finally {
       setLoading(false);
     }
@@ -44,7 +46,7 @@ export default function AdminLoginPage() {
           >
             Caribbean World
           </h1>
-          <p className="text-white/80 mt-[8px] text-[14px] font-medium drop-shadow-sm">Accès réservé au personnel</p>
+          <p className="text-white/80 mt-[8px] text-[14px] font-medium drop-shadow-sm">{t.login_title}</p>
         </div>
 
         <div className="cw-form-card">
@@ -54,14 +56,14 @@ export default function AdminLoginPage() {
                 htmlFor="admin-password"
                 className="block text-[13px] font-bold text-slate-700 tracking-wide"
               >
-                Mot de passe
+                PIN
               </label>
               <input
                 id="admin-password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder={t.login_password_placeholder}
                 required
                 className="cw-input w-full text-[15px] font-medium text-slate-800 placeholder-slate-400"
               />
@@ -79,7 +81,7 @@ export default function AdminLoginPage() {
               disabled={loading}
               className="cw-button w-full bg-[#1B4332] text-white hover:bg-[#1B4332]/90 disabled:opacity-50 mt-[16px]"
             >
-              {loading ? "Connexion..." : "Se connecter"}
+              {loading ? "..." : t.login_btn}
             </button>
           </form>
         </div>

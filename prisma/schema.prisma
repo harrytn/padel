@@ -36,6 +36,10 @@ model Booking {
   total_price         Float         @default(0)
   status              String        @default("PENDING_PAYMENT")
   created_at          DateTime      @default(now())
+  checked_in_at       DateTime?
+  paid_at             DateTime?
+  cancelled_at        DateTime?
+  no_show_at          DateTime?
 
   @@unique([date, slot_start])
 }

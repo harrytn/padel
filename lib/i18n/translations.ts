@@ -70,9 +70,39 @@ export interface Translations {
   admin_block_slot: string;
   admin_unblock_slot: string;
 
-  // Errors
+  // Errors & Validation
   error_validation: string;
   error_generic: string;
+  error_name_invalid: string;
+  error_room_invalid: string;
+
+  // Login
+  login_title: string;
+  login_password_placeholder: string;
+  login_btn: string;
+  login_error: string;
+
+  // Admin Operational Statuses
+  status_free: string;
+  status_pending: string;
+  status_paid: string;
+  status_arrived: string;
+  status_no_show: string;
+  status_cancelled: string;
+
+  // Admin Actions
+  admin_action_checkin: string;
+  admin_action_noshow: string;
+
+  // Admin Table Headers
+  admin_col_time: string;
+  admin_col_type: string;
+  admin_col_client: string;
+  admin_col_room: string;
+  admin_col_pin: string;
+  admin_col_price: string;
+  admin_col_status: string;
+  admin_col_actions: string;
 }
 
 export const translations: Record<Language, Translations> = {
@@ -145,6 +175,32 @@ export const translations: Record<Language, Translations> = {
 
     error_validation: "Veuillez remplir tous les champs obligatoires.",
     error_generic: "Une erreur est survenue. Veuillez réessayer.",
+    error_name_invalid: "Le nom ne doit contenir que des lettres, espaces, traits d'union ou apostrophes.",
+    error_room_invalid: "Le numéro de chambre doit être uniquement composé de chiffres.",
+
+    login_title: "Accès Staff",
+    login_password_placeholder: "Mot de passe staff",
+    login_btn: "Se connecter",
+    login_error: "Mot de passe incorrect.",
+
+    status_free: "Libre",
+    status_pending: "⏳ En attente",
+    status_paid: "✅ Payé",
+    status_arrived: "📍 Arrivé",
+    status_no_show: "👻 No-show",
+    status_cancelled: "❌ Annulé",
+
+    admin_action_checkin: "📍 Check-in",
+    admin_action_noshow: "👻 No-show",
+
+    admin_col_time: "Heure",
+    admin_col_type: "Type",
+    admin_col_client: "Client",
+    admin_col_room: "Chambre",
+    admin_col_pin: "PIN",
+    admin_col_price: "Prix",
+    admin_col_status: "Statut",
+    admin_col_actions: "Actions",
   },
 
   en: {
@@ -216,6 +272,32 @@ export const translations: Record<Language, Translations> = {
 
     error_validation: "Please fill in all required fields.",
     error_generic: "An error occurred. Please try again.",
+    error_name_invalid: "Name must contain only letters, spaces, hyphens, or apostrophes.",
+    error_room_invalid: "Room number must contain only numbers.",
+
+    login_title: "Staff Access",
+    login_password_placeholder: "Staff password",
+    login_btn: "Login",
+    login_error: "Incorrect password.",
+
+    status_free: "Free",
+    status_pending: "⏳ Pending",
+    status_paid: "✅ Paid",
+    status_arrived: "📍 Arrived",
+    status_no_show: "👻 No-show",
+    status_cancelled: "❌ Cancelled",
+
+    admin_action_checkin: "📍 Check-in",
+    admin_action_noshow: "👻 No-show",
+
+    admin_col_time: "Time",
+    admin_col_type: "Type",
+    admin_col_client: "Client",
+    admin_col_room: "Room",
+    admin_col_pin: "PIN",
+    admin_col_price: "Price",
+    admin_col_status: "Status",
+    admin_col_actions: "Actions",
   },
 
   de: {
@@ -287,5 +369,31 @@ export const translations: Record<Language, Translations> = {
 
     error_validation: "Bitte füllen Sie alle Pflichtfelder aus.",
     error_generic: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    error_name_invalid: "Name darf nur Buchstaben, Leerzeichen, Bindestriche oder Apostrophe enthalten.",
+    error_room_invalid: "Zimmernummer darf nur aus Zahlen bestehen.",
+
+    login_title: "Mitarbeiterzugang",
+    login_password_placeholder: "Mitarbeiter-Passwort",
+    login_btn: "Anmelden",
+    login_error: "Falsches Passwort.",
+
+    status_free: "Frei",
+    status_pending: "⏳ Ausstehend",
+    status_paid: "✅ Bezahlt",
+    status_arrived: "📍 Angekommen",
+    status_no_show: "👻 No-show",
+    status_cancelled: "❌ Storniert",
+
+    admin_action_checkin: "📍 Check-in",
+    admin_action_noshow: "👻 No-show",
+
+    admin_col_time: "Zeit",
+    admin_col_type: "Typ",
+    admin_col_client: "Kunde",
+    admin_col_room: "Zimmer",
+    admin_col_pin: "PIN",
+    admin_col_price: "Preis",
+    admin_col_status: "Status",
+    admin_col_actions: "Aktionen",
   },
 };

@@ -31,10 +31,12 @@ function todayISO(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }> = {
-  PAID: { bg: "#dcfce7", text: "#166534", label: "✅ Payé" },
-  PENDING_PAYMENT: { bg: "#fef3c7", text: "#92400e", label: "⏳ En attente" },
-  CANCELLED: { bg: "#fee2e2", text: "#991b1b", label: "❌ Annulé" },
+const STATUS_COLORS: Record<string, { bg: string; text: string; labelKey: string }> = {
+  PAID: { bg: "#dcfce7", text: "#166534", labelKey: "status_paid" },
+  PENDING_PAYMENT: { bg: "#fef3c7", text: "#92400e", labelKey: "status_pending" },
+  CANCELLED: { bg: "#fee2e2", text: "#991b1b", labelKey: "status_cancelled" },
+  ARRIVED: { bg: "#dbeafe", text: "#1e40af", labelKey: "status_arrived" },
+  NO_SHOW: { bg: "#f3f4f6", text: "#374151", labelKey: "status_no_show" },
 };
 
 export default function AdminSchedulePage() {
@@ -178,7 +180,7 @@ export default function AdminSchedulePage() {
         <table className="w-full whitespace-nowrap min-w-max">
           <thead>
             <tr className="border-b border-[#1E2438]/10">
-              {["Heure", "Type", "Client", "Chambre", "PIN", "Prix", "Statut", "Actions"].map(
+              {[t.admin_col_time, t.admin_col_type, t.admin_col_client, t.admin_col_room, t.admin_col_pin, t.admin_col_price, t.admin_col_status, t.admin_col_actions].map(
                 (h) => (
                   <th
                     key={h}
@@ -249,11 +251,22 @@ export default function AdminSchedulePage() {
                         )}
                       </td>
 
-                      {/* Client name */}
-                      <td className="px-[24px] py-[20px] text-[#1E2438] font-bold text-[14px]">
-                        {booking && !isBlock
-                          ? `${booking.customer_first_name} ${booking.customer_last_name}`
-                          : "—"}
+                      {/* Client name & Add-ons */}
+                      <td className="px-[24px] py-[20px]">
+                        <div className="flex flex-col gap-[4px]">
+                          <span className="text-[#1E2438] font-bold text-[14px]">
+                            {booking && !isBlock
+                              ? `${booking.customer_first_name} ${booking.customer_last_name}`
+                              : "—"}
+                          </span>
+                          {booking && !isBlock && (
+                            <div className="flex items-center gap-[6px]">
+                              {booking.racket_count > 0 && <span className="text-[11px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">🎾 x{booking.racket_count}</span>}
+                              {booking.bought_balls_only && <span className="text-[11px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">🎾 Balles</span>}
+                              {booking.needs_lighting && <span className="text-[11px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">💡 Éclairage</span>}
+                            </div>
+                          )}
+                        </div>
                       </td>
 
                       {/* Room */}
@@ -300,10 +313,11 @@ export default function AdminSchedulePage() {
                               border: `1px solid ${statusInfo.text}30`,
                             }}
                           >
-                            {statusInfo.label}
+                            {/* @ts-expect-error valid dynamic key mapping */}
+                            {t[statusInfo.labelKey] ?? statusInfo.labelKey}
                           </span>
                         ) : (
-                          <span className="text-[#1E2438]/40 text-[13px] font-bold">Libre</span>
+                          <span className="text-[#1E2438]/40 text-[13px] font-bold">{t.status_free}</span>
                         )}
                       </td>
 
@@ -342,26 +356,45 @@ export default function AdminSchedulePage() {
                                   border: "1px solid rgba(22,163,74,0.3)",
                                 }}
                               >
-                                ✅ {t.admin_mark_paid}
+                                {t.status_paid}
+                              </button>
+                            )}
+                            
+                          {/* Check-in (ARRIVED) — both roles */}
+                          {booking &&
+                            !isBlock &&
+                            (booking.status === "PENDING_PAYMENT" || booking.status === "PAID") && (
+                              <button
+                                id={`mark-arrived-${booking.id.slice(0, 8)}`}
+                                onClick={() => updateStatus(booking.id, "ARRIVED")}
+                                disabled={busy}
+                                className="text-xs px-[12px] py-[8px] rounded-lg font-semibold transition-all"
+                                style={{
+                                  background: "rgba(59,130,246,0.15)",
+                                  color: "#3b82f6",
+                                  border: "1px solid rgba(59,130,246,0.3)",
+                                }}
+                              >
+                                {t.admin_action_checkin}
                               </button>
                             )}
 
-                          {/* Mark Pending — both roles */}
+                          {/* No Show — both roles */}
                           {booking &&
                             !isBlock &&
-                            booking.status === "PAID" && (
+                            (booking.status === "PENDING_PAYMENT" || booking.status === "PAID") && (
                               <button
-                                id={`mark-pending-${booking.id.slice(0, 8)}`}
-                                onClick={() => updateStatus(booking.id, "PENDING_PAYMENT")}
+                                id={`mark-noshow-${booking.id.slice(0, 8)}`}
+                                onClick={() => updateStatus(booking.id, "NO_SHOW")}
                                 disabled={busy}
-                                className="text-xs px-[12px] py-[8px] rounded-lg font-medium transition-all"
+                                className="text-xs px-[12px] py-[8px] rounded-lg font-semibold transition-all"
                                 style={{
-                                  background: "rgba(245,158,11,0.15)",
-                                  color: "#fbbf24",
-                                  border: "1px solid rgba(245,158,11,0.3)",
+                                  background: "rgba(107,114,128,0.15)",
+                                  color: "#6b7280",
+                                  border: "1px solid rgba(107,114,128,0.3)",
                                 }}
                               >
-                                ⏳ {t.admin_mark_pending}
+                                {t.admin_action_noshow}
                               </button>
                             )}
 

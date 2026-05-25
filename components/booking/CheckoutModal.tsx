@@ -64,10 +64,27 @@ export default function CheckoutModal({
   });
 
   const handleSubmit = async () => {
-    if (!firstName.trim() || !lastName.trim() || !roomNumber.trim()) {
+    const fn = firstName.trim();
+    const ln = lastName.trim();
+    const rm = roomNumber.trim();
+
+    if (!fn || !ln || !rm) {
       setError(t.error_validation);
       return;
     }
+
+    const nameRegex = /^[\p{L}\s\-']+$/u;
+    if (!nameRegex.test(fn) || !nameRegex.test(ln)) {
+      setError(t.error_name_invalid);
+      return;
+    }
+
+    const roomRegex = /^\d+$/;
+    if (!roomRegex.test(rm)) {
+      setError(t.error_room_invalid);
+      return;
+    }
+
     setError(null);
     setIsSubmitting(true);
 
@@ -78,9 +95,9 @@ export default function CheckoutModal({
         body: JSON.stringify({
           date,
           slotStart: slot.slotStart,
-          firstName: firstName.trim(),
-          lastName: lastName.trim(),
-          roomNumber: roomNumber.trim(),
+          firstName: fn,
+          lastName: ln,
+          roomNumber: rm,
           racketCount,
           boughtBallsOnly: ballsOnly,
           needsLighting: slot.hasLighting && needsLighting,
@@ -99,7 +116,7 @@ export default function CheckoutModal({
 
       const { booking } = await res.json();
       router.push(
-        `/confirmation?pin=${booking.booking_pin}&slot=${slot.slotStart}&date=${date}&total=${booking.total_price}&name=${encodeURIComponent(firstName + " " + lastName)}`
+        `/confirmation?pin=${booking.booking_pin}&slot=${slot.slotStart}&date=${date}&total=${booking.total_price}&name=${encodeURIComponent(fn + " " + ln)}`
       );
     } catch {
       setError(t.error_generic);
@@ -140,9 +157,9 @@ export default function CheckoutModal({
           <div>
             <h2 className="text-xl font-bold text-[#1B4332] tracking-tight">{t.checkout_title}</h2>
             <div className="flex items-center gap-[8px] mt-[8px]">
-              <span className="text-sm font-medium text-[#1A1A1A]/60">{slot.slotStart}</span>
+              <span className="text-sm font-medium text-[#1A1A1A]/60">{t.checkout_selected_slot}: {slot.slotStart}</span>
               {slot.isPeak && (
-                <span className="slot-peak-badge">⚡ Peak</span>
+                <span className="slot-peak-badge">⚡ {t.book_peak_badge}</span>
               )}
             </div>
           </div>

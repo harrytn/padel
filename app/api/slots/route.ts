@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
       prisma.booking.findMany({
         where: {
           date,
-          status: { in: ["PENDING_PAYMENT", "PAID"] },
+          status: { in: ["PENDING_PAYMENT", "PAID", "ARRIVED", "NO_SHOW"] },
         },
         select: { slot_start: true, type: true, status: true },
       }),
