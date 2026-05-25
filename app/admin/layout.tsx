@@ -2,6 +2,8 @@ import AdminLayoutClient from "../../components/admin/AdminLayoutClient";
 import { getRole } from "@/lib/auth";
 import type { Role } from "@/lib/auth";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminLayout({
   children,
 }: {
