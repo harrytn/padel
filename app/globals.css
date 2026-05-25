@@ -204,6 +204,12 @@ h1, h2, h3, h4, h5, h6 {
 /* ─────────────────────────────
    Caribbean World UI System
    Global spacing + glass standards
+
+   CRITICAL PROJECT RULE:
+   - Tailwind spacing utilities (e.g. p-6, gap-4, mt-8) are unreliable in this project.
+   - Critical layout padding MUST use these .cw-* raw CSS classes.
+   - All spacing must strictly follow the 4-point pixel system.
+   - DO NOT replace these classes with standard Tailwind spacing utilities.
 ───────────────────────────── */
 
 .cw-glass-panel {
