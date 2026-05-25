@@ -16,6 +16,21 @@ export interface Translations {
   book_lighting_badge: string;
   book_duration: string;
   book_ends_at: string;
+  availableSlots: string;
+  slotsPerDay: string;
+  footerArrivalNote: string;
+  courts: string;
+  staffAccess: string;
+  legend: string;
+  available: string;
+  occupied: string;
+  selected: string;
+  passed: string;
+  reserved: string;
+  reserve: string;
+  durationMinutes: string;
+  court: string;
+  dateLabel: string;
 
   // Checkout modal
   checkout_title: string;
@@ -55,6 +70,16 @@ export interface Translations {
   confirm_instruction_body: string;
   confirm_screenshot_hint: string;
   confirm_another_btn: string;
+  bookingConfirmed: string;
+  reservationConfirmed: string;
+  yourBookingPin: string;
+  screenshotPinHint: string;
+  date: string;
+  slot: string;
+  amountToPay: string;
+  instructions: string;
+  confirmationInstructions: string;
+  bookAnotherSlot: string;
 
   // Language toggle
   lang_fr: string;
@@ -120,6 +145,21 @@ export const translations: Record<Language, Translations> = {
     book_lighting_badge: "Éclairage disponible",
     book_duration: "90 min",
     book_ends_at: "Jusqu'à",
+    availableSlots: "Créneaux disponibles",
+    slotsPerDay: "9 slots / jour",
+    footerArrivalNote: "Merci de vous présenter à la réception 15 minutes avant votre session.",
+    courts: "Courts",
+    staffAccess: "Accès Staff",
+    legend: "Légende",
+    available: "Disponible",
+    occupied: "Occupé",
+    selected: "Sélectionné",
+    passed: "Passé",
+    reserved: "Réservé",
+    reserve: "Réserver",
+    durationMinutes: "min",
+    court: "Court",
+    dateLabel: "Date",
 
     checkout_title: "Finaliser la réservation",
     checkout_selected_slot: "Créneau sélectionné",
@@ -160,6 +200,16 @@ export const translations: Record<Language, Translations> = {
     confirm_screenshot_hint:
       "📸 Faites une capture d'écran maintenant pour ne pas perdre ce code.",
     confirm_another_btn: "Réserver un autre créneau",
+    bookingConfirmed: "Réservation confirmée !",
+    reservationConfirmed: "Réservation confirmée",
+    yourBookingPin: "Votre code PIN",
+    screenshotPinHint: "Prenez une capture d'écran pour ne pas perdre ce code.",
+    date: "Date",
+    slot: "Créneau",
+    amountToPay: "Montant à payer",
+    instructions: "Instructions",
+    confirmationInstructions: "Prenez une capture d'écran de ce code PIN et présentez-vous à la réception au moins 30 minutes avant votre créneau pour finaliser le paiement.",
+    bookAnotherSlot: "Réserver un autre créneau",
 
     lang_fr: "Français",
     lang_en: "English",
@@ -217,6 +267,21 @@ export const translations: Record<Language, Translations> = {
     book_lighting_badge: "Lighting available",
     book_duration: "90 min",
     book_ends_at: "Until",
+    availableSlots: "Available slots",
+    slotsPerDay: "9 slots / day",
+    footerArrivalNote: "Please arrive at reception 15 minutes before your session.",
+    courts: "Courts",
+    staffAccess: "Staff access",
+    legend: "Legend",
+    available: "Available",
+    occupied: "Occupied",
+    selected: "Selected",
+    passed: "Past",
+    reserved: "Reserved",
+    reserve: "Reserve",
+    durationMinutes: "min",
+    court: "Court",
+    dateLabel: "Date",
 
     checkout_title: "Complete Your Booking",
     checkout_selected_slot: "Selected Slot",
@@ -257,6 +322,16 @@ export const translations: Record<Language, Translations> = {
     confirm_screenshot_hint:
       "📸 Take a screenshot now so you don't lose this PIN.",
     confirm_another_btn: "Book Another Slot",
+    bookingConfirmed: "Booking Confirmed!",
+    reservationConfirmed: "Reservation confirmed",
+    yourBookingPin: "Your booking PIN",
+    screenshotPinHint: "Take a screenshot now so you don't lose this PIN.",
+    date: "Date",
+    slot: "Slot",
+    amountToPay: "Amount to pay",
+    instructions: "Instructions",
+    confirmationInstructions: "Take a screenshot of this PIN and go to the reception desk at least 30 minutes before your slot to complete payment.",
+    bookAnotherSlot: "Book another slot",
 
     lang_fr: "Français",
     lang_en: "English",
@@ -314,6 +389,21 @@ export const translations: Record<Language, Translations> = {
     book_lighting_badge: "Beleuchtung verfügbar",
     book_duration: "90 Min",
     book_ends_at: "Bis",
+    availableSlots: "Verfügbare Zeiten",
+    slotsPerDay: "9 Slots / Tag",
+    footerArrivalNote: "Bitte melden Sie sich 15 Minuten vor Ihrer Einheit an der Rezeption.",
+    courts: "Courts",
+    staffAccess: "Mitarbeiterzugang",
+    legend: "Legende",
+    available: "Verfügbar",
+    occupied: "Belegt",
+    selected: "Ausgewählt",
+    passed: "Vergangen",
+    reserved: "Reserviert",
+    reserve: "Reservieren",
+    durationMinutes: "min",
+    court: "Court",
+    dateLabel: "Datum",
 
     checkout_title: "Buchung abschließen",
     checkout_selected_slot: "Ausgewählter Slot",
@@ -354,6 +444,16 @@ export const translations: Record<Language, Translations> = {
     confirm_screenshot_hint:
       "📸 Machen Sie jetzt einen Screenshot, damit Sie diese PIN nicht verlieren.",
     confirm_another_btn: "Weiteren Slot buchen",
+    bookingConfirmed: "Buchung bestätigt!",
+    reservationConfirmed: "Reservierung bestätigt",
+    yourBookingPin: "Ihre Buchungs-PIN",
+    screenshotPinHint: "Machen Sie einen Screenshot, damit Sie diese PIN nicht verlieren.",
+    date: "Datum",
+    slot: "Slot",
+    amountToPay: "Zu zahlender Betrag",
+    instructions: "Anweisungen",
+    confirmationInstructions: "Machen Sie einen Screenshot dieser PIN und melden Sie sich mindestens 30 Minuten vor Ihrem Slot an der Rezeption, um die Zahlung abzuschließen.",
+    bookAnotherSlot: "Weiteren Slot buchen",
 
     lang_fr: "Français",
     lang_en: "English",

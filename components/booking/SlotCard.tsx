@@ -34,7 +34,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
 
   if (isPast) {
     stateClasses = "bg-slate-200/55 border border-white/30 text-slate-600 cursor-not-allowed";
-    statusOrPrice = "Passé";
+    statusOrPrice = t.passed;
   } else if (!isAvailable) {
     stateClasses = "bg-amber-100/70 border border-amber-300 text-slate-800 cursor-not-allowed";
     statusOrPrice = t.book_booked;
@@ -78,7 +78,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
           </div>
 
           <span className={`cw-slot-duration mt-[8px] text-[12px] font-bold tracking-[0.12em] uppercase leading-none ${durationColor}`}>
-            90 MINUTES
+            90 {t.durationMinutes}
           </span>
         </div>
 
@@ -89,7 +89,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
 
           {showReserveCta && (
             <span className={`cw-slot-cta text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap ${isSelected ? '' : 'opacity-0 lg:opacity-100 transition-opacity'} ${ctaColor}`}>
-              {isSelected ? "✓ Sélectionné" : "RÉSERVER →"}
+              {isSelected ? `✓ ${t.selected}` : `${t.reserve} →`}
             </span>
           )}
         </div>

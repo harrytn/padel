@@ -18,18 +18,10 @@ function maxISO(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-function formatDateDisplay(isoDate: string): string {
-  if (!isoDate) return "";
-  const d = new Date(isoDate + "T12:00:00");
-  return d.toLocaleDateString("fr-FR", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
-}
+import { formatLocalizedDate } from "@/lib/i18n/date";
 
 export default function BookPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [selectedDate, setSelectedDate] = useState<string>(todayISO());
   const [slots, setSlots] = useState<SlotData[]>([]);
   const [settings, setSettings] = useState<{
@@ -101,7 +93,7 @@ export default function BookPage() {
                 {t.book_title}
               </h1>
               <span className="text-[13px] sm:text-[15px] font-medium text-[#1E2438]/70 capitalize mt-1 hidden sm:block">
-                {selectedDate ? formatDateDisplay(selectedDate) : ""}
+                {selectedDate ? formatLocalizedDate(selectedDate, lang) : ""}
               </span>
             </div>
           </div>
@@ -126,31 +118,31 @@ export default function BookPage() {
                   className="cw-nav-item transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
                 >
                   <span className="material-symbols-outlined text-[24px] text-[#2CAFC2]">sports_tennis</span>
-                  Courts
+                  {t.courts}
                 </a>
               </nav>
 
               {/* Legend */}
               <div className="cw-mobile-legend cw-legend-root">
                 <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-[16px]">
-                  Légende
+                  {t.legend}
                 </p>
                 <ul className="flex flex-col gap-[12px]">
                   <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                     <span className="w-4 h-4 rounded-md border-2 border-cyan-400 bg-white shrink-0" />
-                    Disponible
+                    {t.available}
                   </li>
                   <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                     <span className="w-4 h-4 rounded-md bg-amber-200 border border-amber-300 shrink-0" />
-                    Occupé
+                    {t.occupied}
                   </li>
                   <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                     <span className="w-4 h-4 rounded-md bg-[#E41E2D] shrink-0" />
-                    Sélectionné
+                    {t.selected}
                   </li>
                   <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                     <span className="w-4 h-4 rounded-md bg-slate-300 border border-slate-400 shrink-0" />
-                    Passé
+                    {t.passed}
                   </li>
                 </ul>
               </div>
@@ -162,7 +154,7 @@ export default function BookPage() {
                   className="cw-nav-item transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
                 >
                   <span className="material-symbols-outlined text-[24px]">admin_panel_settings</span>
-                  Accès Staff
+                  {t.staffAccess}
                 </a>
               </nav>
             </div>
@@ -173,10 +165,10 @@ export default function BookPage() {
             <div className="cw-panel-heading flex items-center justify-between mb-[32px]">
               <h2 className="text-[20px] sm:text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
                 <span className="material-symbols-outlined text-[#2CAFC2] text-3xl shrink-0">sports_tennis</span>
-                Créneaux disponibles
+                {t.availableSlots}
               </h2>
-              <span className="cw-panel-badge px-4 py-2 rounded-full bg-white/60 text-[10px] sm:text-xs font-bold tracking-widest text-slate-500 shadow-sm border border-white/40 shrink-0">
-                9 SLOTS / JOUR
+              <span className="cw-panel-badge px-4 py-2 rounded-full bg-white/60 text-[10px] sm:text-xs font-bold tracking-widest text-slate-500 shadow-sm border border-white/40 shrink-0 uppercase">
+                {t.slotsPerDay}
               </span>
             </div>
 
@@ -200,7 +192,7 @@ export default function BookPage() {
 
             <div className="mt-8 pt-6 border-t border-white/40 text-center">
               <p className="text-[13px] font-medium text-[#1E2438]/60">
-                Merci de vous présenter à la réception 15 minutes avant votre session.
+                {t.footerArrivalNote}
               </p>
             </div>
           </main>
