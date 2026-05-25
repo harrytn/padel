@@ -10,6 +10,16 @@ interface SlotGridProps {
   onSelectSlot: (slot: SlotData) => void;
   loading: boolean;
   error?: string | null;
+  selectedDate: string; // ISO "YYYY-MM-DD"
+}
+
+/** Returns true if the slot start time on the given date is already in the past. */
+function isSlotPast(isoDate: string, slotStart: string): boolean {
+  if (!isoDate || !slotStart) return false;
+  const [hours, minutes] = slotStart.split(":").map(Number);
+  const slotDateTime = new Date(isoDate + "T12:00:00"); // start with a valid date
+  slotDateTime.setHours(hours, minutes, 0, 0);
+  return slotDateTime < new Date();
 }
 
 export default function SlotGrid({
@@ -18,6 +28,7 @@ export default function SlotGrid({
   onSelectSlot,
   loading,
   error,
+  selectedDate,
 }: SlotGridProps) {
   const { t } = useI18n();
 
@@ -69,6 +80,7 @@ export default function SlotGrid({
           slot={slot}
           isSelected={selectedSlot === slot.slotStart}
           onClick={() => onSelectSlot(slot)}
+          isPast={isSlotPast(selectedDate, slot.slotStart)}
         />
       ))}
     </div>

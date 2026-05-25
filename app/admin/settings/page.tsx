@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
 import { ALL_SLOTS } from "@/lib/slots";
+import { useRole } from "@/lib/role-context";
+import { ShieldAlert } from "lucide-react";
 
 interface Settings {
   id: number;
@@ -34,7 +36,7 @@ const InputField = ({
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-medium text-slate-400 mb-1.5"
+      className="block text-sm font-medium text-slate-400"
     >
       {label}
     </label>
@@ -44,7 +46,7 @@ const InputField = ({
       step={step}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full px-4 py-2.5 rounded-lg text-slate-200 text-sm outline-none transition-all"
+      className="w-full px-4 py-3 mt-1 rounded-lg text-slate-200 text-sm outline-none transition-all"
       style={{
         background: "#0f172a",
         border: "1.5px solid #334155",
@@ -58,6 +60,9 @@ const InputField = ({
 
 export default function AdminSettingsPage() {
   const { t } = useI18n();
+  const role = useRole();
+  const isAdmin = role === "admin";
+
   const [settings, setSettings] = useState<Settings | null>(null);
   const [form, setForm] = useState<Partial<Settings>>({});
   const [saving, setSaving] = useState(false);
@@ -70,6 +75,7 @@ export default function AdminSettingsPage() {
   };
 
   useEffect(() => {
+    if (!isAdmin) return; // Don't bother fetching if access denied
     fetch("/api/settings")
       .then((r) => r.json())
       .then((data) => {
@@ -82,12 +88,11 @@ export default function AdminSettingsPage() {
           setPeakSlotsInput(data.settings.peak_slots);
         }
       });
-  }, []);
+  }, [isAdmin]);
 
   const handleSave = async () => {
     setSaving(true);
     try {
-      // Parse peak_slots from comma-separated input back to JSON array
       const peakArr = peakSlotsInput
         .split(",")
         .map((s) => s.trim())
@@ -119,6 +124,40 @@ export default function AdminSettingsPage() {
     onChange: (val: string) => setForm((prev) => ({ ...prev, [key]: val })),
   });
 
+  // ── Access Denied Panel ────────────────────────────────────────────────────
+  if (!isAdmin) {
+    return (
+      <div className="max-w-2xl">
+        <div className="mb-8">
+          <h1
+            className="text-2xl font-bold text-white"
+            style={{ fontFamily: "var(--font-outfit)" }}
+          >
+            ⚙️ {t.admin_settings_title}
+          </h1>
+        </div>
+        <div
+          className="rounded-2xl p-8 flex flex-col items-center justify-center text-center gap-5"
+          style={{ background: "#1e293b", border: "1px solid #334155" }}
+        >
+          <div
+            className="w-16 h-16 rounded-2xl flex items-center justify-center"
+            style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.2)" }}
+          >
+            <ShieldAlert size={32} className="text-red-400" strokeWidth={1.5} />
+          </div>
+          <div>
+            <p className="text-white font-bold text-lg">Accès refusé</p>
+            <p className="text-slate-400 text-sm mt-2 max-w-xs">
+              La modification des paramètres est réservée aux administrateurs. Contactez votre responsable pour obtenir un accès.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Loading ────────────────────────────────────────────────────────────────
   if (!settings) {
     return (
       <div className="p-8 flex items-center justify-center text-slate-400">
@@ -127,6 +166,7 @@ export default function AdminSettingsPage() {
     );
   }
 
+  // ── Admin Settings Form ────────────────────────────────────────────────────
   return (
     <div className="max-w-2xl">
       {/* Toast */}
@@ -154,7 +194,7 @@ export default function AdminSettingsPage() {
       <div className="space-y-6">
         {/* Pricing Section */}
         <div
-          className="rounded-2xl p-6 space-y-4"
+          className="rounded-2xl p-6 md:p-8 space-y-4"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider">
@@ -201,7 +241,7 @@ export default function AdminSettingsPage() {
 
         {/* Schedule Section */}
         <div
-          className="rounded-2xl p-6 space-y-4"
+          className="rounded-2xl p-6 md:p-8 space-y-4"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider">
@@ -230,7 +270,7 @@ export default function AdminSettingsPage() {
 
         {/* Peak Slots Section */}
         <div
-          className="rounded-2xl p-6 space-y-4"
+          className="rounded-2xl p-6 md:p-8 space-y-4"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider">
@@ -239,7 +279,7 @@ export default function AdminSettingsPage() {
           <div>
             <label
               htmlFor="peak-slots"
-              className="block text-sm font-medium text-slate-400 mb-1.5"
+              className="block text-sm font-medium text-slate-400"
             >
               Créneaux (séparés par des virgules)
             </label>
@@ -249,7 +289,7 @@ export default function AdminSettingsPage() {
               value={peakSlotsInput}
               onChange={(e) => setPeakSlotsInput(e.target.value)}
               placeholder="17:00, 18:30, 20:00"
-              className="w-full px-4 py-2.5 rounded-lg text-slate-200 text-sm outline-none"
+              className="w-full px-4 py-3 mt-1 rounded-lg text-slate-200 text-sm outline-none"
               style={{
                 background: "#0f172a",
                 border: "1.5px solid #334155",

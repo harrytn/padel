@@ -6,7 +6,6 @@ import LanguageToggle from "@/components/ui/LanguageToggle";
 import SlotGrid from "@/components/booking/SlotGrid";
 import CheckoutModal from "@/components/booking/CheckoutModal";
 import { SlotData } from "@/components/booking/SlotCard";
-import { ChevronRight } from "lucide-react";
 
 function todayISO(): string {
   const d = new Date();
@@ -22,12 +21,15 @@ function maxISO(): string {
 function formatDateDisplay(isoDate: string): string {
   if (!isoDate) return "";
   const d = new Date(isoDate + "T12:00:00");
-  return d.toLocaleDateString(undefined, {
+  return d.toLocaleDateString("fr-FR", {
     weekday: "long",
     day: "numeric",
     month: "long",
   });
 }
+
+/** Glass card shared class string */
+const GLASS = "bg-white/75 backdrop-blur-md rounded-3xl shadow-xl shadow-black/10 border border-white/20";
 
 export default function BookPage() {
   const { t } = useI18n();
@@ -81,127 +83,204 @@ export default function BookPage() {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-6 md:px-10 lg:px-12 pb-8">
+    <div className="bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed min-h-screen">
+      {/* Subtle dark tint so glass cards pop */}
+      <div className="fixed inset-0 bg-[#1E2438]/30 -z-10" />
 
-        {/* Compact Header */}
-        <header className="flex items-center justify-between py-4 md:py-5">
-          <Image
-            src="/logo.png"
-            alt="Padel Caribbean Logo"
-            width={120}
-            height={40}
-            className="object-contain"
-            priority
-          />
-          <LanguageToggle />
-        </header>
+      {/* ── Sticky Top Bar ── */}
+      <header className="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-md border-b border-white/20 shadow-sm shadow-black/5">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+          {/* Logo + brand */}
+          <div className="flex items-center gap-3">
+            <Image
+              src="/logo-no-bg.png"
+              alt="Caribbean World Djerba"
+              width={40}
+              height={40}
+              className="h-10 w-auto object-contain"
+              priority
+              loading="eager"
+            />
+            <span className="font-bold text-lg text-[#1E2438] tracking-tight hidden sm:block">
+              Caribbean World Djerba
+            </span>
+          </div>
 
-        {/* Main Content: sidebar + grid aligned at top */}
-        <main className="flex flex-col lg:flex-row gap-6 lg:gap-8 mt-4 lg:mt-6 items-start">
+          {/* Right controls */}
+          <div className="flex items-center gap-3">
+            <LanguageToggle />
+            <button
+              aria-label="Notifications"
+              className="p-2 rounded-full hover:bg-black/5 transition-colors text-[#DB8248]"
+            >
+              <span className="material-symbols-outlined text-xl">notifications</span>
+            </button>
+            <button
+              aria-label="Compte"
+              className="p-2 rounded-full hover:bg-black/5 transition-colors text-[#DB8248]"
+            >
+              <span className="material-symbols-outlined text-xl">account_circle</span>
+            </button>
+          </div>
+        </div>
+      </header>
 
-          {/* Left Sidebar — compact */}
-          <aside className="w-full max-w-sm mx-auto lg:max-w-none lg:mx-0 lg:w-[260px] lg:shrink-0">
-            <div className="bg-white rounded-xl shadow-md shadow-black/5 p-5 space-y-6">
+      {/* ── Page Body ── */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 flex flex-col md:flex-row gap-8">
 
-              {/* Date Picker */}
-              <section>
-                <h2 className="text-[10px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-3">
-                  {t.book_select_date}
-                </h2>
-                <input
-                  id="date-picker"
-                  type="date"
-                  value={selectedDate}
-                  min={todayISO()}
-                  max={maxISO()}
-                  onChange={(e) => {
-                    setSelectedDate(e.target.value);
-                    setSelectedSlot(null);
-                  }}
-                  className="minimal-input pl-3 h-10 text-sm"
-                />
-                {selectedDate && (
-                  <p className="mt-2.5 text-[12px] font-semibold text-[#1B4332]/50 flex items-center gap-1.5">
-                    <ChevronRight size={12} />
-                    {formatDateDisplay(selectedDate)}
-                  </p>
-                )}
-              </section>
-
-              {/* Legend */}
-              <section className="pt-4 border-t border-[#1B4332]/5">
-                <h2 className="text-[10px] font-bold text-[#1B4332] uppercase tracking-[0.15em] mb-3">
-                  Légende
-                </h2>
-                <ul className="space-y-2.5">
-                  <li className="flex items-center gap-2.5 text-[12px] font-medium text-[#1A1A1A]/45">
-                    <div className="w-2.5 h-2.5 rounded-sm bg-[#bbf7d0] border border-[#1B4332]/10" />
-                    Disponible
-                  </li>
-                  <li className="flex items-center gap-2.5 text-[12px] font-medium text-[#1A1A1A]/45">
-                    <div className="w-2.5 h-2.5 rounded-sm bg-[#F4A261]" />
-                    Pleine saison
-                  </li>
-                  <li className="flex items-center gap-2.5 text-[12px] font-medium text-[#1A1A1A]/45">
-                    <div className="w-2.5 h-2.5 rounded-sm bg-[#ffbfbf]" />
-                    Occupé
-                  </li>
-                </ul>
-              </section>
-
-              {/* Staff link */}
-              <div className="pt-4 border-t border-[#1B4332]/5">
-                <a
-                  href="/admin"
-                  className="text-[10px] font-bold text-[#1B4332]/30 hover:text-[#1B4332] tracking-widest uppercase transition-colors"
-                >
-                  Accès Staff →
-                </a>
-              </div>
+        {/* ══ SIDEBAR CARD ══════════════════════════════════════════════════ */}
+        <aside className={`hidden md:flex flex-col ${GLASS} p-6 md:p-8 w-64 shrink-0 sticky top-24 self-start gap-8`}>
+          {/* Logo block */}
+          <div className="flex flex-col items-center text-center gap-3">
+            <Image
+              src="/logo-no-bg.png"
+              alt="Logo"
+              width={72}
+              height={72}
+              className="h-18 w-auto object-contain"
+            />
+            <div>
+              <p className="font-bold text-base text-[#1E2438]">Court Booking</p>
+              <p className="text-xs text-[#1E2438]/50 mt-0.5">Caribbean World</p>
             </div>
-          </aside>
+          </div>
 
-          {/* Right — Booking Grid */}
-          <section className="flex-1 min-w-0 w-full max-w-sm mx-auto sm:max-w-none sm:mx-0">
-            <div className="bg-white rounded-xl shadow-md shadow-black/5 p-5 md:p-6">
+          {/* Nav */}
+          <nav className="flex flex-col gap-1">
+            {/* Active item */}
+            <a
+              href="#"
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#2CAFC2]/10 text-[#2CAFC2] font-bold text-sm"
+            >
+              <span className="material-symbols-outlined text-xl">sports_tennis</span>
+              Courts
+            </a>
+            <a
+              href="#"
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[#1E2438]/70 font-semibold text-sm hover:bg-black/5 transition-colors"
+            >
+              <span className="material-symbols-outlined text-xl text-[#DB8248]">event_available</span>
+              Mes réservations
+            </a>
+            <a
+              href="/admin"
+              className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-[#1E2438]/70 font-semibold text-sm hover:bg-black/5 transition-colors"
+            >
+              <span className="material-symbols-outlined text-xl text-[#DB8248]">admin_panel_settings</span>
+              Accès Staff
+            </a>
+          </nav>
 
-              <div className="flex items-baseline justify-between mb-5">
-                <h3 className="text-base font-bold text-[#1B4332] tracking-tight">
-                  {t.book_title}
-                </h3>
-                <span className="text-[10px] font-bold text-[#1A1A1A]/25 uppercase tracking-widest">
-                  9 slots / jour
-                </span>
-              </div>
+          {/* Legend */}
+          <div className="border-t border-[#1E2438]/10 pt-6">
+            <p className="text-[10px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-3">Légende</p>
+            <ul className="space-y-2.5">
+              <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
+                <span className="w-3 h-3 rounded-sm border-2 border-[#2CAFC2] bg-white shrink-0" />
+                Disponible
+              </li>
+              <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
+                <span className="w-3 h-3 rounded-sm bg-[#EEBB3B] shrink-0" />
+                Occupé
+              </li>
+              <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
+                <span className="w-3 h-3 rounded-sm bg-[#E41E2D] shrink-0" />
+                Sélectionné
+              </li>
+              <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
+                <span className="w-3 h-3 rounded-sm bg-black/10 shrink-0" />
+                Passé
+              </li>
+            </ul>
+          </div>
+        </aside>
 
-              {slotTakenError && (
-                <div className="mb-5 p-3 bg-[#F28482]/10 border border-[#F28482]/20 rounded-lg text-[12px] font-bold text-[#F28482] text-center">
-                  ⚠️ {t.checkout_slot_taken}
-                </div>
+        {/* ══ MAIN CONTENT ══════════════════════════════════════════════════ */}
+        <main className="flex-1 min-w-0 flex flex-col gap-6">
+
+          {/* Mobile header row */}
+          <div className="flex md:hidden items-center justify-between">
+            <Image
+              src="/logo-no-bg.png"
+              alt="Logo"
+              width={120}
+              height={40}
+              className="h-10 w-auto object-contain"
+              priority
+              loading="eager"
+            />
+            <LanguageToggle />
+          </div>
+
+          {/* ── Date Picker Card ────────────────────────────────────────── */}
+          <div className={`${GLASS} p-6 md:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4`}>
+            <div>
+              <h1 className="text-xl font-bold text-[#1E2438] tracking-tight">
+                {t.book_title}
+              </h1>
+              {selectedDate && (
+                <p className="mt-1 text-sm text-[#1E2438]/50 capitalize">
+                  {formatDateDisplay(selectedDate)}
+                </p>
               )}
-
-              <SlotGrid
-                slots={slots}
-                selectedSlot={selectedSlot?.slotStart ?? null}
-                onSelectSlot={(slot) => {
-                  setSelectedSlot(slot);
-                  setSlotTakenError(false);
-                }}
-                loading={loading}
-                error={error}
-              />
-
-              <p className="mt-6 pt-4 border-t border-[#1B4332]/5 text-[10px] font-medium text-[#1A1A1A]/25 text-center">
-                Merci de vous présenter à la reception 15 minutes avant votre session.
-              </p>
             </div>
-          </section>
+            <div className="flex items-center gap-2">
+              <label htmlFor="date-picker" className="sr-only">{t.book_select_date}</label>
+              <input
+                id="date-picker"
+                type="date"
+                value={selectedDate}
+                min={todayISO()}
+                max={maxISO()}
+                onChange={(e) => {
+                  setSelectedDate(e.target.value);
+                  setSelectedSlot(null);
+                }}
+                className="h-10 px-3 text-sm border-2 border-[#2CAFC2]/40 rounded-xl bg-white/80 text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors"
+              />
+            </div>
+          </div>
+
+          {/* ── Slot-taken error banner ─────────────────────────────────── */}
+          {slotTakenError && (
+            <div className="px-4 py-3 bg-[#E41E2D]/10 border border-[#E41E2D]/30 rounded-2xl text-sm font-bold text-[#E41E2D] text-center">
+              ⚠️ {t.checkout_slot_taken}
+            </div>
+          )}
+
+          {/* ── Slot Grid Card ──────────────────────────────────────────── */}
+          <div className={`${GLASS} p-6 md:p-8 flex flex-col gap-5`}>
+            <div className="flex items-center justify-between">
+              <h2 className="text-base font-bold text-[#1E2438] flex items-center gap-2">
+                <span className="material-symbols-outlined text-[#2CAFC2] text-xl">sports_tennis</span>
+                Créneaux disponibles
+              </h2>
+              <span className="text-[10px] font-bold text-[#1E2438]/25 uppercase tracking-widest">
+                9 slots / jour
+              </span>
+            </div>
+
+            <SlotGrid
+              slots={slots}
+              selectedSlot={selectedSlot?.slotStart ?? null}
+              onSelectSlot={(slot) => {
+                setSelectedSlot(slot);
+                setSlotTakenError(false);
+              }}
+              loading={loading}
+              error={error}
+              selectedDate={selectedDate}
+            />
+
+            <p className="pt-4 border-t border-[#1E2438]/5 text-[10px] font-medium text-[#1E2438]/30 text-center">
+              Merci de vous présenter à la réception 15 minutes avant votre session.
+            </p>
+          </div>
 
         </main>
       </div>
 
-      {/* Checkout Modal */}
+      {/* ── Checkout Modal ── */}
       {selectedSlot && settings && (
         <CheckoutModal
           slot={selectedSlot}

@@ -264,7 +264,7 @@ export default function CheckoutModal({
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="btn-primary w-full flex items-center justify-center gap-2 h-12"
+            className="w-full flex items-center justify-center gap-2 h-12 rounded-xl bg-[#E41E2D] text-white font-bold text-sm tracking-tight transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {isSubmitting ? (
               <span className="w-4 h-4 border-2 border-[#1A1A1A]/20 border-t-[#1A1A1A] rounded-full animate-spin" />

@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useI18n } from "@/lib/i18n";
 import { getSlotEnd } from "@/lib/slots";
+import { useRole } from "@/lib/role-context";
 
 interface BookingRecord {
   id: string;
@@ -38,6 +39,9 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
 
 export default function AdminSchedulePage() {
   const { t } = useI18n();
+  const role = useRole();
+  const isAdmin = role === "admin";
+
   const [date, setDate] = useState(todayISO());
   const [schedule, setSchedule] = useState<ScheduleSlot[]>([]);
   const [loading, setLoading] = useState(false);
@@ -103,12 +107,11 @@ export default function AdminSchedulePage() {
     }
   };
 
+  // ── Admin-only actions ────────────────────────────────────────────────────
   const unblockSlot = async (bookingId: string) => {
     setActionLoading(bookingId);
     try {
-      const res = await fetch(`/api/bookings/${bookingId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`/api/bookings/${bookingId}`, { method: "DELETE" });
       if (res.ok) {
         showToast("✅ Créneau débloqué");
         fetchSchedule(date);
@@ -210,9 +213,9 @@ export default function AdminSchedulePage() {
                 ))
               : schedule.map(({ slotStart, isPeak, booking }, i) => {
                   const isBlock = booking?.type === "ADMIN_BLOCK";
-                  const statusInfo =
-                    booking && STATUS_COLORS[booking.status];
-                  const busy = actionLoading === booking?.id || actionLoading === slotStart;
+                  const statusInfo = booking && STATUS_COLORS[booking.status];
+                  const busy =
+                    actionLoading === booking?.id || actionLoading === slotStart;
 
                   return (
                     <tr
@@ -234,7 +237,9 @@ export default function AdminSchedulePage() {
                           {slotStart} - {getSlotEnd(slotStart)}
                         </span>
                         {isPeak && (
-                          <span className="text-xs text-amber-500 font-medium">⚡ Heure de pointe</span>
+                          <span className="text-xs text-amber-500 font-medium">
+                            ⚡ Heure de pointe
+                          </span>
                         )}
                       </td>
 
@@ -273,10 +278,7 @@ export default function AdminSchedulePage() {
                         {booking && !isBlock ? (
                           <span
                             className="font-bold text-base tracking-widest"
-                            style={{
-                              fontFamily: "var(--font-outfit)",
-                              color: "#a78bfa",
-                            }}
+                            style={{ fontFamily: "var(--font-outfit)", color: "#a78bfa" }}
                           >
                             {booking.booking_pin}
                           </span>
@@ -288,9 +290,7 @@ export default function AdminSchedulePage() {
                       {/* Price */}
                       <td className="px-4 py-4">
                         {booking && !isBlock ? (
-                          <span className="text-white font-semibold">
-                            {booking.total_price} DT
-                          </span>
+                          <span className="text-white font-semibold">{booking.total_price} DT</span>
                         ) : (
                           <span className="text-slate-600">—</span>
                         )}
@@ -328,7 +328,8 @@ export default function AdminSchedulePage() {
                       {/* Actions */}
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-2">
-                          {!booking && (
+                          {/* Block — Admin only */}
+                          {!booking && isAdmin && (
                             <button
                               id={`block-slot-${slotStart.replace(":", "")}`}
                               onClick={() => blockSlot(slotStart)}
@@ -344,6 +345,7 @@ export default function AdminSchedulePage() {
                             </button>
                           )}
 
+                          {/* Mark Paid — both roles */}
                           {booking &&
                             !isBlock &&
                             booking.status === "PENDING_PAYMENT" && (
@@ -362,14 +364,13 @@ export default function AdminSchedulePage() {
                               </button>
                             )}
 
+                          {/* Mark Pending — both roles */}
                           {booking &&
                             !isBlock &&
                             booking.status === "PAID" && (
                               <button
                                 id={`mark-pending-${booking.id.slice(0, 8)}`}
-                                onClick={() =>
-                                  updateStatus(booking.id, "PENDING_PAYMENT")
-                                }
+                                onClick={() => updateStatus(booking.id, "PENDING_PAYMENT")}
                                 disabled={busy}
                                 className="text-xs px-3 py-1.5 rounded-lg font-medium transition-all"
                                 style={{
@@ -382,6 +383,7 @@ export default function AdminSchedulePage() {
                               </button>
                             )}
 
+                          {/* Cancel — both roles */}
                           {booking && !isBlock && booking.status !== "CANCELLED" && (
                             <button
                               onClick={() => cancelBooking(booking.id)}
@@ -397,7 +399,8 @@ export default function AdminSchedulePage() {
                             </button>
                           )}
 
-                          {isBlock && (
+                          {/* Unblock — Admin only */}
+                          {isBlock && isAdmin && (
                             <button
                               onClick={() => unblockSlot(booking!.id)}
                               disabled={busy}

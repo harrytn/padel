@@ -1,17 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { cookies } from "next/headers";
+import { requireStaff, requireAdmin } from "@/lib/auth";
 
-async function checkAdminAuth() {
-  const cookieStore = await cookies();
-  return cookieStore.get("admin_session")?.value === process.env.ADMIN_PASSWORD;
-}
-
+/**
+ * GET /api/settings
+ * Any authenticated staff member can read settings (needed for admin schedule page).
+ */
 export async function GET() {
-  const isAdmin = await checkAdminAuth();
-  if (!isAdmin) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authResult = await requireStaff();
+  if (authResult instanceof NextResponse) return authResult;
 
   try {
     const settings = await prisma.settings.findUnique({ where: { id: 1 } });
@@ -22,11 +19,13 @@ export async function GET() {
   }
 }
 
+/**
+ * PATCH /api/settings
+ * Admin only — Reception cannot change pricing or schedule parameters.
+ */
 export async function PATCH(request: NextRequest) {
-  const isAdmin = await checkAdminAuth();
-  if (!isAdmin) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authResult = await requireAdmin();
+  if (authResult instanceof NextResponse) return authResult;
 
   try {
     const body = await request.json();
@@ -45,10 +44,14 @@ export async function PATCH(request: NextRequest) {
     // Validate peak_slots is a valid JSON array
     let peakSlotsJson: string;
     try {
-      const parsed = typeof peak_slots === "string" ? JSON.parse(peak_slots) : peak_slots;
+      const parsed =
+        typeof peak_slots === "string" ? JSON.parse(peak_slots) : peak_slots;
       peakSlotsJson = JSON.stringify(parsed);
     } catch {
-      return NextResponse.json({ error: "Invalid peak_slots format" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Invalid peak_slots format" },
+        { status: 400 }
+      );
     }
 
     const settings = await prisma.settings.upsert({

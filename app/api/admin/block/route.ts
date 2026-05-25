@@ -1,18 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { generateBookingPin } from "@/lib/pricing";
-import { cookies } from "next/headers";
+import { requireAdmin } from "@/lib/auth";
 
-async function checkAdminAuth() {
-  const cookieStore = await cookies();
-  return cookieStore.get("admin_session")?.value === process.env.ADMIN_PASSWORD;
-}
-
+/**
+ * POST /api/admin/block
+ * Admin only — Reception cannot block court time slots.
+ */
 export async function POST(request: NextRequest) {
-  const isAdmin = await checkAdminAuth();
-  if (!isAdmin) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authResult = await requireAdmin();
+  if (authResult instanceof NextResponse) return authResult;
 
   try {
     const { date, slotStart } = await request.json();

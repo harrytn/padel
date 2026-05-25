@@ -32,6 +32,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Guard: refuse bookings for slots already in the past
+    const [slotHours, slotMinutes] = slotStart.split(":").map(Number);
+    const slotDateTime = new Date(date + "T12:00:00");
+    slotDateTime.setHours(slotHours, slotMinutes, 0, 0);
+    if (slotDateTime < new Date()) {
+      return NextResponse.json(
+        { error: "Cannot book a time slot in the past." },
+        { status: 400 }
+      );
+    }
+
     // Fetch settings for server-side price calculation
     const settings = await prisma.settings.findUnique({ where: { id: 1 } });
     if (!settings) {

@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { cookies } from "next/headers";
+import { requireStaff, requireAdmin } from "@/lib/auth";
 
-async function checkAdminAuth() {
-  const cookieStore = await cookies();
-  return cookieStore.get("admin_session")?.value === process.env.ADMIN_PASSWORD;
-}
-
+/**
+ * PATCH /api/bookings/[id]
+ * Both Reception and Admin can update booking status (mark paid / pending / cancelled).
+ */
 export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const isAdmin = await checkAdminAuth();
-  if (!isAdmin) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authResult = await requireStaff();
+  if (authResult instanceof NextResponse) return authResult;
 
   try {
     const { id } = await params;
@@ -26,6 +23,7 @@ export async function PATCH(
       return NextResponse.json({ error: "Invalid status" }, { status: 400 });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let updateData: any = { status };
 
     if (status === "CANCELLED") {
@@ -35,11 +33,7 @@ export async function PATCH(
       }
     }
 
-    const booking = await prisma.booking.update({
-      where: { id },
-      data: updateData,
-    });
-
+    const booking = await prisma.booking.update({ where: { id }, data: updateData });
     return NextResponse.json({ booking });
   } catch (error) {
     console.error("PATCH /api/bookings/[id] error:", error);
@@ -47,22 +41,20 @@ export async function PATCH(
   }
 }
 
+/**
+ * DELETE /api/bookings/[id]
+ * Admin only — Reception staff cannot unblock/delete bookings.
+ */
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const isAdmin = await checkAdminAuth();
-  if (!isAdmin) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  const authResult = await requireAdmin();
+  if (authResult instanceof NextResponse) return authResult;
 
   try {
     const { id } = await params;
-    
-    await prisma.booking.delete({
-      where: { id },
-    });
-
+    await prisma.booking.delete({ where: { id } });
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("DELETE /api/bookings/[id] error:", error);

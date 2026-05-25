@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+@theme {
+  /* Brand colours */
+  --color-page-bg: #FFF3D6;
+  --color-card-bg: #FAFAF7;
+  --color-navy: #1E2438;
+  --color-toucan-red: #E41E2D;
+  --color-charcoal: #2B2D42;
+  --color-palm-green: #98C28F;
+  --color-toucan-blue: #2CAFC2;
+  --color-sunset-orange: #DB8248;
+  --color-tropical-yellow: #EEBB3B;
+
+  /* Border radii */
+  --radius-DEFAULT: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+
+  /* Font families — wired to next/font CSS variables */
+  --font-family-body-lg: var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif;
+  --font-family-body-md: var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif;
+  --font-family-headline-md: var(--font-rubik), 'Rubik', sans-serif;
+  --font-family-display-xl: var(--font-rubik), 'Rubik', sans-serif;
+  --font-family-headline-lg: var(--font-rubik), 'Rubik', sans-serif;
+  --font-family-label-bold: var(--font-plus-jakarta-sans), 'Plus Jakarta Sans', sans-serif;
+}
+
+
 :root {
   --bg-sand: #FAFAF8;
   --text-charcoal: #1A1A1A;
@@ -80,6 +108,14 @@ h1, h2, h3, h4, h5, h6 {
   border-color: rgba(26, 26, 26, 0.05) !important;
   color: var(--slot-booked-text) !important;
   cursor: not-allowed;
+}
+
+.slot-past {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: transparent !important;
+  color: rgba(43, 45, 66, 0.5) !important;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 .slot-peak-badge {
