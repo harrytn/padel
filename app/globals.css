@@ -339,8 +339,19 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
   /* Page gaps */
-  .cw-mobile-stack {
+  .cw-mobile-stack,
+  .cw-mobile-main-flow {
+    display: flex !important;
+    flex-direction: column !important;
     gap: 20px !important;
+  }
+  
+  .cw-mobile-booking-first {
+    order: 1 !important;
+  }
+  
+  .cw-mobile-sidebar-second {
+    order: 2 !important;
   }
 
   /* Header Stacking & Sizing */

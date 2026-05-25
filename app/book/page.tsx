@@ -114,10 +114,10 @@ export default function BookPage() {
         </header>
 
         {/* ── MAIN CONTENT LAYOUT ── */}
-        <div className="cw-mobile-stack grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-[24px] lg:gap-[40px] items-start mt-[48px]">
+        <div className="cw-mobile-main-flow lg:grid lg:grid-cols-[280px_1fr] lg:gap-[40px] items-start mt-[48px]">
           
           {/* ── SIDEBAR ── */}
-          <aside className="cw-sidebar-root flex flex-col gap-[28px]">
+          <aside className="cw-sidebar-root cw-mobile-sidebar-second flex flex-col gap-[28px]">
             <div className="cw-mobile-sidebar-inner flex flex-col gap-[28px]">
               {/* Primary Navigation */}
               <nav className="cw-mobile-nav-primary flex flex-col gap-[12px]">
@@ -169,7 +169,7 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="cw-glass-panel flex flex-col">
+          <main className="cw-glass-panel cw-mobile-booking-first flex flex-col">
             <div className="cw-panel-heading flex items-center justify-between mb-[32px]">
               <h2 className="text-[20px] sm:text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
                 <span className="material-symbols-outlined text-[#2CAFC2] text-3xl shrink-0">sports_tennis</span>
