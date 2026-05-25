@@ -22,7 +22,7 @@ interface SlotCardProps {
 
 /** Shared layout classes applied to every slot button */
 const BASE =
-  "w-full rounded-2xl min-h-[104px] p-5 flex flex-col items-start justify-between transition-all duration-200 border text-left";
+  "w-full text-left min-h-[96px] p-4 rounded-2xl flex flex-col justify-between transition-all duration-200 border";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();
@@ -34,21 +34,21 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
     return (
       <button
         disabled
-        className={`${BASE} bg-black/10 border-transparent text-gray-500 cursor-not-allowed opacity-70`}
+        className={`${BASE} bg-white/40 border-white/20 text-gray-600 cursor-not-allowed`}
       >
         <div className="flex items-start justify-between w-full">
           <div className="flex flex-col text-left">
             <div className="flex items-center gap-1.5">
-              <Clock size={18} strokeWidth={1.5} className="text-gray-400" />
-              <span className="text-xl font-bold tracking-tight">{slotStart}</span>
+              <Clock size={18} strokeWidth={1.5} className="text-gray-500" />
+              <span className="text-xl font-bold leading-none text-gray-700">{slotStart}</span>
             </div>
-            <span className="text-sm font-medium mt-1 uppercase tracking-wider text-gray-400">
+            <span className="text-xs font-semibold tracking-wide uppercase mt-1 text-gray-500">
               90 minutes
             </span>
           </div>
         </div>
-        <div className="flex items-end justify-between w-full mt-auto pt-2">
-          <span className="text-base font-bold text-gray-400">Passé</span>
+        <div className="flex items-end justify-between w-full mt-auto">
+          <span className="text-base font-bold text-gray-600">Passé</span>
         </div>
       </button>
     );
@@ -59,20 +59,20 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
     return (
       <button
         disabled
-        className={`${BASE} bg-[#EEBB3B] border-[#EEBB3B] text-[#1E2438] cursor-not-allowed`}
+        className={`${BASE} bg-[#EEBB3B]/20 border-[#EEBB3B]/30 text-[#1E2438] cursor-not-allowed`}
       >
         <div className="flex items-start justify-between w-full">
           <div className="flex flex-col text-left">
             <div className="flex items-center gap-1.5">
               <Clock size={18} strokeWidth={1.5} className="text-[#1E2438]/50" />
-              <span className="text-xl font-bold tracking-tight">{slotStart}</span>
+              <span className="text-xl font-bold leading-none">{slotStart}</span>
             </div>
-            <span className="text-sm font-medium mt-1 uppercase tracking-wider text-[#1E2438]/60">
+            <span className="text-xs font-semibold tracking-wide uppercase mt-1 text-[#1E2438]/60">
               90 minutes
             </span>
           </div>
         </div>
-        <div className="flex items-end justify-between w-full mt-auto pt-2">
+        <div className="flex items-end justify-between w-full mt-auto">
           <span className="text-base font-bold">{t.book_booked}</span>
         </div>
       </button>
@@ -84,15 +84,15 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
     return (
       <button
         onClick={onClick}
-        className={`${BASE} bg-[#E41E2D] border-[#E41E2D] text-white shadow-lg shadow-[#E41E2D]/30`}
+        className={`${BASE} bg-[#E41E2D] border-[#E41E2D]/50 text-white shadow-md shadow-[#E41E2D]/20`}
       >
         <div className="flex items-start justify-between w-full">
           <div className="flex flex-col text-left">
             <div className="flex items-center gap-1.5">
-              <Clock size={18} strokeWidth={1.5} className="text-white/70" />
-              <span className="text-xl font-bold tracking-tight text-white">{slotStart}</span>
+              <Clock size={18} strokeWidth={1.5} className="text-white/80" />
+              <span className="text-xl font-bold leading-none text-white">{slotStart}</span>
             </div>
-            <span className="text-sm font-medium mt-1 uppercase tracking-wider text-white/70">
+            <span className="text-xs font-semibold tracking-wide uppercase mt-1 text-white/80">
               90 minutes
             </span>
           </div>
@@ -102,9 +102,9 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             </span>
           )}
         </div>
-        <div className="flex items-end justify-between w-full mt-auto pt-2">
+        <div className="flex items-end justify-between w-full mt-auto">
           <span className="text-base font-bold text-white">{displayPrice} DT</span>
-          <span className="text-xs font-medium text-white/70 leading-relaxed">✓ Sélectionné</span>
+          <span className="text-xs font-semibold text-white/80">✓ Sélectionné</span>
         </div>
       </button>
     );
@@ -114,27 +114,27 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
   return (
     <button
       onClick={onClick}
-      className={`${BASE} bg-white border-2 border-[#2CAFC2] text-[#2CAFC2] group hover:bg-[#2CAFC2] hover:text-white hover:shadow-md hover:shadow-[#2CAFC2]/20 hover:-translate-y-0.5`}
+      className={`${BASE} bg-white border-[#2CAFC2]/30 text-[#2CAFC2] shadow-sm hover:bg-[#2CAFC2]/5 hover:border-[#2CAFC2] hover:shadow-md transition-all`}
     >
       <div className="flex items-start justify-between w-full">
         <div className="flex flex-col text-left">
           <div className="flex items-center gap-1.5">
-            <Clock size={18} strokeWidth={1.5} className="text-[#2CAFC2] group-hover:text-white" />
-            <span className="text-xl font-bold tracking-tight">{slotStart}</span>
+            <Clock size={18} strokeWidth={1.5} className="text-[#2CAFC2]" />
+            <span className="text-xl font-bold leading-none text-[#1E2438]">{slotStart}</span>
           </div>
-          <span className="text-sm font-medium mt-1 uppercase tracking-wider text-[#2CAFC2]/70 group-hover:text-white/70">
+          <span className="text-xs font-semibold tracking-wide uppercase mt-1 text-[#1E2438]/50">
             90 minutes
           </span>
         </div>
         {isPeak && (
-          <span className="bg-[#EEBB3B] text-[#1E2438] text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-            <Zap size={9} fill="currentColor" /> Peak
+          <span className="bg-[#EEBB3B]/20 text-[#1E2438] text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+            <Zap size={9} fill="currentColor" className="text-[#EEBB3B]" /> Peak
           </span>
         )}
       </div>
-      <div className="flex items-end justify-between w-full mt-auto pt-2">
-        <span className="text-base font-bold">{displayPrice} DT</span>
-        <span className="text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity leading-relaxed">
+      <div className="flex items-end justify-between w-full mt-auto">
+        <span className="text-base font-bold text-[#2CAFC2]">{displayPrice} DT</span>
+        <span className="text-xs font-semibold opacity-0 hover:opacity-100 transition-opacity">
           Réserver →
         </span>
       </div>
