@@ -73,16 +73,18 @@ export default function SlotGrid({
   }
 
   return (
-  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[24px] w-full px-[12px]">
-      {slots.map((slot) => (
-        <SlotCard
-          key={slot.slotStart}
-          slot={slot}
-          isSelected={selectedSlot === slot.slotStart}
-          onClick={() => onSelectSlot(slot)}
-          isPast={isSlotPast(selectedDate, slot.slotStart)}
-        />
-      ))}
+    <div className="w-full px-[32px] pb-[16px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-[24px]">
+        {slots.map((slot) => (
+          <SlotCard
+            key={slot.slotStart}
+            slot={slot}
+            isSelected={selectedSlot === slot.slotStart}
+            onClick={() => onSelectSlot(slot)}
+            isPast={isSlotPast(selectedDate, slot.slotStart)}
+          />
+        ))}
+      </div>
     </div>
   );
 }
