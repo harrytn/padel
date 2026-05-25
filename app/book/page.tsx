@@ -227,7 +227,7 @@ export default function BookPage() {
             )}
 
             {/* ── Main Booking Panel ── */}
-            <div className="bg-white/75 backdrop-blur-md rounded-[28px] p-8 flex flex-col">
+            <div className="bg-white/75 backdrop-blur-md rounded-[28px] p-8 md:p-10 w-full flex flex-col">
               <div className="flex justify-between items-center mb-8 w-full">
                 <h2 className="text-xl font-bold text-[#1E2438] flex items-center gap-2">
                   <span className="material-symbols-outlined text-[#2CAFC2] text-2xl">sports_tennis</span>

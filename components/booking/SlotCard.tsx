@@ -22,7 +22,7 @@ interface SlotCardProps {
 
 /** Shared layout classes applied to every slot button */
 const BASE =
-  "w-full text-left min-h-[96px] p-4 rounded-2xl flex flex-col justify-between transition-all duration-200 border";
+  "flex flex-col justify-between min-h-[100px] rounded-2xl p-5 w-full text-left transition-all duration-200 border";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();
