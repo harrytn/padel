@@ -87,10 +87,11 @@ export default function BookPage() {
       {/* Subtle dark tint so glass cards pop */}
       <div className="fixed inset-0 bg-[#1E2438]/30 -z-10" />
 
-      {/* ── Sticky Top Bar ── */}
-      <header className="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-md border-b border-white/20 shadow-sm shadow-black/5">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
-          {/* Logo + brand */}
+      {/* ── Page Content Wrapper ── */}
+      <div className="max-w-[1480px] mx-auto px-4 md:px-8 py-4 md:py-8 flex flex-col gap-8">
+        
+        {/* ── Header ── */}
+        <header className="w-full bg-white/70 backdrop-blur-md rounded-2xl border border-white/20 shadow-sm shadow-black/5 px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Image
               src="/logo-no-bg.png"
@@ -106,7 +107,6 @@ export default function BookPage() {
             </span>
           </div>
 
-          {/* Right controls */}
           <div className="flex items-center gap-3">
             <LanguageToggle />
             <button
@@ -122,34 +122,16 @@ export default function BookPage() {
               <span className="material-symbols-outlined text-xl">account_circle</span>
             </button>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* ── Page Body ── */}
-      <div className="max-w-[1480px] mx-auto px-8 py-8">
-
-        {/* Mobile header row */}
-        <div className="flex md:hidden items-center justify-between mb-8">
-          <Image
-            src="/logo-no-bg.png"
-            alt="Logo"
-            width={120}
-            height={40}
-            className="h-10 w-auto object-contain"
-            priority
-            loading="eager"
-          />
-          <LanguageToggle />
-        </div>
-
-        {/* ── HEADER / TITLE AREA ── */}
-        <div className="flex items-end justify-between mb-6">
+        {/* ── TITLE AREA ── */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <h1 className="text-xl font-bold text-[#1E2438] tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-bold text-[#1E2438] tracking-tight">
               {t.book_title}
             </h1>
             {selectedDate && (
-              <p className="mt-1 text-sm text-[#1E2438]/50 capitalize leading-relaxed">
+              <p className="mt-1 text-sm md:text-base text-[#1E2438]/60 capitalize font-medium">
                 {formatDateDisplay(selectedDate)}
               </p>
             )}
@@ -166,16 +148,16 @@ export default function BookPage() {
                 setSelectedDate(e.target.value);
                 setSelectedSlot(null);
               }}
-              className="h-11 px-4 rounded-2xl bg-white/80 border border-cyan-200 shadow-sm text-sm text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors"
+              className="h-12 px-5 rounded-2xl bg-white/90 border border-cyan-200 shadow-sm text-sm font-semibold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors"
             />
           </div>
         </div>
 
         {/* ── MAIN TWO-COLUMN ARCHITECTURE ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 items-start w-full">
 
           {/* ══ SIDEBAR REDESIGN ══════════════════════════════════════════════════ */}
-          <aside className="p-6 rounded-[28px] bg-white/75 backdrop-blur-md flex flex-col sticky top-24 min-h-[500px]">
+          <aside className="p-6 rounded-[28px] bg-white/75 backdrop-blur-md flex flex-col sticky top-6 min-h-[500px]">
             {/* Logo block */}
             <div className="flex flex-col items-center text-center gap-3 mb-8">
               <Image

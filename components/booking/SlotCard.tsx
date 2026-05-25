@@ -47,7 +47,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             </span>
           </div>
         </div>
-        <div className="flex items-end justify-between w-full mt-auto">
+        <div className="flex items-end justify-between w-full pt-2">
           <span className="text-base font-bold text-gray-600">Passé</span>
         </div>
       </button>
@@ -72,7 +72,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             </span>
           </div>
         </div>
-        <div className="flex items-end justify-between w-full mt-auto">
+        <div className="flex items-end justify-between w-full pt-2">
           <span className="text-base font-bold">{t.book_booked}</span>
         </div>
       </button>
@@ -102,7 +102,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             </span>
           )}
         </div>
-        <div className="flex items-end justify-between w-full mt-auto">
+        <div className="flex items-end justify-between w-full pt-2">
           <span className="text-base font-bold text-white">{displayPrice} DT</span>
           <span className="text-xs font-semibold text-white/80">✓ Sélectionné</span>
         </div>
@@ -132,7 +132,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
           </span>
         )}
       </div>
-      <div className="flex items-end justify-between w-full mt-auto">
+      <div className="flex items-end justify-between w-full pt-2">
         <span className="text-base font-bold text-[#2CAFC2]">{displayPrice} DT</span>
         <span className="text-xs font-semibold opacity-0 hover:opacity-100 transition-opacity">
           Réserver →
