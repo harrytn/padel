@@ -125,7 +125,7 @@ export default function BookPage() {
         </header>
 
         {/* ── TITLE AREA ── */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white/85 backdrop-blur-md px-8 py-5 rounded-2xl shadow-sm mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white/85 backdrop-blur-md px-[32px] py-[20px] mb-[32px] rounded-2xl shadow-sm">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-[#1E2438] tracking-tight">
               {t.book_title}
@@ -227,8 +227,8 @@ export default function BookPage() {
             )}
 
             {/* ── Main Booking Panel ── */}
-            <div className="bg-white/75 backdrop-blur-md rounded-[28px] p-8 md:p-10 w-full flex flex-col">
-              <div className="flex justify-between items-center mb-8 w-full">
+            <div className="bg-white/75 backdrop-blur-md rounded-[28px] p-[32px] md:p-[40px] w-full flex flex-col">
+              <div className="flex justify-between items-center mb-[32px] w-full">
                 <h2 className="text-xl font-bold text-[#1E2438] flex items-center gap-2">
                   <span className="material-symbols-outlined text-[#2CAFC2] text-2xl">sports_tennis</span>
                   Créneaux disponibles
