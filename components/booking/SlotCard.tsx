@@ -61,12 +61,12 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
       onClick={!isPast && isAvailable ? onClick : undefined}
       className={`${BASE} ${stateClasses}`}
     >
-      <div className="h-full w-full flex flex-col justify-between items-start gap-[20px]">
+      <div className="cw-slot-card-inner h-full w-full flex flex-col justify-between items-start gap-[20px]">
         <div className="flex flex-col items-start w-full">
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-[8px]">
               <Clock className={`h-[20px] w-[20px] shrink-0 ${iconColor}`} strokeWidth={2} />
-              <span className={`text-[24px] font-bold leading-none ${timeColor}`}>
+              <span className={`cw-slot-time text-[24px] font-bold leading-none ${timeColor}`}>
                 {slotStart}
               </span>
             </div>
@@ -77,18 +77,18 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             )}
           </div>
 
-          <span className={`mt-[8px] text-[12px] font-bold tracking-[0.12em] uppercase leading-none ${durationColor}`}>
+          <span className={`cw-slot-duration mt-[8px] text-[12px] font-bold tracking-[0.12em] uppercase leading-none ${durationColor}`}>
             90 MINUTES
           </span>
         </div>
 
         <div className="w-full flex items-end justify-between gap-[16px] pt-[16px] mt-auto">
-          <span className={`text-[16px] font-bold leading-none ${priceColor}`}>
+          <span className={`cw-slot-price cw-slot-status text-[16px] font-bold leading-none ${priceColor}`}>
             {statusOrPrice}
           </span>
 
           {showReserveCta && (
-            <span className={`text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap ${isSelected ? '' : 'opacity-0 lg:opacity-100 transition-opacity'} ${ctaColor}`}>
+            <span className={`cw-slot-cta text-[12px] font-bold tracking-[0.14em] uppercase leading-none whitespace-nowrap ${isSelected ? '' : 'opacity-0 lg:opacity-100 transition-opacity'} ${ctaColor}`}>
               {isSelected ? "✓ Sélectionné" : "RÉSERVER →"}
             </span>
           )}

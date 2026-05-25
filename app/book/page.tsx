@@ -114,7 +114,7 @@ export default function BookPage() {
         </header>
 
         {/* ── MAIN CONTENT LAYOUT ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-[24px] lg:gap-[40px] items-start mt-[48px]">
+        <div className="cw-mobile-stack grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-[24px] lg:gap-[40px] items-start mt-[48px]">
           
           {/* ── SIDEBAR ── */}
           <aside className="cw-sidebar-root flex flex-col gap-[28px]">
