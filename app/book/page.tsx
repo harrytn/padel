@@ -85,10 +85,10 @@ export default function BookPage() {
       <div className="fixed inset-0 bg-[#1E2438]/20 -z-10" />
 
       {/* ── UNIFIED APP WINDOW ── */}
-      <div className="max-w-[1480px] mx-auto bg-[#F4F5F7]/95 backdrop-blur-xl rounded-[32px] overflow-hidden shadow-2xl flex flex-col min-h-[85vh] border border-white/40">
+      <div className="max-w-[1480px] mx-auto bg-white/30 backdrop-blur-2xl rounded-[32px] overflow-hidden shadow-2xl flex flex-col min-h-[85vh] border border-white/50">
         
         {/* ── TOP HEADER ── */}
-        <header className="w-full bg-white/50 border-b border-black/5 px-[32px] h-[80px] flex flex-wrap items-center justify-between shrink-0 gap-[16px]">
+        <header className="w-full bg-white/40 border-b border-white/30 px-[32px] h-[80px] flex flex-wrap items-center justify-between shrink-0 gap-[16px]">
           {/* Left: Logo + Hotel + Title */}
           <div className="flex items-center gap-[24px]">
             <div className="flex items-center gap-[12px]">
@@ -149,7 +149,7 @@ export default function BookPage() {
             <nav className="flex flex-col gap-[8px] mb-[48px]">
               <a
                 href="#"
-                className="h-[48px] px-[16px] rounded-[16px] flex items-center gap-[16px] bg-white text-[#1E2438] font-bold text-[15px] shadow-sm border border-black/5"
+                className="h-[48px] px-[16px] rounded-[16px] flex items-center gap-[16px] bg-white/60 backdrop-blur-md text-[#1E2438] font-bold text-[15px] shadow-sm border border-white/50"
               >
                 <span className="material-symbols-outlined text-[20px] text-[#2CAFC2]">sports_tennis</span>
                 Courts
@@ -190,7 +190,7 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="flex-1 bg-white rounded-[24px] shadow-sm border border-black/5 flex flex-col p-[40px]">
+          <main className="flex-1 bg-white/50 backdrop-blur-lg rounded-[24px] shadow-sm border border-white/50 flex flex-col p-[40px]">
             <div className="flex justify-between items-center mb-[40px] w-full">
               <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight">
                 Créneaux disponibles
