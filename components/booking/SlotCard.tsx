@@ -40,7 +40,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             <Clock size={18} strokeWidth={1.5} className="text-gray-500 shrink-0" />
             <span className="text-xl font-bold leading-none text-gray-700">{slotStart}</span>
           </div>
-          <span className="text-xs font-semibold tracking-wide uppercase mt-[6px] text-gray-500">
+          <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-gray-500">
             90 minutes
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             <Clock size={18} strokeWidth={1.5} className="text-[#1E2438]/50 shrink-0" />
             <span className="text-xl font-bold leading-none">{slotStart}</span>
           </div>
-          <span className="text-xs font-semibold tracking-wide uppercase mt-[6px] text-[#1E2438]/60">
+          <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-[#1E2438]/60">
             90 minutes
           </span>
         </div>
@@ -87,12 +87,12 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
               <Clock size={18} strokeWidth={1.5} className="text-white/80 shrink-0" />
               <span className="text-xl font-bold leading-none text-white">{slotStart}</span>
             </div>
-            <span className="text-xs font-semibold tracking-wide uppercase mt-[6px] text-white/80">
+            <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-white/80">
               90 minutes
             </span>
           </div>
           {isPeak && (
-            <span className="bg-white/20 text-white text-[10px] font-bold px-[8px] py-[2px] rounded-full flex items-center gap-[4px] shrink-0">
+            <span className="bg-white/20 text-white text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0">
               <Zap size={10} fill="currentColor" /> Peak
             </span>
           )}
@@ -117,12 +117,12 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
             <Clock size={18} strokeWidth={1.5} className="text-[#2CAFC2] shrink-0" />
             <span className="text-xl font-bold leading-none text-[#1E2438]">{slotStart}</span>
           </div>
-          <span className="text-xs font-semibold tracking-wide uppercase mt-[6px] text-[#1E2438]/50">
+          <span className="text-xs font-semibold tracking-wide uppercase mt-[8px] text-[#1E2438]/50">
             90 minutes
           </span>
         </div>
         {isPeak && (
-          <span className="bg-[#EEBB3B]/20 text-[#1E2438] text-[10px] font-bold px-[8px] py-[2px] rounded-full flex items-center gap-[4px] shrink-0">
+          <span className="bg-[#EEBB3B]/20 text-[#1E2438] text-[10px] font-bold px-[8px] py-[4px] rounded-full flex items-center gap-[4px] shrink-0">
             <Zap size={10} fill="currentColor" className="text-[#EEBB3B]" /> Peak
           </span>
         )}

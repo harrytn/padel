@@ -133,13 +133,13 @@ export default function CheckoutModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-[#1B4332]/20 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="simple-modal max-h-[90vh] overflow-y-auto bg-[#FCFBF8] border border-[#1B4332]/10">
+    <div className="fixed inset-0 bg-[#1B4332]/20 backdrop-blur-sm z-50 flex items-center justify-center p-[16px]" onClick={(e) => e.target === e.currentTarget && onClose()}>
+      <div className="simple-modal max-h-[90vh] overflow-y-auto bg-[#FCFBF8] border border-[#1B4332]/10 p-[32px]">
         {/* Header */}
-        <div className="flex justify-between items-start mb-8">
+        <div className="flex justify-between items-start mb-[32px]">
           <div>
             <h2 className="text-xl font-bold text-[#1B4332] tracking-tight">{t.checkout_title}</h2>
-            <div className="flex items-center gap-2 mt-2">
+            <div className="flex items-center gap-[8px] mt-[8px]">
               <span className="text-sm font-medium text-[#1A1A1A]/60">{slot.slotStart}</span>
               {slot.isPeak && (
                 <span className="slot-peak-badge">⚡ Peak</span>
@@ -148,15 +148,15 @@ export default function CheckoutModal({
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-[#1B4332]/5 rounded-full transition-colors text-[#1A1A1A]/40"
+            className="p-[8px] hover:bg-[#1B4332]/5 rounded-full transition-colors text-[#1A1A1A]/40"
           >
             <X size={20} strokeWidth={1.5} />
           </button>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-[24px]">
           {/* Guest Details */}
-          <div className="space-y-4">
+          <div className="space-y-[16px]">
             <div className="relative">
               <input
                 id="checkout-firstname"
@@ -191,8 +191,8 @@ export default function CheckoutModal({
           </div>
 
           {/* Rackets Add-on */}
-          <div className="flat-card p-5 space-y-4">
-            <div className="flex items-center gap-2 text-[#1B4332]">
+          <div className="flat-card p-[24px] space-y-[16px]">
+            <div className="flex items-center gap-[8px] text-[#1B4332]">
               <ShoppingBag size={16} strokeWidth={1.5} />
               <p className="text-sm font-bold tracking-tight">{t.checkout_rackets_label}</p>
             </div>
@@ -227,8 +227,8 @@ export default function CheckoutModal({
 
           {/* Lighting Add-on */}
           {slot.hasLighting && (
-            <div className="flat-card p-5 flex items-center justify-between">
-              <div className="flex items-center gap-2 text-[#1B4332]">
+            <div className="flat-card p-[24px] flex items-center justify-between">
+              <div className="flex items-center gap-[8px] text-[#1B4332]">
                 <Lightbulb size={16} strokeWidth={1.5} />
                 <p className="text-sm font-bold tracking-tight">{t.checkout_lighting_label}</p>
               </div>
@@ -242,7 +242,7 @@ export default function CheckoutModal({
           )}
 
           {/* Price Breakdown */}
-          <div className="bg-[#1B4332]/5 rounded-xl p-5 space-y-3">
+          <div className="bg-[#1B4332]/5 rounded-xl p-[24px] space-y-[12px]">
             <PriceRow label={t.checkout_base} amount={breakdown.base} />
             <PriceRow label={t.checkout_peak_surcharge} amount={breakdown.peakSurcharge} />
             <PriceRow label={t.checkout_rackets_fee} amount={breakdown.rackets} />
@@ -264,7 +264,7 @@ export default function CheckoutModal({
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="w-full flex items-center justify-center gap-2 h-12 rounded-xl bg-[#E41E2D] text-white font-bold text-sm tracking-tight transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-[8px] h-[48px] rounded-xl bg-[#E41E2D] text-white font-bold text-sm tracking-tight transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {isSubmitting ? (
               <span className="w-4 h-4 border-2 border-[#1A1A1A]/20 border-t-[#1A1A1A] rounded-full animate-spin" />

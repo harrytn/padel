@@ -145,7 +145,7 @@ export default function AdminSchedulePage() {
       {/* Toast */}
       {toast && (
         <div
-          className="fixed top-4 right-4 px-5 py-3 rounded-xl text-white font-medium text-sm z-50 shadow-lg"
+          className="fixed top-4 right-4 px-[20px] py-[12px] rounded-xl text-white font-medium text-sm z-50 shadow-lg"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           {toast}
@@ -153,7 +153,7 @@ export default function AdminSchedulePage() {
       )}
 
       {/* Page header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-[32px]">
         <div>
           <h1
             className="text-2xl font-bold text-white"
@@ -168,7 +168,7 @@ export default function AdminSchedulePage() {
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="px-4 py-2 rounded-lg text-slate-200 text-sm outline-none"
+          className="px-[16px] py-[8px] rounded-lg text-slate-200 text-sm outline-none"
           style={{
             background: "#1e293b",
             border: "1.5px solid #334155",
@@ -189,7 +189,7 @@ export default function AdminSchedulePage() {
                 (h) => (
                   <th
                     key={h}
-                    className="px-4 py-3 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider"
+                    className="px-[16px] py-[12px] text-left text-xs font-semibold text-slate-400 uppercase tracking-wider"
                   >
                     {h}
                   </th>
@@ -202,7 +202,7 @@ export default function AdminSchedulePage() {
               ? Array.from({ length: 9 }).map((_, i) => (
                   <tr key={i} style={{ background: i % 2 === 0 ? "#0f172a" : "#1e293b" }}>
                     {Array.from({ length: 8 }).map((__, j) => (
-                      <td key={j} className="px-4 py-4">
+                      <td key={j} className="px-[16px] py-[16px]">
                         <div
                           className="h-4 rounded animate-pulse"
                           style={{ background: "#334155", width: "80%" }}
@@ -226,7 +226,7 @@ export default function AdminSchedulePage() {
                       }}
                     >
                       {/* Time */}
-                      <td className="px-4 py-4">
+                      <td className="px-[16px] py-[16px]">
                         <span
                           className="font-bold text-base block"
                           style={{
@@ -244,10 +244,10 @@ export default function AdminSchedulePage() {
                       </td>
 
                       {/* Type */}
-                      <td className="px-4 py-4">
+                      <td className="px-[16px] py-[16px]">
                         {booking ? (
                           <span
-                            className="text-xs px-2 py-1 rounded-full font-medium"
+                            className="text-xs px-[8px] py-[4px] rounded-full font-medium"
                             style={{
                               background: isBlock ? "#1e293b" : "#0f4c75",
                               color: isBlock ? "#94a3b8" : "#7dd3fc",
@@ -262,19 +262,19 @@ export default function AdminSchedulePage() {
                       </td>
 
                       {/* Client name */}
-                      <td className="px-4 py-4 text-slate-300 text-sm">
+                      <td className="px-[16px] py-[16px] text-slate-300 text-sm">
                         {booking && !isBlock
                           ? `${booking.customer_first_name} ${booking.customer_last_name}`
                           : "—"}
                       </td>
 
                       {/* Room */}
-                      <td className="px-4 py-4 text-slate-300 text-sm font-mono">
+                      <td className="px-[16px] py-[16px] text-slate-300 text-sm font-mono">
                         {booking?.room_number ?? "—"}
                       </td>
 
                       {/* PIN */}
-                      <td className="px-4 py-4">
+                      <td className="px-[16px] py-[16px]">
                         {booking && !isBlock ? (
                           <span
                             className="font-bold text-base tracking-widest"
@@ -288,7 +288,7 @@ export default function AdminSchedulePage() {
                       </td>
 
                       {/* Price */}
-                      <td className="px-4 py-4">
+                      <td className="px-[16px] py-[16px]">
                         {booking && !isBlock ? (
                           <span className="text-white font-semibold">{booking.total_price} DT</span>
                         ) : (
@@ -297,10 +297,10 @@ export default function AdminSchedulePage() {
                       </td>
 
                       {/* Status */}
-                      <td className="px-4 py-4">
+                      <td className="px-[16px] py-[16px]">
                         {isBlock ? (
                           <span
-                            className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                            className="text-xs font-semibold px-[12px] py-[4px] rounded-full"
                             style={{
                               background: "#f1f5f922",
                               color: "#94a3b8",
@@ -311,7 +311,7 @@ export default function AdminSchedulePage() {
                           </span>
                         ) : statusInfo ? (
                           <span
-                            className="text-xs font-semibold px-2.5 py-1 rounded-full"
+                            className="text-xs font-semibold px-[12px] py-[4px] rounded-full"
                             style={{
                               background: statusInfo.bg + "22",
                               color: statusInfo.text,
@@ -326,15 +326,15 @@ export default function AdminSchedulePage() {
                       </td>
 
                       {/* Actions */}
-                      <td className="px-4 py-4">
-                        <div className="flex items-center gap-2">
+                      <td className="px-[16px] py-[16px]">
+                        <div className="flex items-center gap-[8px]">
                           {/* Block — Admin only */}
                           {!booking && isAdmin && (
                             <button
                               id={`block-slot-${slotStart.replace(":", "")}`}
                               onClick={() => blockSlot(slotStart)}
                               disabled={busy}
-                              className="text-xs px-3 py-1.5 rounded-lg font-medium transition-colors"
+                              className="text-xs px-[12px] py-[8px] rounded-lg font-medium transition-colors"
                               style={{
                                 background: "#1e293b",
                                 color: "#94a3b8",
@@ -353,7 +353,7 @@ export default function AdminSchedulePage() {
                                 id={`mark-paid-${booking.id.slice(0, 8)}`}
                                 onClick={() => updateStatus(booking.id, "PAID")}
                                 disabled={busy}
-                                className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-all"
+                                className="text-xs px-[12px] py-[8px] rounded-lg font-semibold transition-all"
                                 style={{
                                   background: "rgba(22,163,74,0.15)",
                                   color: "#4ade80",
@@ -372,7 +372,7 @@ export default function AdminSchedulePage() {
                                 id={`mark-pending-${booking.id.slice(0, 8)}`}
                                 onClick={() => updateStatus(booking.id, "PENDING_PAYMENT")}
                                 disabled={busy}
-                                className="text-xs px-3 py-1.5 rounded-lg font-medium transition-all"
+                                className="text-xs px-[12px] py-[8px] rounded-lg font-medium transition-all"
                                 style={{
                                   background: "rgba(245,158,11,0.15)",
                                   color: "#fbbf24",
@@ -388,7 +388,7 @@ export default function AdminSchedulePage() {
                             <button
                               onClick={() => cancelBooking(booking.id)}
                               disabled={busy}
-                              className="text-xs px-3 py-1.5 rounded-lg font-medium transition-all"
+                              className="text-xs px-[12px] py-[8px] rounded-lg font-medium transition-all"
                               style={{
                                 background: "rgba(239,68,68,0.1)",
                                 color: "#f87171",
@@ -404,7 +404,7 @@ export default function AdminSchedulePage() {
                             <button
                               onClick={() => unblockSlot(booking!.id)}
                               disabled={busy}
-                              className="text-xs px-3 py-1.5 rounded-lg font-medium transition-all"
+                              className="text-xs px-[12px] py-[8px] rounded-lg font-medium transition-all"
                               style={{
                                 background: "rgba(239,68,68,0.1)",
                                 color: "#f87171",

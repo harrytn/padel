@@ -85,10 +85,10 @@ export default function BookPage() {
       <div className="fixed inset-0 bg-[#1E2438]/20 -z-10" />
 
       {/* ── UNIFIED APP WINDOW ── */}
-      <div className="max-w-[1480px] mx-auto bg-white/30 backdrop-blur-2xl rounded-[32px] overflow-hidden shadow-2xl flex flex-col min-h-[85vh] border border-white/50">
+      <div className="max-w-[1480px] mx-auto bg-white/40 backdrop-blur-md rounded-[32px] overflow-hidden shadow-2xl flex flex-col min-h-[85vh] border border-white/50">
         
         {/* ── TOP HEADER ── */}
-        <header className="w-full bg-white/40 border-b border-white/30 px-[32px] h-[88px] flex items-center justify-between shrink-0">
+        <header className="w-full bg-white/40 border-b border-white/30 px-[32px] h-[96px] flex items-center justify-between shrink-0">
           {/* Left: Brand */}
           <div className="flex items-center gap-[12px] w-[260px] shrink-0">
             <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={48} height={48} className="h-[48px] w-auto object-contain" priority />
