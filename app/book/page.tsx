@@ -88,54 +88,29 @@ export default function BookPage() {
       <div className="max-w-[1480px] mx-auto bg-white/30 backdrop-blur-2xl rounded-[32px] overflow-hidden shadow-2xl flex flex-col min-h-[85vh] border border-white/50">
         
         {/* ── TOP HEADER ── */}
-        <header className="w-full bg-white/40 border-b border-white/30 px-[32px] h-[80px] flex flex-wrap items-center justify-between shrink-0 gap-[16px]">
-          {/* Left: Logo + Hotel + Title */}
-          <div className="flex items-center gap-[24px]">
-            <div className="flex items-center gap-[12px]">
-              <Image
-                src="/logo-no-bg.png"
-                alt="Caribbean World Djerba"
-                width={40}
-                height={40}
-                className="h-[40px] w-auto object-contain"
-                priority
-              />
-              <span className="font-bold text-[18px] text-[#1E2438] tracking-tight hidden sm:block">
-                Caribbean World
-              </span>
-            </div>
-            
-            {/* Divider */}
-            <div className="w-[1px] h-[32px] bg-black/10 hidden md:block"></div>
-            
-            <h1 className="text-[20px] font-extrabold text-[#1E2438] tracking-tight hidden md:block">
+        <header className="w-full bg-white/40 border-b border-white/30 px-[32px] h-[88px] flex items-center justify-between shrink-0">
+          {/* Left: Brand */}
+          <div className="flex items-center gap-[12px] w-[260px] shrink-0">
+            <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={48} height={48} className="h-[48px] w-auto object-contain" priority />
+            <span className="font-bold text-[18px] text-[#1E2438] tracking-tight hidden sm:block">Caribbean World</span>
+          </div>
+          
+          {/* Center: Title (Pushed away from brand) */}
+          <div className="flex-1 flex justify-start pl-[48px]">
+            <h1 className="text-[22px] font-extrabold text-[#1E2438] tracking-tight hidden md:block">
               {t.book_title}
             </h1>
           </div>
 
-          {/* Right: Date Text + Picker + Language */}
-          <div className="flex items-center gap-[24px]">
+          {/* Right: Controls */}
+          <div className="flex items-center gap-[32px]">
             <div className="flex flex-col items-end hidden sm:flex">
-              <span className="text-[14px] font-bold text-[#1E2438] capitalize">
+              <span className="text-[15px] font-bold text-[#1E2438] capitalize">
                 {selectedDate ? formatDateDisplay(selectedDate) : ""}
               </span>
             </div>
-            
-            <input
-              type="date"
-              value={selectedDate}
-              min={todayISO()}
-              max={maxISO()}
-              onChange={(e) => {
-                setSelectedDate(e.target.value);
-                setSelectedSlot(null);
-              }}
-              className="h-[40px] px-[16px] rounded-[12px] bg-white border border-black/10 shadow-sm text-[14px] font-bold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors cursor-pointer"
-            />
-            
-            {/* Divider */}
+            <input type="date" value={selectedDate} min={todayISO()} max={maxISO()} onChange={(e) => { setSelectedDate(e.target.value); setSelectedSlot(null); }} className="h-[44px] px-[20px] rounded-[14px] bg-white border border-black/10 shadow-sm text-[15px] font-bold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors cursor-pointer" />
             <div className="w-[1px] h-[32px] bg-black/10 hidden sm:block"></div>
-            
             <LanguageToggle />
           </div>
         </header>
