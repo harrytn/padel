@@ -13,9 +13,9 @@ export default function LanguageToggle() {
   const { lang, setLang } = useI18n();
 
   return (
-    <div className="flex items-center gap-[12px] px-[20px] h-[48px] bg-white/60 backdrop-blur-md rounded-full border border-white/40 shadow-sm">
+    <div className="cw-language-toggle bg-white/60 backdrop-blur-md border border-white/40 shadow-sm flex items-center justify-center rounded-full">
       <Globe className="h-[16px] w-[16px] text-slate-400 shrink-0" strokeWidth={1.5} />
-      <div className="flex items-center gap-[16px]">
+      <div className="flex items-center gap-[12px] sm:gap-[16px]">
         {LANGUAGES.map(({ code, name }) => (
           <button
             key={code}

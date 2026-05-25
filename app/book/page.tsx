@@ -87,26 +87,28 @@ export default function BookPage() {
       <div className="max-w-[1500px] mx-auto px-8 py-8">
         
         {/* ── TOP HEADER ── */}
-        <header className="rounded-[28px] bg-white/55 backdrop-blur-sm border border-white/40 shadow-lg px-8 py-5 flex items-center justify-between gap-8">
-          {/* Left: Brand */}
-          <div className="flex items-center gap-[12px] shrink-0">
-            <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={48} height={48} className="h-[48px] w-auto object-contain" priority />
-            <span className="font-bold text-[18px] text-[#1E2438] tracking-tight hidden sm:block">Caribbean World</span>
-          </div>
-          
-          {/* Center: Title */}
-          <div className="flex-1 flex flex-col justify-center">
-            <h1 className="text-[26px] md:text-[32px] font-extrabold text-[#1E2438] tracking-tight">
-              {t.book_title}
-            </h1>
-            <span className="text-[15px] font-medium text-[#1E2438]/70 capitalize mt-1 hidden sm:block">
-              {selectedDate ? formatDateDisplay(selectedDate) : ""}
-            </span>
+        <header className="cw-mobile-header rounded-[28px] bg-white/55 backdrop-blur-sm border border-white/40 shadow-lg px-8 py-5 flex items-center justify-between gap-8">
+          <div className="cw-mobile-title-row flex items-center justify-between gap-4 w-full md:w-auto">
+            {/* Left: Brand */}
+            <div className="flex items-center gap-[12px] shrink-0">
+              <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={48} height={48} className="h-[48px] w-auto object-contain" priority />
+              <span className="font-bold text-[18px] text-[#1E2438] tracking-tight hidden sm:block">Caribbean World</span>
+            </div>
+            
+            {/* Center: Title */}
+            <div className="flex-1 flex flex-col justify-center sm:text-left text-right">
+              <h1 className="text-[20px] sm:text-[26px] md:text-[32px] font-extrabold text-[#1E2438] tracking-tight leading-tight">
+                {t.book_title}
+              </h1>
+              <span className="text-[13px] sm:text-[15px] font-medium text-[#1E2438]/70 capitalize mt-1 hidden sm:block">
+                {selectedDate ? formatDateDisplay(selectedDate) : ""}
+              </span>
+            </div>
           </div>
 
           {/* Right: Controls */}
-          <div className="flex items-center gap-6 shrink-0">
-            <input type="date" value={selectedDate} min={todayISO()} max={maxISO()} onChange={(e) => { setSelectedDate(e.target.value); setSelectedSlot(null); }} className="h-12 px-5 rounded-2xl bg-white/80 border border-cyan-200 shadow-sm text-[15px] font-bold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors cursor-pointer" />
+          <div className="cw-mobile-controls-row flex items-center gap-6 shrink-0 w-full md:w-auto">
+            <input type="date" value={selectedDate} min={todayISO()} max={maxISO()} onChange={(e) => { setSelectedDate(e.target.value); setSelectedSlot(null); }} className="h-12 px-5 rounded-2xl bg-white/80 border border-cyan-200 shadow-sm text-[15px] font-bold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors cursor-pointer w-full md:w-auto" />
             <LanguageToggle />
           </div>
         </header>
@@ -116,58 +118,64 @@ export default function BookPage() {
           
           {/* ── SIDEBAR ── */}
           <aside className="cw-sidebar-root flex flex-col gap-[28px]">
-            {/* Navigation */}
-            <nav className="flex flex-col gap-[12px]">
-              <a
-                href="#"
-                className="cw-nav-item transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
-              >
-                <span className="material-symbols-outlined text-[20px] text-[#2CAFC2]">sports_tennis</span>
-                Courts
-              </a>
-              <a
-                href="/admin"
-                className="cw-nav-item transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
-              >
-                <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
-                Accès Staff
-              </a>
-            </nav>
+            <div className="cw-mobile-sidebar-inner flex flex-col gap-[28px]">
+              {/* Primary Navigation */}
+              <nav className="cw-mobile-nav-primary flex flex-col gap-[12px]">
+                <a
+                  href="#"
+                  className="cw-nav-item transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
+                >
+                  <span className="material-symbols-outlined text-[24px] text-[#2CAFC2]">sports_tennis</span>
+                  Courts
+                </a>
+              </nav>
 
-            {/* Legend */}
-            <div className="cw-legend-root">
-              <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-[16px]">
-                Légende
-              </p>
-              <ul className="flex flex-col gap-[12px]">
-                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
-                  <span className="w-4 h-4 rounded-md border-2 border-cyan-400 bg-white shrink-0" />
-                  Disponible
-                </li>
-                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
-                  <span className="w-4 h-4 rounded-md bg-amber-200 border border-amber-300 shrink-0" />
-                  Occupé
-                </li>
-                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
-                  <span className="w-4 h-4 rounded-md bg-[#E41E2D] shrink-0" />
-                  Sélectionné
-                </li>
-                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
-                  <span className="w-4 h-4 rounded-md bg-slate-300 border border-slate-400 shrink-0" />
-                  Passé
-                </li>
-              </ul>
+              {/* Legend */}
+              <div className="cw-mobile-legend cw-legend-root">
+                <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-[16px]">
+                  Légende
+                </p>
+                <ul className="flex flex-col gap-[12px]">
+                  <li className="cw-legend-row text-[14px] font-medium text-slate-700">
+                    <span className="w-4 h-4 rounded-md border-2 border-cyan-400 bg-white shrink-0" />
+                    Disponible
+                  </li>
+                  <li className="cw-legend-row text-[14px] font-medium text-slate-700">
+                    <span className="w-4 h-4 rounded-md bg-amber-200 border border-amber-300 shrink-0" />
+                    Occupé
+                  </li>
+                  <li className="cw-legend-row text-[14px] font-medium text-slate-700">
+                    <span className="w-4 h-4 rounded-md bg-[#E41E2D] shrink-0" />
+                    Sélectionné
+                  </li>
+                  <li className="cw-legend-row text-[14px] font-medium text-slate-700">
+                    <span className="w-4 h-4 rounded-md bg-slate-300 border border-slate-400 shrink-0" />
+                    Passé
+                  </li>
+                </ul>
+              </div>
+
+              {/* Secondary Navigation */}
+              <nav className="cw-mobile-staff-link flex flex-col gap-[12px]">
+                <a
+                  href="/admin"
+                  className="cw-nav-item transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
+                >
+                  <span className="material-symbols-outlined text-[24px]">admin_panel_settings</span>
+                  Accès Staff
+                </a>
+              </nav>
             </div>
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
           <main className="cw-glass-panel flex flex-col">
-            <div className="flex items-center justify-between mb-[32px]">
-              <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
-                <span className="material-symbols-outlined text-[#2CAFC2] text-3xl">sports_tennis</span>
+            <div className="cw-panel-heading flex items-center justify-between mb-[32px]">
+              <h2 className="text-[20px] sm:text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
+                <span className="material-symbols-outlined text-[#2CAFC2] text-3xl shrink-0">sports_tennis</span>
                 Créneaux disponibles
               </h2>
-              <span className="px-4 py-2 rounded-full bg-white/60 text-xs font-bold tracking-widest text-slate-500 shadow-sm border border-white/40">
+              <span className="cw-panel-badge px-4 py-2 rounded-full bg-white/60 text-[10px] sm:text-xs font-bold tracking-widest text-slate-500 shadow-sm border border-white/40 shrink-0">
                 9 SLOTS / JOUR
               </span>
             </div>
