@@ -200,3 +200,17 @@ h1, h2, h3, h4, h5, h6 {
   background: #d1d5db;
   border-radius: 2px;
 }
+
+/* ── STRICT UI FIX OVERRIDES ── */
+.slot-card-root {
+  position: relative !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  border-radius: 24px !important;
+  min-height: 128px !important;
+  padding: 28px 32px !important;
+}
+
+.booking-panel-root {
+  padding: 36px 40px !important;
+}

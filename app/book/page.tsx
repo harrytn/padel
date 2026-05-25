@@ -161,7 +161,7 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[40px] py-[36px] flex flex-col outline outline-[4px] outline-blue-500">
+          <main className="booking-panel-root rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl flex flex-col outline outline-[4px] outline-blue-500">
             <div className="flex items-center justify-between mb-[32px]">
               <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
                 <span className="material-symbols-outlined text-[#2CAFC2] text-3xl">sports_tennis</span>
