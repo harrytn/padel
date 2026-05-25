@@ -28,9 +28,6 @@ function formatDateDisplay(isoDate: string): string {
   });
 }
 
-/** Glass card shared class string */
-const GLASS = "bg-white/75 backdrop-blur-md rounded-3xl shadow-xl shadow-black/10 border border-white/20";
-
 export default function BookPage() {
   const { t } = useI18n();
   const [selectedDate, setSelectedDate] = useState<string>(todayISO());
@@ -83,63 +80,48 @@ export default function BookPage() {
   };
 
   return (
-    <div className="bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed min-h-screen">
-      {/* Subtle dark tint so glass cards pop */}
-      <div className="fixed inset-0 bg-[#1E2438]/30 -z-10" />
+    <div className="bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed min-h-screen p-[16px] md:p-[32px]">
+      {/* Subtle dark tint */}
+      <div className="fixed inset-0 bg-[#1E2438]/20 -z-10" />
 
-      {/* ── Page Content Wrapper ── */}
-      <div className="max-w-[1480px] mx-auto px-4 md:px-8 py-4 md:py-8 flex flex-col gap-8">
+      {/* ── UNIFIED APP WINDOW ── */}
+      <div className="max-w-[1480px] mx-auto bg-[#F4F5F7]/95 backdrop-blur-xl rounded-[32px] overflow-hidden shadow-2xl flex flex-col min-h-[85vh] border border-white/40">
         
-        {/* ── Header ── */}
-        <header className="w-full bg-white/70 backdrop-blur-md rounded-2xl border border-white/20 shadow-sm shadow-black/5 px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/logo-no-bg.png"
-              alt="Caribbean World Djerba"
-              width={40}
-              height={40}
-              className="h-10 w-auto object-contain"
-              priority
-              loading="eager"
-            />
-            <span className="font-bold text-lg text-[#1E2438] tracking-tight hidden sm:block">
-              Caribbean World Djerba
-            </span>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <LanguageToggle />
-            <button
-              aria-label="Notifications"
-              className="p-2 rounded-full hover:bg-black/5 transition-colors text-[#DB8248]"
-            >
-              <span className="material-symbols-outlined text-xl">notifications</span>
-            </button>
-            <button
-              aria-label="Compte"
-              className="p-2 rounded-full hover:bg-black/5 transition-colors text-[#DB8248]"
-            >
-              <span className="material-symbols-outlined text-xl">account_circle</span>
-            </button>
-          </div>
-        </header>
-
-        {/* ── TITLE AREA ── */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center bg-white/85 backdrop-blur-md px-[32px] py-[20px] mb-[32px] rounded-2xl shadow-sm">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#1E2438] tracking-tight">
+        {/* ── TOP HEADER ── */}
+        <header className="w-full bg-white/50 border-b border-black/5 px-[32px] h-[80px] flex flex-wrap items-center justify-between shrink-0 gap-[16px]">
+          {/* Left: Logo + Hotel + Title */}
+          <div className="flex items-center gap-[24px]">
+            <div className="flex items-center gap-[12px]">
+              <Image
+                src="/logo-no-bg.png"
+                alt="Caribbean World Djerba"
+                width={40}
+                height={40}
+                className="h-[40px] w-auto object-contain"
+                priority
+              />
+              <span className="font-bold text-[18px] text-[#1E2438] tracking-tight hidden sm:block">
+                Caribbean World
+              </span>
+            </div>
+            
+            {/* Divider */}
+            <div className="w-[1px] h-[32px] bg-black/10 hidden md:block"></div>
+            
+            <h1 className="text-[20px] font-extrabold text-[#1E2438] tracking-tight hidden md:block">
               {t.book_title}
             </h1>
-            {selectedDate && (
-              <p className="mt-1 text-sm md:text-base text-[#1E2438]/60 capitalize font-medium">
-                {formatDateDisplay(selectedDate)}
-              </p>
-            )}
           </div>
-          <div className="flex items-center gap-2">
-            <label htmlFor="date-picker" className="sr-only">{t.book_select_date}</label>
+
+          {/* Right: Date Text + Picker + Language */}
+          <div className="flex items-center gap-[24px]">
+            <div className="flex flex-col items-end hidden sm:flex">
+              <span className="text-[14px] font-bold text-[#1E2438] capitalize">
+                {selectedDate ? formatDateDisplay(selectedDate) : ""}
+              </span>
+            </div>
+            
             <input
-              id="date-picker"
               type="date"
               value={selectedDate}
               min={todayISO()}
@@ -148,113 +130,99 @@ export default function BookPage() {
                 setSelectedDate(e.target.value);
                 setSelectedSlot(null);
               }}
-              className="h-12 px-5 rounded-2xl bg-white/90 border border-cyan-200 shadow-sm text-sm font-semibold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors"
+              className="h-[40px] px-[16px] rounded-[12px] bg-white border border-black/10 shadow-sm text-[14px] font-bold text-[#1E2438] outline-none focus:border-[#2CAFC2] transition-colors cursor-pointer"
             />
+            
+            {/* Divider */}
+            <div className="w-[1px] h-[32px] bg-black/10 hidden sm:block"></div>
+            
+            <LanguageToggle />
           </div>
-        </div>
+        </header>
 
-        {/* ── MAIN TWO-COLUMN ARCHITECTURE ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 items-start w-full">
-
-          {/* ══ SIDEBAR REDESIGN ══════════════════════════════════════════════════ */}
-          <aside className="p-6 rounded-[28px] bg-white/75 backdrop-blur-md flex flex-col sticky top-6 min-h-[500px]">
-            {/* Logo block */}
-            <div className="flex flex-col items-center text-center gap-3 mb-8">
-              <Image
-                src="/logo-no-bg.png"
-                alt="Logo"
-                width={72}
-                height={72}
-                className="h-18 w-auto object-contain"
-              />
-              <div>
-                <p className="font-bold text-base text-[#1E2438]">Court Booking</p>
-                <p className="text-xs text-[#1E2438]/50 mt-0.5 leading-relaxed">Caribbean World</p>
-              </div>
-            </div>
-
-            {/* Nav */}
-            <nav className="flex flex-col gap-2 mb-8">
-              {/* Active item */}
+        {/* ── MAIN CONTENT LAYOUT ── */}
+        <div className="flex flex-col lg:flex-row flex-1 p-[32px] gap-[48px]">
+          
+          {/* ── SIDEBAR ── */}
+          <aside className="w-full lg:w-[260px] shrink-0 flex flex-col h-full">
+            {/* Navigation */}
+            <nav className="flex flex-col gap-[8px] mb-[48px]">
               <a
                 href="#"
-                className="h-12 px-4 rounded-2xl flex items-center gap-3 bg-[#2CAFC2]/10 text-[#2CAFC2] font-bold text-sm"
+                className="h-[48px] px-[16px] rounded-[16px] flex items-center gap-[16px] bg-white text-[#1E2438] font-bold text-[15px] shadow-sm border border-black/5"
               >
-                <span className="material-symbols-outlined text-xl">sports_tennis</span>
+                <span className="material-symbols-outlined text-[20px] text-[#2CAFC2]">sports_tennis</span>
                 Courts
               </a>
               <a
                 href="/admin"
-                className="h-12 px-4 rounded-2xl flex items-center gap-3 text-[#1E2438]/70 font-semibold text-sm hover:bg-black/5 transition-colors"
+                className="h-[48px] px-[16px] rounded-[16px] flex items-center gap-[16px] text-[#1E2438]/60 font-semibold text-[15px] hover:bg-black/5 transition-colors"
               >
-                <span className="material-symbols-outlined text-xl text-[#DB8248]">admin_panel_settings</span>
+                <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
                 Accès Staff
               </a>
             </nav>
 
-            {/* Legend (Pushed to bottom) */}
-            <div className="border-t border-[#1E2438]/10 pt-6 mt-auto">
-              <p className="text-[10px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-3">Légende</p>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
-                  <span className="w-3 h-3 rounded-sm border-2 border-[#2CAFC2] bg-white shrink-0" />
+            {/* Legend */}
+            <div className="mt-auto">
+              <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-[24px]">
+                Légende
+              </p>
+              <ul className="flex flex-col gap-[16px]">
+                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
+                  <span className="w-[16px] h-[16px] rounded-[4px] border-2 border-[#2CAFC2] bg-white shrink-0" />
                   Disponible
                 </li>
-                <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
-                  <span className="w-3 h-3 rounded-sm bg-[#EEBB3B] shrink-0" />
+                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
+                  <span className="w-[16px] h-[16px] rounded-[4px] bg-[#EEBB3B] shrink-0" />
                   Occupé
                 </li>
-                <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
-                  <span className="w-3 h-3 rounded-sm bg-[#E41E2D] shrink-0" />
+                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
+                  <span className="w-[16px] h-[16px] rounded-[4px] bg-[#E41E2D] shrink-0" />
                   Sélectionné
                 </li>
-                <li className="flex items-center gap-2.5 text-xs text-[#1E2438]/60 font-medium">
-                  <span className="w-3 h-3 rounded-sm bg-black/10 shrink-0" />
+                <li className="flex items-center gap-[16px] text-[14px] text-[#1E2438]/80 font-semibold">
+                  <span className="w-[16px] h-[16px] rounded-[4px] bg-black/10 shrink-0" />
                   Passé
                 </li>
               </ul>
             </div>
           </aside>
 
-          {/* ══ MAIN CONTENT ══════════════════════════════════════════════════ */}
-          <main className="min-w-0 flex flex-col gap-6">
+          {/* ── WHITE CARD GRID PANEL ── */}
+          <main className="flex-1 bg-white rounded-[24px] shadow-sm border border-black/5 flex flex-col p-[40px]">
+            <div className="flex justify-between items-center mb-[40px] w-full">
+              <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight">
+                Créneaux disponibles
+              </h2>
+              <span className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest bg-black/5 px-[16px] py-[8px] rounded-full">
+                9 slots / jour
+              </span>
+            </div>
 
-            {/* ── Slot-taken error banner ── */}
             {slotTakenError && (
-              <div className="px-4 py-3 bg-[#E41E2D]/10 border border-[#E41E2D]/30 rounded-2xl text-sm font-bold text-[#E41E2D] text-center">
+              <div className="mb-[24px] px-[20px] py-[16px] bg-[#E41E2D]/10 border border-[#E41E2D]/30 rounded-[16px] text-[14px] font-bold text-[#E41E2D] text-center">
                 ⚠️ {t.checkout_slot_taken}
               </div>
             )}
 
-            {/* ── Main Booking Panel ── */}
-            <div className="bg-white/75 backdrop-blur-md rounded-[28px] p-[32px] md:p-[40px] w-full flex flex-col">
-              <div className="flex justify-between items-center mb-[32px] w-full">
-                <h2 className="text-xl font-bold text-[#1E2438] flex items-center gap-2">
-                  <span className="material-symbols-outlined text-[#2CAFC2] text-2xl">sports_tennis</span>
-                  Créneaux disponibles
-                </h2>
-                <span className="text-[10px] font-bold text-[#1E2438]/25 uppercase tracking-widest">
-                  9 slots / jour
-                </span>
-              </div>
+            <SlotGrid
+              slots={slots}
+              selectedSlot={selectedSlot?.slotStart ?? null}
+              onSelectSlot={(slot) => {
+                setSelectedSlot(slot);
+                setSlotTakenError(false);
+              }}
+              loading={loading}
+              error={error}
+              selectedDate={selectedDate}
+            />
 
-              <SlotGrid
-                slots={slots}
-                selectedSlot={selectedSlot?.slotStart ?? null}
-                onSelectSlot={(slot) => {
-                  setSelectedSlot(slot);
-                  setSlotTakenError(false);
-                }}
-                loading={loading}
-                error={error}
-                selectedDate={selectedDate}
-              />
-
-              <p className="mt-6 pt-4 border-t border-[#1E2438]/5 text-[10px] font-medium text-[#1E2438]/30 text-center">
+            <div className="mt-auto pt-[40px]">
+              <p className="border-t border-[#1E2438]/10 pt-[24px] text-[13px] font-medium text-[#1E2438]/50 text-center">
                 Merci de vous présenter à la réception 15 minutes avant votre session.
               </p>
             </div>
-
           </main>
         </div>
       </div>
