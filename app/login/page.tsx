@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -32,31 +33,26 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div
-      className="min-h-screen flex items-center justify-center px-4"
-      style={{ background: "#0f172a" }}
-    >
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-8">
-          <div className="text-4xl mb-3">🎾</div>
+    <div className="bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed min-h-screen flex items-center justify-center px-[16px] relative">
+      {/* Subtle dark tint */}
+      <div className="absolute inset-0 bg-[#1E2438]/20 z-0" />
+      <div className="w-full max-w-sm z-10 relative">
+        <div className="text-center mb-[32px]">
+          <Image src="/logo-no-bg.png" alt="Caribbean World Djerba" width={64} height={64} className="h-[64px] w-auto object-contain mx-auto mb-[16px]" priority />
           <h1
-            className="text-2xl font-bold text-white"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            className="text-[24px] font-bold text-white tracking-tight drop-shadow-md"
           >
-            Caribbean World Djerba
+            Caribbean World
           </h1>
-          <p className="text-slate-400 mt-1 text-sm">Accès réservé au personnel</p>
+          <p className="text-white/80 mt-[8px] text-[14px] font-medium drop-shadow-sm">Accès réservé au personnel</p>
         </div>
 
-        <div
-          className="rounded-2xl p-6"
-          style={{ background: "#1e293b", border: "1px solid #334155" }}
-        >
+        <div className="cw-form-card">
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
+            <div className="flex flex-col gap-[8px]">
               <label
                 htmlFor="admin-password"
-                className="block text-sm font-medium text-slate-300 mb-2"
+                className="block text-[13px] font-bold text-slate-700 tracking-wide"
               >
                 Mot de passe
               </label>
@@ -67,18 +63,7 @@ export default function AdminLoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full px-4 py-3 rounded-xl text-white placeholder-slate-500 outline-none transition-all"
-                style={{
-                  background: "#0f172a",
-                  border: "1.5px solid #334155",
-                  fontFamily: "var(--font-body)",
-                }}
-                onFocus={(e) =>
-                  (e.target.style.borderColor = "#14b8a6")
-                }
-                onBlur={(e) =>
-                  (e.target.style.borderColor = "#334155")
-                }
+                className="cw-input w-full text-[15px] font-medium text-slate-800 placeholder-slate-400"
               />
             </div>
 
@@ -92,21 +77,15 @@ export default function AdminLoginPage() {
               id="admin-login-btn"
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl font-bold text-white transition-all"
-              style={{
-                background: loading
-                  ? "#334155"
-                  : "linear-gradient(135deg, #0891b2, #14b8a6)",
-                boxShadow: loading ? "none" : "0 4px 16px rgba(8,145,178,0.3)",
-              }}
+              className="cw-button w-full bg-[#1B4332] text-white hover:bg-[#1B4332]/90 disabled:opacity-50 mt-[16px]"
             >
               {loading ? "Connexion..." : "Se connecter"}
             </button>
           </form>
         </div>
 
-        <p className="text-center mt-6">
-          <a href="/book" className="text-sm text-slate-500 hover:text-slate-300 transition-colors">
+        <p className="text-center mt-[24px]">
+          <a href="/book" className="text-[13px] font-bold text-white/80 hover:text-white transition-colors drop-shadow-sm">
             ← Retour à la réservation
           </a>
         </p>

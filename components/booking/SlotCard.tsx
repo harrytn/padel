@@ -20,7 +20,7 @@ interface SlotCardProps {
   isPast?: boolean;
 }
 
-const BASE = "slot-card-root flex text-left transition-all outline outline-[4px] outline-red-500 w-full";
+const BASE = "cw-slot-card-root flex text-left transition-all w-full";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();

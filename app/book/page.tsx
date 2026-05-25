@@ -112,22 +112,22 @@ export default function BookPage() {
         </header>
 
         {/* ── MAIN CONTENT LAYOUT ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6 lg:gap-10 items-start mt-[48px] outline outline-[4px] outline-green-500">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-[24px] lg:gap-[40px] items-start mt-[48px]">
           
           {/* ── SIDEBAR ── */}
-          <aside className="w-full lg:w-[280px] rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl px-[24px] py-[28px] flex flex-col gap-[28px]">
+          <aside className="cw-sidebar-root flex flex-col gap-[28px]">
             {/* Navigation */}
-            <nav className="flex flex-col gap-3">
+            <nav className="flex flex-col gap-[12px]">
               <a
                 href="#"
-                className="h-[56px] px-[20px] flex items-center gap-[12px] rounded-[20px] transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
+                className="cw-nav-item transition-all bg-cyan-50 text-[#1E2438] font-bold text-[15px] shadow-sm border border-cyan-100"
               >
                 <span className="material-symbols-outlined text-[20px] text-[#2CAFC2]">sports_tennis</span>
                 Courts
               </a>
               <a
                 href="/admin"
-                className="h-[56px] px-[20px] flex items-center gap-[12px] rounded-[20px] transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
+                className="cw-nav-item transition-all text-[#1E2438]/70 font-semibold text-[15px] hover:bg-white/50"
               >
                 <span className="material-symbols-outlined text-[20px]">admin_panel_settings</span>
                 Accès Staff
@@ -135,24 +135,24 @@ export default function BookPage() {
             </nav>
 
             {/* Legend */}
-            <div className="px-[8px]">
-              <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-4">
+            <div className="cw-legend-root">
+              <p className="text-[12px] font-bold text-[#1E2438]/40 uppercase tracking-widest mb-[16px]">
                 Légende
               </p>
-              <ul className="flex flex-col space-y-3">
-                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
+              <ul className="flex flex-col gap-[12px]">
+                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                   <span className="w-4 h-4 rounded-md border-2 border-cyan-400 bg-white shrink-0" />
                   Disponible
                 </li>
-                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
+                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                   <span className="w-4 h-4 rounded-md bg-amber-200 border border-amber-300 shrink-0" />
                   Occupé
                 </li>
-                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
+                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                   <span className="w-4 h-4 rounded-md bg-[#E41E2D] shrink-0" />
                   Sélectionné
                 </li>
-                <li className="flex items-center gap-[12px] text-[14px] font-medium text-slate-700 leading-relaxed">
+                <li className="cw-legend-row text-[14px] font-medium text-slate-700">
                   <span className="w-4 h-4 rounded-md bg-slate-300 border border-slate-400 shrink-0" />
                   Passé
                 </li>
@@ -161,7 +161,7 @@ export default function BookPage() {
           </aside>
 
           {/* ── WHITE CARD GRID PANEL ── */}
-          <main className="booking-panel-root rounded-[30px] bg-white/60 backdrop-blur-sm border border-white/40 shadow-xl flex flex-col outline outline-[4px] outline-blue-500">
+          <main className="cw-glass-panel flex flex-col">
             <div className="flex items-center justify-between mb-[32px]">
               <h2 className="text-[24px] font-bold text-[#1E2438] tracking-tight flex items-center gap-3">
                 <span className="material-symbols-outlined text-[#2CAFC2] text-3xl">sports_tennis</span>

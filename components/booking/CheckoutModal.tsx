@@ -134,7 +134,7 @@ export default function CheckoutModal({
 
   return (
     <div className="fixed inset-0 bg-[#1B4332]/20 backdrop-blur-sm z-50 flex items-center justify-center p-[16px]" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="simple-modal max-h-[90vh] overflow-y-auto bg-[#FCFBF8] border border-[#1B4332]/10 p-[32px]">
+      <div className="cw-modal-root w-full max-w-[500px] max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex justify-between items-start mb-[32px]">
           <div>
@@ -160,7 +160,7 @@ export default function CheckoutModal({
             <div className="relative">
               <input
                 id="checkout-firstname"
-                className="minimal-input pr-10"
+                className="cw-input w-full pr-[40px] text-[15px]"
                 placeholder={t.checkout_first_name_placeholder}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
@@ -170,7 +170,7 @@ export default function CheckoutModal({
             <div className="relative">
               <input
                 id="checkout-lastname"
-                className="minimal-input pr-10"
+                className="cw-input w-full pr-[40px] text-[15px]"
                 placeholder={t.checkout_last_name_placeholder}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
@@ -180,7 +180,7 @@ export default function CheckoutModal({
             <div className="relative">
               <input
                 id="checkout-room"
-                className="minimal-input pr-10"
+                className="cw-input w-full pr-[40px] text-[15px]"
                 placeholder={t.checkout_room_placeholder}
                 value={roomNumber}
                 onChange={(e) => setRoomNumber(e.target.value)}
@@ -191,7 +191,7 @@ export default function CheckoutModal({
           </div>
 
           {/* Rackets Add-on */}
-          <div className="flat-card p-[24px] space-y-[16px]">
+          <div className="cw-glass-card flex flex-col gap-[16px] p-[24px]">
             <div className="flex items-center gap-[8px] text-[#1B4332]">
               <ShoppingBag size={16} strokeWidth={1.5} />
               <p className="text-sm font-bold tracking-tight">{t.checkout_rackets_label}</p>
@@ -227,7 +227,7 @@ export default function CheckoutModal({
 
           {/* Lighting Add-on */}
           {slot.hasLighting && (
-            <div className="flat-card p-[24px] flex items-center justify-between">
+            <div className="cw-glass-card p-[24px] flex items-center justify-between">
               <div className="flex items-center gap-[8px] text-[#1B4332]">
                 <Lightbulb size={16} strokeWidth={1.5} />
                 <p className="text-sm font-bold tracking-tight">{t.checkout_lighting_label}</p>
@@ -242,7 +242,7 @@ export default function CheckoutModal({
           )}
 
           {/* Price Breakdown */}
-          <div className="bg-[#1B4332]/5 rounded-xl p-[24px] space-y-[12px]">
+          <div className="bg-[#1B4332]/5 rounded-xl p-[24px] flex flex-col gap-[12px]">
             <PriceRow label={t.checkout_base} amount={breakdown.base} />
             <PriceRow label={t.checkout_peak_surcharge} amount={breakdown.peakSurcharge} />
             <PriceRow label={t.checkout_rackets_fee} amount={breakdown.rackets} />
@@ -264,7 +264,7 @@ export default function CheckoutModal({
           <button
             onClick={handleSubmit}
             disabled={isSubmitting}
-            className="w-full flex items-center justify-center gap-[8px] h-[48px] rounded-xl bg-[#E41E2D] text-white font-bold text-sm tracking-tight transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="cw-button w-full bg-[#E41E2D] text-white font-bold text-[15px] tracking-tight transition-opacity hover:opacity-90 disabled:opacity-50 mt-[8px]"
           >
             {isSubmitting ? (
               <span className="w-4 h-4 border-2 border-[#1A1A1A]/20 border-t-[#1A1A1A] rounded-full animate-spin" />

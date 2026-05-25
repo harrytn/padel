@@ -156,40 +156,33 @@ export default function AdminSchedulePage() {
       <div className="flex items-center justify-between mb-[32px]">
         <div>
           <h1
-            className="text-2xl font-bold text-white"
-            style={{ fontFamily: "var(--font-outfit)" }}
+            className="text-[24px] font-bold text-[#1E2438] tracking-tight"
           >
             📅 {t.admin_schedule_title}
           </h1>
-          <p className="text-slate-400 text-sm mt-1">Caribbean World Djerba — Court de Padel</p>
+          <p className="text-[#1E2438]/60 text-[14px] font-bold mt-[4px]">Caribbean World Djerba — Court de Padel</p>
         </div>
         <input
           id="admin-date-picker"
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="px-[16px] py-[8px] rounded-lg text-slate-200 text-sm outline-none"
-          style={{
-            background: "#1e293b",
-            border: "1.5px solid #334155",
-            fontFamily: "var(--font-body)",
-          }}
+          className="cw-input"
         />
       </div>
 
       {/* Schedule table */}
       <div
-        className="rounded-2xl w-full overflow-x-auto"
-        style={{ border: "1px solid #334155" }}
+        className="cw-glass-card w-full overflow-x-auto p-0 border-none"
       >
         <table className="w-full whitespace-nowrap min-w-max">
           <thead>
-            <tr style={{ background: "#1e293b" }}>
+            <tr className="border-b border-[#1E2438]/10">
               {["Heure", "Type", "Client", "Chambre", "PIN", "Prix", "Statut", "Actions"].map(
                 (h) => (
                   <th
                     key={h}
-                    className="px-[16px] py-[12px] text-left text-xs font-semibold text-slate-400 uppercase tracking-wider"
+                    className="px-[24px] py-[16px] text-left text-[12px] font-bold text-[#1E2438]/60 uppercase tracking-wider"
                   >
                     {h}
                   </th>
@@ -200,12 +193,11 @@ export default function AdminSchedulePage() {
           <tbody>
             {loading
               ? Array.from({ length: 9 }).map((_, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? "#0f172a" : "#1e293b" }}>
+                  <tr key={i} className="border-b border-[#1E2438]/5">
                     {Array.from({ length: 8 }).map((__, j) => (
-                      <td key={j} className="px-[16px] py-[16px]">
+                      <td key={j} className="px-[24px] py-[20px]">
                         <div
-                          className="h-4 rounded animate-pulse"
-                          style={{ background: "#334155", width: "80%" }}
+                          className="h-[16px] rounded bg-[#1E2438]/10 animate-pulse w-[80%]"
                         />
                       </td>
                     ))}
@@ -220,108 +212,98 @@ export default function AdminSchedulePage() {
                   return (
                     <tr
                       key={slotStart}
+                      className="border-b border-[#1E2438]/5 transition-colors hover:bg-white/40"
                       style={{
-                        background: i % 2 === 0 ? "#0f172a" : "#1e293b",
                         opacity: busy ? 0.6 : 1,
                       }}
                     >
                       {/* Time */}
-                      <td className="px-[16px] py-[16px]">
+                      <td className="px-[24px] py-[20px]">
                         <span
-                          className="font-bold text-base block"
-                          style={{
-                            fontFamily: "var(--font-outfit)",
-                            color: isPeak ? "#f59e0b" : "#14b8a6",
-                          }}
+                          className={`font-bold text-[15px] block ${isPeak ? "text-amber-600" : "text-[#2CAFC2]"}`}
                         >
                           {slotStart} - {getSlotEnd(slotStart)}
                         </span>
                         {isPeak && (
-                          <span className="text-xs text-amber-500 font-medium">
+                          <span className="text-[11px] text-amber-600 font-bold tracking-tight">
                             ⚡ Heure de pointe
                           </span>
                         )}
                       </td>
 
                       {/* Type */}
-                      <td className="px-[16px] py-[16px]">
+                      <td className="px-[24px] py-[20px]">
                         {booking ? (
                           <span
-                            className="text-xs px-[8px] py-[4px] rounded-full font-medium"
+                            className="text-[11px] px-[12px] py-[6px] rounded-full font-bold uppercase tracking-wide"
                             style={{
-                              background: isBlock ? "#1e293b" : "#0f4c75",
-                              color: isBlock ? "#94a3b8" : "#7dd3fc",
-                              border: `1px solid ${isBlock ? "#334155" : "#0369a1"}`,
+                              background: isBlock ? "rgba(30,36,56,0.05)" : "rgba(44,175,194,0.1)",
+                              color: isBlock ? "#1E2438" : "#2CAFC2",
+                              border: `1px solid ${isBlock ? "rgba(30,36,56,0.1)" : "rgba(44,175,194,0.2)"}`,
                             }}
                           >
                             {isBlock ? "🚫 Bloqué" : "👤 Client"}
                           </span>
                         ) : (
-                          <span className="text-slate-600 text-xs">—</span>
+                          <span className="text-[#1E2438]/40 text-[14px] font-bold">—</span>
                         )}
                       </td>
 
                       {/* Client name */}
-                      <td className="px-[16px] py-[16px] text-slate-300 text-sm">
+                      <td className="px-[24px] py-[20px] text-[#1E2438] font-bold text-[14px]">
                         {booking && !isBlock
                           ? `${booking.customer_first_name} ${booking.customer_last_name}`
                           : "—"}
                       </td>
 
                       {/* Room */}
-                      <td className="px-[16px] py-[16px] text-slate-300 text-sm font-mono">
+                      <td className="px-[24px] py-[20px] text-[#1E2438] font-bold text-[14px]">
                         {booking?.room_number ?? "—"}
                       </td>
 
                       {/* PIN */}
-                      <td className="px-[16px] py-[16px]">
+                      <td className="px-[24px] py-[20px]">
                         {booking && !isBlock ? (
                           <span
-                            className="font-bold text-base tracking-widest"
-                            style={{ fontFamily: "var(--font-outfit)", color: "#a78bfa" }}
+                            className="font-bold text-[14px] tracking-widest text-violet-600 bg-violet-50 px-[12px] py-[4px] rounded-lg border border-violet-100"
                           >
                             {booking.booking_pin}
                           </span>
                         ) : (
-                          <span className="text-slate-600">—</span>
+                          <span className="text-[#1E2438]/40 font-bold">—</span>
                         )}
                       </td>
 
                       {/* Price */}
-                      <td className="px-[16px] py-[16px]">
+                      <td className="px-[24px] py-[20px]">
                         {booking && !isBlock ? (
-                          <span className="text-white font-semibold">{booking.total_price} DT</span>
+                          <span className="text-[#1E2438] font-bold text-[14px]">{booking.total_price} DT</span>
                         ) : (
-                          <span className="text-slate-600">—</span>
+                          <span className="text-[#1E2438]/40 font-bold">—</span>
                         )}
                       </td>
 
                       {/* Status */}
-                      <td className="px-[16px] py-[16px]">
+                      <td className="px-[24px] py-[20px]">
                         {isBlock ? (
                           <span
-                            className="text-xs font-semibold px-[12px] py-[4px] rounded-full"
-                            style={{
-                              background: "#f1f5f922",
-                              color: "#94a3b8",
-                              border: "1px solid #334155",
-                            }}
+                            className="text-[11px] font-bold px-[12px] py-[6px] rounded-full uppercase tracking-wide bg-[#1E2438]/5 text-[#1E2438]/60 border border-[#1E2438]/10"
                           >
                             🚫 Bloqué
                           </span>
                         ) : statusInfo ? (
                           <span
-                            className="text-xs font-semibold px-[12px] py-[4px] rounded-full"
+                            className="text-[11px] font-bold px-[12px] py-[6px] rounded-full uppercase tracking-wide"
                             style={{
-                              background: statusInfo.bg + "22",
+                              background: statusInfo.bg,
                               color: statusInfo.text,
-                              border: `1px solid ${statusInfo.bg}`,
+                              border: `1px solid ${statusInfo.text}30`,
                             }}
                           >
                             {statusInfo.label}
                           </span>
                         ) : (
-                          <span className="text-slate-600 text-xs">Libre</span>
+                          <span className="text-[#1E2438]/40 text-[13px] font-bold">Libre</span>
                         )}
                       </td>
 

@@ -13,9 +13,9 @@ export default function LanguageToggle() {
   const { lang, setLang } = useI18n();
 
   return (
-    <div className="flex items-center gap-4 px-4 py-2 bg-white/40 rounded-full border border-[#1B4332]/10">
-      <Globe size={14} strokeWidth={1.5} className="text-[#1B4332]/40" />
-      <div className="flex items-center gap-3">
+    <div className="flex items-center gap-[12px] px-[20px] h-[48px] bg-white/60 backdrop-blur-md rounded-full border border-white/40 shadow-sm">
+      <Globe className="h-[16px] w-[16px] text-slate-400 shrink-0" strokeWidth={1.5} />
+      <div className="flex items-center gap-[16px]">
         {LANGUAGES.map(({ code, name }) => (
           <button
             key={code}

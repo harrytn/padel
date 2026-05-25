@@ -201,8 +201,34 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 2px;
 }
 
-/* ── STRICT UI FIX OVERRIDES ── */
-.slot-card-root {
+/* ─────────────────────────────
+   Caribbean World UI System
+   Global spacing + glass standards
+───────────────────────────── */
+
+.cw-glass-panel {
+  position: relative !important;
+  box-sizing: border-box !important;
+  border-radius: 30px !important;
+  padding: 36px 40px !important;
+  background: rgba(255, 255, 255, 0.58) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14) !important;
+}
+
+.cw-glass-card {
+  position: relative !important;
+  box-sizing: border-box !important;
+  border-radius: 24px !important;
+  padding: 28px 32px !important;
+  background: rgba(255, 255, 255, 0.62) !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.38) !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10) !important;
+}
+
+.cw-slot-card-root {
   position: relative !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
@@ -211,6 +237,90 @@ h1, h2, h3, h4, h5, h6 {
   padding: 28px 32px !important;
 }
 
-.booking-panel-root {
-  padding: 36px 40px !important;
+.cw-sidebar-root {
+  position: relative !important;
+  box-sizing: border-box !important;
+  width: 280px !important;
+  border-radius: 30px !important;
+  padding: 28px 24px !important;
+  background: rgba(255, 255, 255, 0.58) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.12) !important;
+}
+
+.cw-nav-item {
+  box-sizing: border-box !important;
+  min-height: 56px !important;
+  padding: 0 20px !important;
+  border-radius: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.cw-legend-root {
+  box-sizing: border-box !important;
+  padding: 0 8px !important;
+}
+
+.cw-legend-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  min-height: 28px !important;
+}
+
+.cw-form-card {
+  position: relative !important;
+  box-sizing: border-box !important;
+  border-radius: 28px !important;
+  padding: 32px !important;
+  background: rgba(255, 255, 255, 0.62) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.14) !important;
+}
+
+.cw-input {
+  box-sizing: border-box !important;
+  min-height: 48px !important;
+  padding: 12px 16px !important;
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid rgba(103, 232, 249, 0.45) !important;
+}
+
+.cw-button {
+  box-sizing: border-box !important;
+  min-height: 48px !important;
+  padding: 0 20px !important;
+  border-radius: 16px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  font-weight: 700 !important;
+}
+
+.cw-modal-root {
+  position: relative !important;
+  box-sizing: border-box !important;
+  border-radius: 32px !important;
+  padding: 36px !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.48) !important;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.22) !important;
+}
+
+.cw-admin-card {
+  position: relative !important;
+  box-sizing: border-box !important;
+  border-radius: 24px !important;
+  padding: 28px 32px !important;
+  background: rgba(255, 255, 255, 0.64) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10) !important;
 }

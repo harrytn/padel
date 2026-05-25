@@ -30,31 +30,29 @@ export default function AdminSidebar({ isCollapsed, toggleCollapse }: AdminSideb
 
   return (
     <div
-      className={`relative h-screen flex flex-col transition-all duration-300 ease-in-out shrink-0 ${
-        isCollapsed ? "w-20" : "w-64"
+      className={`relative h-screen flex flex-col transition-all duration-300 ease-in-out shrink-0 border-r border-white/40 bg-white/60 backdrop-blur-md ${
+        isCollapsed ? "w-20" : "w-[280px]"
       }`}
-      style={{ background: "#1e293b", borderRight: "1px solid #334155" }}
     >
       {/* Toggle Button */}
       <button
         onClick={toggleCollapse}
-        className="absolute -right-3 top-10 w-6 h-6 rounded-full bg-[#334155] text-white flex items-center justify-center hover:bg-[#475569] transition-colors z-50 border border-[#1e293b]"
+        className="absolute -right-3 top-10 w-6 h-6 rounded-full bg-white text-[#1B4332] flex items-center justify-center hover:bg-slate-50 transition-colors z-50 border border-white/40 shadow-sm"
       >
         {isCollapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
       </button>
 
       {/* Header / Logo */}
       <div
-        className={`p-6 border-b flex items-center gap-3 ${isCollapsed ? "justify-center" : ""}`}
-        style={{ borderColor: "#334155" }}
+        className={`p-[24px] border-b border-white/40 flex items-center gap-[12px] ${isCollapsed ? "justify-center" : ""}`}
       >
-        <div className="shrink-0 text-teal-400">
+        <div className="shrink-0 text-[#1B4332]">
           <Wind size={24} strokeWidth={1.5} />
         </div>
         {!isCollapsed && (
           <div>
-            <h1 className="font-bold text-white text-sm tracking-tight uppercase">Caribbean</h1>
-            <p className="text-[10px] text-slate-400 font-medium tracking-widest leading-none">
+            <h1 className="font-bold text-[#1E2438] text-[15px] tracking-tight uppercase">Caribbean</h1>
+            <p className="text-[11px] text-[#1E2438]/60 font-bold tracking-widest leading-none mt-[4px]">
               Staff Portal
             </p>
           </div>
@@ -62,12 +60,12 @@ export default function AdminSidebar({ isCollapsed, toggleCollapse }: AdminSideb
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-2 mt-4">
+      <nav className="flex-1 p-[16px] flex flex-col gap-[8px] mt-[16px]">
         <a
           href="/admin"
-          className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all group ${
+          className={`flex items-center gap-[12px] px-[16px] h-[48px] rounded-xl text-[14px] font-bold transition-all group ${
             isCollapsed ? "justify-center" : ""
-          } text-slate-400 hover:text-white hover:bg-white/5`}
+          } text-[#1E2438]/80 hover:text-[#1E2438] hover:bg-white/50`}
         >
           <Calendar size={18} strokeWidth={1.5} className="shrink-0" />
           {!isCollapsed && <span>Planning</span>}
@@ -77,9 +75,9 @@ export default function AdminSidebar({ isCollapsed, toggleCollapse }: AdminSideb
         {isAdmin && (
           <a
             href="/admin/settings"
-            className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all group ${
+            className={`flex items-center gap-[12px] px-[16px] h-[48px] rounded-xl text-[14px] font-bold transition-all group ${
               isCollapsed ? "justify-center" : ""
-            } text-slate-400 hover:text-white hover:bg-white/5`}
+            } text-[#1E2438]/80 hover:text-[#1E2438] hover:bg-white/50`}
           >
             <Settings size={18} strokeWidth={1.5} className="shrink-0" />
             {!isCollapsed && <span>Paramètres</span>}
@@ -88,29 +86,24 @@ export default function AdminSidebar({ isCollapsed, toggleCollapse }: AdminSideb
       </nav>
 
       {/* Role Badge + Logout */}
-      <div className="p-4 border-t space-y-3" style={{ borderColor: "#334155" }}>
+      <div className="p-[16px] border-t border-white/40 flex flex-col gap-[12px]">
         {/* Role Badge */}
         {!isCollapsed && (
           <div
-            className="flex items-center gap-2 px-3 py-2 rounded-xl"
-            style={{
-              background: isAdmin ? "rgba(139,92,246,0.1)" : "rgba(20,184,166,0.1)",
-              border: `1px solid ${isAdmin ? "rgba(139,92,246,0.25)" : "rgba(20,184,166,0.25)"}`,
-            }}
+            className="flex items-center gap-[8px] px-[12px] py-[8px] rounded-xl bg-white/40 border border-white/30 shadow-sm"
           >
             {isAdmin ? (
-              <ShieldCheck size={15} className="text-violet-400 shrink-0" />
+              <ShieldCheck size={16} className="text-violet-600 shrink-0" />
             ) : (
-              <UserRound size={15} className="text-teal-400 shrink-0" />
+              <UserRound size={16} className="text-[#1B4332] shrink-0" />
             )}
             <div className="min-w-0">
               <p
-                className="text-xs font-bold truncate"
-                style={{ color: isAdmin ? "#a78bfa" : "#2dd4bf" }}
+                className="text-[12px] font-bold truncate text-[#1E2438]"
               >
                 {isAdmin ? "Administrateur" : "Réception"}
               </p>
-              <p className="text-[10px] text-slate-500 leading-none mt-0.5">
+              <p className="text-[10px] font-bold text-[#1E2438]/60 leading-none mt-0.5 uppercase tracking-wide">
                 {isAdmin ? "Accès complet" : "Accès limité"}
               </p>
             </div>
@@ -129,9 +122,9 @@ export default function AdminSidebar({ isCollapsed, toggleCollapse }: AdminSideb
         {/* Logout */}
         <button
           onClick={handleLogout}
-          className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-medium transition-all group ${
+          className={`w-full flex items-center gap-[12px] px-[16px] h-[48px] rounded-xl text-[14px] font-bold transition-all group ${
             isCollapsed ? "justify-center" : ""
-          } text-slate-400 hover:text-white hover:bg-red-500/10 hover:text-red-400`}
+          } text-[#E41E2D]/80 hover:text-[#E41E2D] hover:bg-white/50`}
         >
           <LogOut size={18} strokeWidth={1.5} className="shrink-0" />
           {!isCollapsed && <span>Déconnexion</span>}
