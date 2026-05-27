@@ -20,48 +20,35 @@ export async function POST(request: NextRequest) {
     const adminPassword = normalizeSecret(process.env.ADMIN_PASSWORD);
     const receptionPassword = normalizeSecret(process.env.RECEPTION_PASSWORD);
 
-    // Dev-only safe debug log — does NOT log actual password values
-    if (process.env.NODE_ENV !== "production") {
-      console.log("[AUTH DEBUG]", {
-        submittedPasswordLength: submittedPassword.length,
-        adminEnvExists: Boolean(adminPassword),
-        adminEnvLength: adminPassword?.length,
-        receptionEnvExists: Boolean(receptionPassword),
-        receptionEnvLength: receptionPassword?.length,
-      });
-    }
-
-    // Guard: env not configured
-    if (!adminPassword || !receptionPassword) {
-      if (process.env.NODE_ENV === "production") {
-        return NextResponse.json(
-          { error: "Server authentication configuration missing." },
-          { status: 500 }
-        );
-      }
-      console.error("[AUTH] ADMIN_PASSWORD or RECEPTION_PASSWORD env variable is not set.");
-    }
-
     let role: Role | null = null;
 
     if (submittedPassword && submittedPassword === adminPassword) {
       role = "admin";
-      if (process.env.NODE_ENV !== "production") {
-        console.log("[AUTH DEBUG] Matched: admin branch");
-      }
     } else if (submittedPassword && submittedPassword === receptionPassword) {
       role = "reception";
-      if (process.env.NODE_ENV !== "production") {
-        console.log("[AUTH DEBUG] Matched: reception branch");
-      }
-    } else {
-      if (process.env.NODE_ENV !== "production") {
-        console.log("[AUTH DEBUG] Matched: unknown role branch — no match");
-      }
     }
 
     if (!role) {
-      return NextResponse.json({ error: "Invalid password" }, { status: 401 });
+      // AUTH_DEBUG=true in Vercel env vars enables safe diagnostics — never logs secrets
+      const debugEnabled = process.env.AUTH_DEBUG === "true";
+      const errorBody: Record<string, unknown> = { error: "Invalid password" };
+
+      if (debugEnabled) {
+        errorBody.debug = {
+          nodeEnv: process.env.NODE_ENV,
+          vercelEnv: process.env.VERCEL_ENV ?? "not set",
+          adminEnvExists: Boolean(process.env.ADMIN_PASSWORD),
+          adminEnvLength: adminPassword?.length ?? 0,
+          receptionEnvExists: Boolean(process.env.RECEPTION_PASSWORD),
+          receptionEnvLength: receptionPassword?.length ?? 0,
+          jwtSecretExists: Boolean(process.env.JWT_SECRET),
+          submittedLength: submittedPassword.length,
+          submittedEqualsAdmin: submittedPassword === adminPassword,
+          submittedEqualsReception: submittedPassword === receptionPassword,
+        };
+      }
+
+      return NextResponse.json(errorBody, { status: 401 });
     }
 
     await setSessionCookie(role);
