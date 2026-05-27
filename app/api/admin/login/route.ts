@@ -2,26 +2,65 @@ import { NextRequest, NextResponse } from "next/server";
 import { setSessionCookie } from "@/lib/auth";
 import type { Role } from "@/lib/auth";
 
+/**
+ * Strips surrounding quotes and whitespace that can appear when env values
+ * are accidentally written as: PASSWORD="value"  (quotes included in string)
+ */
+function normalizeSecret(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  return value.trim().replace(/^['"]|['"]$/g, "");
+}
+
 export async function POST(request: NextRequest) {
   try {
     const { password } = await request.json();
 
-    let role: Role | null = null;
-    
-    // Clean input and env vars in case of trailing spaces or literal quotes
-    const cleanInput = (password || "").trim();
-    const adminPass = (process.env.ADMIN_PASSWORD || "").replace(/['"]/g, "").trim();
-    const recPass = (process.env.RECEPTION_PASSWORD || "").replace(/['"]/g, "").trim();
+    const submittedPassword = String(password ?? "").trim();
 
-    if (cleanInput && cleanInput === adminPass) {
+    const adminPassword = normalizeSecret(process.env.ADMIN_PASSWORD);
+    const receptionPassword = normalizeSecret(process.env.RECEPTION_PASSWORD);
+
+    // Dev-only safe debug log — does NOT log actual password values
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[AUTH DEBUG]", {
+        submittedPasswordLength: submittedPassword.length,
+        adminEnvExists: Boolean(adminPassword),
+        adminEnvLength: adminPassword?.length,
+        receptionEnvExists: Boolean(receptionPassword),
+        receptionEnvLength: receptionPassword?.length,
+      });
+    }
+
+    // Guard: env not configured
+    if (!adminPassword || !receptionPassword) {
+      if (process.env.NODE_ENV === "production") {
+        return NextResponse.json(
+          { error: "Server authentication configuration missing." },
+          { status: 500 }
+        );
+      }
+      console.error("[AUTH] ADMIN_PASSWORD or RECEPTION_PASSWORD env variable is not set.");
+    }
+
+    let role: Role | null = null;
+
+    if (submittedPassword && submittedPassword === adminPassword) {
       role = "admin";
-    } else if (cleanInput && cleanInput === recPass) {
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[AUTH DEBUG] Matched: admin branch");
+      }
+    } else if (submittedPassword && submittedPassword === receptionPassword) {
       role = "reception";
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[AUTH DEBUG] Matched: reception branch");
+      }
+    } else {
+      if (process.env.NODE_ENV !== "production") {
+        console.log("[AUTH DEBUG] Matched: unknown role branch — no match");
+      }
     }
 
     if (!role) {
-      // Use the same generic error for both wrong-role and wrong-password
-      // to avoid leaking which passwords exist.
       return NextResponse.json({ error: "Invalid password" }, { status: 401 });
     }
 
