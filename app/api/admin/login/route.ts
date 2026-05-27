@@ -7,10 +7,15 @@ export async function POST(request: NextRequest) {
     const { password } = await request.json();
 
     let role: Role | null = null;
+    
+    // Clean input and env vars in case of trailing spaces or literal quotes
+    const cleanInput = (password || "").trim();
+    const adminPass = (process.env.ADMIN_PASSWORD || "").replace(/['"]/g, "").trim();
+    const recPass = (process.env.RECEPTION_PASSWORD || "").replace(/['"]/g, "").trim();
 
-    if (password && password === process.env.ADMIN_PASSWORD) {
+    if (cleanInput && cleanInput === adminPass) {
       role = "admin";
-    } else if (password && password === process.env.RECEPTION_PASSWORD) {
+    } else if (cleanInput && cleanInput === recPass) {
       role = "reception";
     }
 
