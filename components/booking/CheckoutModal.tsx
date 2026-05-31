@@ -159,7 +159,7 @@ export default function CheckoutModal({
             <div className="flex items-center gap-[8px] mt-[8px]">
               <span className="text-sm font-medium text-[#1A1A1A]/60">{t.checkout_selected_slot}: {slot.slotStart}</span>
               {slot.isPeak && (
-                <span className="slot-peak-badge">⚡ {t.book_peak_badge}</span>
+                <span className="slot-peak-badge">⚡ +{settings.peak_premium} DT {t.book_peak_badge}</span>
               )}
             </div>
           </div>
