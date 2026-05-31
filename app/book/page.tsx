@@ -168,7 +168,13 @@ export default function BookPage() {
                 {t.availableSlots}
               </h2>
               <span className="cw-panel-badge px-4 py-2 rounded-full bg-white/60 text-[10px] sm:text-xs font-bold tracking-widest text-slate-500 shadow-sm border border-white/40 shrink-0 uppercase">
-                {t.slotsPerDay}
+                {slots.length > 0 ? (
+                  lang === "de"
+                    ? `${slots.length} Slots / Tag`
+                    : lang === "en"
+                    ? `${slots.length} slots / day`
+                    : `${slots.length} slots / jour`
+                ) : t.slotsPerDay}
               </span>
             </div>
 

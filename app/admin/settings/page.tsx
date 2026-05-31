@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useI18n } from "@/lib/i18n";
-import { ALL_SLOTS } from "@/lib/slots";
+import { generateTimeSlots, normalizeHour } from "@/lib/slots";
 import { useRole } from "@/lib/role-context";
 import { ShieldAlert } from "lucide-react";
 
@@ -12,8 +12,8 @@ interface Settings {
   balls_only_price: number;
   lighting_price: number;
   peak_premium: number;
-  open_hour: number;
-  close_hour: number;
+  open_hour: string;
+  close_hour: string;
   lighting_trigger_hour: string;
   peak_slots: string;
 }
@@ -93,10 +93,13 @@ export default function AdminSettingsPage() {
   const handleSave = async () => {
     setSaving(true);
     try {
+      const openHour = normalizeHour(form?.open_hour ?? "08:00");
+      const closeHour = normalizeHour(form?.close_hour ?? "22:00");
+      const generatedSlots = generateTimeSlots(openHour, closeHour);
       const peakArr = peakSlotsInput
         .split(",")
         .map((s) => s.trim())
-        .filter((s) => ALL_SLOTS.includes(s as (typeof ALL_SLOTS)[number]));
+        .filter((s) => generatedSlots.includes(s));
 
       const res = await fetch("/api/settings", {
         method: "PATCH",
@@ -249,15 +252,15 @@ export default function AdminSettingsPage() {
           </h2>
           <div className="grid grid-cols-3 gap-4">
             <InputField
-              label="Heure d'ouverture"
+              label="Heure d'ouverture (HH:mm)"
               id="open-hour"
-              type="number"
+              type="time"
               {...field("open_hour")}
             />
             <InputField
-              label="Heure de fermeture"
+              label="Heure de fermeture (HH:mm)"
               id="close-hour"
-              type="number"
+              type="time"
               {...field("close_hour")}
             />
             <InputField
@@ -299,7 +302,10 @@ export default function AdminSettingsPage() {
               onBlur={(e) => (e.target.style.borderColor = "#334155")}
             />
             <p className="text-xs text-slate-500 mt-1.5">
-              Créneaux valides: {ALL_SLOTS.join(" · ")}
+              Créneaux valides: {generateTimeSlots(
+                normalizeHour(form?.open_hour ?? "08:00"),
+                normalizeHour(form?.close_hour ?? "22:00")
+              ).join(" · ")}
             </p>
           </div>
         </div>

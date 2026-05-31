@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { requireStaff, requireAdmin } from "@/lib/auth";
+import { generateTimeSlots, normalizeHour } from "@/lib/slots";
 
 /**
  * GET /api/settings
@@ -41,7 +42,38 @@ export async function PATCH(request: NextRequest) {
       peak_slots,
     } = body;
 
-    // Validate peak_slots is a valid JSON array
+    // ── Normalize & validate opening/closing times ───────────────────────────
+    const openTime = normalizeHour(open_hour);
+    const closeTime = normalizeHour(close_hour);
+
+    const timeRe = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    if (!timeRe.test(openTime)) {
+      return NextResponse.json(
+        { error: `Invalid open_hour format: "${open_hour}". Use HH:mm.` },
+        { status: 400 }
+      );
+    }
+    if (!timeRe.test(closeTime)) {
+      return NextResponse.json(
+        { error: `Invalid close_hour format: "${close_hour}". Use HH:mm.` },
+        { status: 400 }
+      );
+    }
+    if (openTime >= closeTime) {
+      return NextResponse.json(
+        { error: "open_hour must be before close_hour" },
+        { status: 400 }
+      );
+    }
+    const slots = generateTimeSlots(openTime, closeTime);
+    if (slots.length === 0) {
+      return NextResponse.json(
+        { error: "The opening/closing window must allow at least one 90-minute slot." },
+        { status: 400 }
+      );
+    }
+
+    // ── Validate peak_slots is a valid JSON array ─────────────────────────────
     let peakSlotsJson: string;
     try {
       const parsed =
@@ -62,8 +94,8 @@ export async function PATCH(request: NextRequest) {
         balls_only_price: Number(balls_only_price),
         lighting_price: Number(lighting_price),
         peak_premium: Number(peak_premium),
-        open_hour: Number(open_hour),
-        close_hour: Number(close_hour),
+        open_hour: openTime,
+        close_hour: closeTime,
         lighting_trigger_hour,
         peak_slots: peakSlotsJson,
       },
@@ -74,8 +106,8 @@ export async function PATCH(request: NextRequest) {
         balls_only_price: Number(balls_only_price),
         lighting_price: Number(lighting_price),
         peak_premium: Number(peak_premium),
-        open_hour: Number(open_hour),
-        close_hour: Number(close_hour),
+        open_hour: openTime,
+        close_hour: closeTime,
         lighting_trigger_hour,
         peak_slots: peakSlotsJson,
       },

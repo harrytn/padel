@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Booking } from "@prisma/client";
-import { ALL_SLOTS, isPeakSlot, parsePeakSlots } from "@/lib/slots";
+import {
+  generateTimeSlots,
+  isPeakSlot,
+  normalizeHour,
+  parsePeakSlots,
+} from "@/lib/slots";
 import { requireStaff } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
@@ -15,31 +20,61 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Date required" }, { status: 400 });
   }
 
-  try {
-    const [settings, bookings] = await Promise.all([
-      prisma.settings.findUnique({ where: { id: 1 } }),
-      prisma.booking.findMany({
-        where: { date },
-        orderBy: { slot_start: "asc" },
-      }),
-    ]);
+  let settings: any = null;
+  let bookings: any[] = [];
 
-    if (!settings) {
-      return NextResponse.json({ error: "Settings not found" }, { status: 500 });
-    }
+  try {
+    settings = await prisma.settings.findUnique({ where: { id: 1 } });
+  } catch (error) {
+    console.error("[ADMIN SCHEDULE ERROR] Failed to fetch settings from DB:", {
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+
+  try {
+    bookings = await prisma.booking.findMany({
+      where: { date },
+      orderBy: { slot_start: "asc" },
+    });
+  } catch (error) {
+    console.error("[ADMIN SCHEDULE ERROR] Failed to fetch bookings from DB:", {
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+
+  const defaultSettings = {
+    id: 1,
+    base_price: 100,
+    racket_price_with_balls: 5,
+    balls_only_price: 10,
+    lighting_price: 20,
+    peak_premium: 10,
+    open_hour: "08:00",
+    close_hour: "22:00",
+    lighting_trigger_hour: "18:30",
+    peak_slots: "[\"17:00\",\"18:30\",\"20:00\"]"
+  };
+
+  const activeSettings = settings || defaultSettings;
+
+  try {
+    const openTime = normalizeHour(activeSettings.open_hour);
+    const closeTime = normalizeHour(activeSettings.close_hour);
+    const slotTimes = generateTimeSlots(openTime, closeTime);
 
     const bookingMap = new Map<string, Booking>(bookings.map((b: Booking) => [b.slot_start, b]));
-    const peakSlots = parsePeakSlots(settings.peak_slots);
+    const peakSlots = parsePeakSlots(activeSettings.peak_slots);
 
-    const schedule = ALL_SLOTS.map((slotStart) => ({
+    // Only include peak slots that fall within the current schedule window
+    const schedule = slotTimes.map((slotStart) => ({
       slotStart,
       isPeak: isPeakSlot(slotStart, peakSlots),
       booking: bookingMap.get(slotStart) || null,
     }));
 
-    return NextResponse.json({ schedule, settings });
+    return NextResponse.json({ schedule, settings: activeSettings });
   } catch (error) {
-    console.error("GET /api/admin/schedule error:", error);
+    console.error("[ADMIN SCHEDULE ERROR] Failed to generate admin schedule:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
