@@ -17,6 +17,7 @@ function ConfirmationContent() {
   const slot = params.get("slot") ?? "";
   const date = params.get("date") ?? "";
   const total = params.get("total") ?? "0";
+  const duration = params.get("duration") ?? "90";
 
   return (
     <div className="min-h-screen bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed flex items-center justify-center p-6">
@@ -78,7 +79,7 @@ function ConfirmationContent() {
                 <Clock size={13} strokeWidth={1.5} className="text-[#DB8248]" />
                 <span className="text-sm font-semibold text-[#DB8248] uppercase">{t.slot}</span>
               </div>
-              <p className="text-lg font-medium text-[#1E2438]">{slot} — 90 {t.durationMinutes}</p>
+              <p className="text-lg font-medium text-[#1E2438]">{slot} — {t.book_duration.replace("{count}", duration)}</p>
             </div>
             <div className="cw-confirmation-section space-y-1.5 p-0">
               <div className="flex items-center gap-2 mb-1">

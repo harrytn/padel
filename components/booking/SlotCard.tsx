@@ -10,6 +10,7 @@ export interface SlotData {
   hasLighting: boolean;
   basePrice: number;
   peakPremium: number;
+  durationMinutes: number;
   isPast?: boolean;
 }
 
@@ -24,7 +25,7 @@ const BASE = "cw-slot-card-root flex text-left transition-all w-full";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();
-  const { slotStart, isAvailable, isPeak, basePrice, peakPremium } = slot;
+  const { slotStart, isAvailable, isPeak, basePrice, peakPremium, durationMinutes } = slot;
   const displayPrice = basePrice + (isPeak ? peakPremium : 0);
 
   let stateClasses = "";
@@ -78,7 +79,7 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
           </div>
 
           <span className={`cw-slot-duration mt-[8px] text-[12px] font-bold tracking-[0.12em] uppercase leading-none ${durationColor}`}>
-            90 {t.durationMinutes}
+            {t.book_duration.replace("{count}", durationMinutes.toString())}
           </span>
         </div>
 

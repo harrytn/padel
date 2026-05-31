@@ -46,6 +46,7 @@ export default function AdminSchedulePage() {
 
   const [date, setDate] = useState(todayISO());
   const [schedule, setSchedule] = useState<ScheduleSlot[]>([]);
+  const [settings, setSettings] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
@@ -62,6 +63,7 @@ export default function AdminSchedulePage() {
       if (res.ok) {
         const data = await res.json();
         setSchedule(data.schedule);
+        setSettings(data.settings);
       }
     } finally {
       setLoading(false);
@@ -224,7 +226,7 @@ export default function AdminSchedulePage() {
                         <span
                           className={`font-bold text-[15px] block ${isPeak ? "text-amber-600" : "text-[#2CAFC2]"}`}
                         >
-                          {slotStart} - {getSlotEnd(slotStart)}
+                          {slotStart} - {getSlotEnd(slotStart, settings?.slot_duration_minutes || 90)}
                         </span>
                         {isPeak && (
                           <span className="text-[11px] text-amber-600 font-bold tracking-tight">

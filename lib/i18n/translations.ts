@@ -89,6 +89,7 @@ export interface Translations {
   // Admin
   admin_schedule_title: string;
   admin_settings_title: string;
+  admin_settings_duration: string;
   admin_mark_paid: string;
   admin_mark_pending: string;
   admin_cancel_booking: string;
@@ -143,7 +144,7 @@ export const translations: Record<Language, Translations> = {
     book_blocked: "Bloqué",
     book_peak_badge: "Heure de pointe",
     book_lighting_badge: "Éclairage disponible",
-    book_duration: "90 min",
+    book_duration: "{count} min",
     book_ends_at: "Jusqu'à",
     availableSlots: "Créneaux disponibles",
     slotsPerDay: "9 slots / jour",
@@ -176,7 +177,7 @@ export const translations: Record<Language, Translations> = {
     checkout_lighting_label: "Éclairage du terrain",
     checkout_lighting_desc: "+20 DT — Recommandé après 18h30",
     checkout_price_breakdown: "Détail du prix",
-    checkout_base: "Court (90 min)",
+    checkout_base: "Court ({count} min)",
     checkout_peak_surcharge: "Supplément heure de pointe",
     checkout_rackets_fee: "Raquettes",
     checkout_balls_fee: "Location de balles",
@@ -217,6 +218,7 @@ export const translations: Record<Language, Translations> = {
 
     admin_schedule_title: "Planning du jour",
     admin_settings_title: "Paramètres",
+    admin_settings_duration: "Durée d'un créneau",
     admin_mark_paid: "Marquer Payé",
     admin_mark_pending: "Marquer En Attente",
     admin_cancel_booking: "Annuler",
@@ -265,7 +267,7 @@ export const translations: Record<Language, Translations> = {
     book_blocked: "Blocked",
     book_peak_badge: "Peak Hour",
     book_lighting_badge: "Lighting available",
-    book_duration: "90 min",
+    book_duration: "{count} minutes",
     book_ends_at: "Until",
     availableSlots: "Available slots",
     slotsPerDay: "9 slots / day",
@@ -298,7 +300,7 @@ export const translations: Record<Language, Translations> = {
     checkout_lighting_label: "Court Lighting",
     checkout_lighting_desc: "+20 DT — Recommended after 6:30 PM",
     checkout_price_breakdown: "Price Breakdown",
-    checkout_base: "Court (90 min)",
+    checkout_base: "Court ({count} min)",
     checkout_peak_surcharge: "Peak hour surcharge",
     checkout_rackets_fee: "Rackets",
     checkout_balls_fee: "Ball rental",
@@ -339,6 +341,7 @@ export const translations: Record<Language, Translations> = {
 
     admin_schedule_title: "Daily Schedule",
     admin_settings_title: "Settings",
+    admin_settings_duration: "Slot duration",
     admin_mark_paid: "Mark as Paid",
     admin_mark_pending: "Mark as Pending",
     admin_cancel_booking: "Cancel",
@@ -387,7 +390,7 @@ export const translations: Record<Language, Translations> = {
     book_blocked: "Gesperrt",
     book_peak_badge: "Stoßzeit",
     book_lighting_badge: "Beleuchtung verfügbar",
-    book_duration: "90 Min",
+    book_duration: "{count} Min.",
     book_ends_at: "Bis",
     availableSlots: "Verfügbare Zeiten",
     slotsPerDay: "9 Slots / Tag",
@@ -420,7 +423,7 @@ export const translations: Record<Language, Translations> = {
     checkout_lighting_label: "Platzbeleuchtung",
     checkout_lighting_desc: "+20 DT — Empfohlen nach 18:30 Uhr",
     checkout_price_breakdown: "Preisaufschlüsselung",
-    checkout_base: "Platz (90 Min)",
+    checkout_base: "Court ({count} Min.)",
     checkout_peak_surcharge: "Stoßzeit-Zuschlag",
     checkout_rackets_fee: "Schläger",
     checkout_balls_fee: "Ballmiete",
@@ -461,6 +464,7 @@ export const translations: Record<Language, Translations> = {
 
     admin_schedule_title: "Tagesplan",
     admin_settings_title: "Einstellungen",
+    admin_settings_duration: "Slotdauer",
     admin_mark_paid: "Als bezahlt markieren",
     admin_mark_pending: "Als ausstehend markieren",
     admin_cancel_booking: "Stornieren",

@@ -40,6 +40,7 @@ export async function PATCH(request: NextRequest) {
       close_hour,
       lighting_trigger_hour,
       peak_slots,
+      slot_duration_minutes,
     } = body;
 
     // ── Normalize & validate opening/closing times ───────────────────────────
@@ -65,10 +66,18 @@ export async function PATCH(request: NextRequest) {
         { status: 400 }
       );
     }
-    const slots = generateTimeSlots(openTime, closeTime);
+    const duration = Number(slot_duration_minutes);
+    if (![20, 30, 60, 90].includes(duration)) {
+      return NextResponse.json(
+        { error: "Invalid slot_duration_minutes. Must be 20, 30, 60, or 90." },
+        { status: 400 }
+      );
+    }
+
+    const slots = generateTimeSlots(openTime, closeTime, duration);
     if (slots.length === 0) {
       return NextResponse.json(
-        { error: "The opening/closing window must allow at least one 90-minute slot." },
+        { error: `The opening/closing window must allow at least one ${duration}-minute slot.` },
         { status: 400 }
       );
     }
@@ -98,6 +107,7 @@ export async function PATCH(request: NextRequest) {
         close_hour: closeTime,
         lighting_trigger_hour,
         peak_slots: peakSlotsJson,
+        slot_duration_minutes: duration,
       },
       create: {
         id: 1,
@@ -110,6 +120,7 @@ export async function PATCH(request: NextRequest) {
         close_hour: closeTime,
         lighting_trigger_hour,
         peak_slots: peakSlotsJson,
+        slot_duration_minutes: duration,
       },
     });
 

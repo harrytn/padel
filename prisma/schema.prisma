@@ -19,6 +19,7 @@ model Settings {
   close_hour            String @default("22:00")
   lighting_trigger_hour String @default("18:30")
   peak_slots            String @default("[\"17:00\",\"18:30\",\"20:00\"]")
+  slot_duration_minutes Int    @default(90)
 }
 
 model Booking {
@@ -30,6 +31,7 @@ model Booking {
   room_number         String?
   date                String
   slot_start          String
+  duration_minutes    Int           @default(90)
   racket_count        Int           @default(0)
   bought_balls_only   Boolean       @default(false)
   needs_lighting      Boolean       @default(false)

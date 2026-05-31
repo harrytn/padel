@@ -52,7 +52,8 @@ export async function GET(request: NextRequest) {
     open_hour: "08:00",
     close_hour: "22:00",
     lighting_trigger_hour: "18:30",
-    peak_slots: "[\"17:00\",\"18:30\",\"20:00\"]"
+    peak_slots: "[\"17:00\",\"18:30\",\"20:00\"]",
+    slot_duration_minutes: 90
   };
 
   const activeSettings = settings || defaultSettings;
@@ -60,7 +61,8 @@ export async function GET(request: NextRequest) {
   try {
     const openTime = normalizeHour(activeSettings.open_hour);
     const closeTime = normalizeHour(activeSettings.close_hour);
-    const slotTimes = generateTimeSlots(openTime, closeTime);
+    const duration = activeSettings.slot_duration_minutes || 90;
+    const slotTimes = generateTimeSlots(openTime, closeTime, duration);
 
     const bookingMap = new Map<string, Booking>(bookings.map((b: Booking) => [b.slot_start, b]));
     const peakSlots = parsePeakSlots(activeSettings.peak_slots);

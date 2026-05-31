@@ -52,7 +52,8 @@ export async function GET(request: NextRequest) {
     open_hour: "08:00",
     close_hour: "22:00",
     lighting_trigger_hour: "18:30",
-    peak_slots: "[\"17:00\",\"18:30\",\"20:00\"]"
+    peak_slots: "[\"17:00\",\"18:30\",\"20:00\"]",
+    slot_duration_minutes: 90
   };
 
   const activeSettings = settings || defaultSettings;
@@ -60,19 +61,21 @@ export async function GET(request: NextRequest) {
   try {
     const openTime = normalizeHour(activeSettings.open_hour);
     const closeTime = normalizeHour(activeSettings.close_hour);
-    const slotTimes = generateTimeSlots(openTime, closeTime);
+    const duration = activeSettings.slot_duration_minutes || 90;
+    const slotTimes = generateTimeSlots(openTime, closeTime, duration);
 
     const bookedSlots = new Set(bookings.map((b: { slot_start: string }) => b.slot_start));
     const peakSlots = parsePeakSlots(activeSettings.peak_slots);
 
     const slots = slotTimes.map((slotStart) => ({
       slotStart,
-      slotEnd: getSlotEnd(slotStart),
+      slotEnd: getSlotEnd(slotStart, duration),
       isAvailable: !bookedSlots.has(slotStart),
       isPeak: isPeakSlot(slotStart, peakSlots),
       hasLighting: needsLightingOption(slotStart, activeSettings.lighting_trigger_hour || "18:30"),
       basePrice: activeSettings.base_price,
       peakPremium: activeSettings.peak_premium,
+      durationMinutes: duration,
     }));
 
     return NextResponse.json({ slots, settings: activeSettings });

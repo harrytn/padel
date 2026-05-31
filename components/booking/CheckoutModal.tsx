@@ -116,7 +116,7 @@ export default function CheckoutModal({
 
       const { booking } = await res.json();
       router.push(
-        `/confirmation?pin=${booking.booking_pin}&slot=${slot.slotStart}&date=${date}&total=${booking.total_price}&name=${encodeURIComponent(fn + " " + ln)}`
+        `/confirmation?pin=${booking.booking_pin}&slot=${slot.slotStart}&date=${date}&total=${booking.total_price}&name=${encodeURIComponent(fn + " " + ln)}&duration=${slot.durationMinutes}`
       );
     } catch {
       setError(t.error_generic);
@@ -261,7 +261,7 @@ export default function CheckoutModal({
 
           {/* Price Breakdown */}
           <div className="bg-[#1B4332]/5 rounded-xl p-[24px] flex flex-col gap-[12px]">
-            <PriceRow label={t.checkout_base} amount={breakdown.base} />
+            <PriceRow label={t.checkout_base.replace("{count}", slot.durationMinutes.toString())} amount={breakdown.base} />
             <PriceRow label={t.checkout_peak_surcharge} amount={breakdown.peakSurcharge} />
             <PriceRow label={t.checkout_rackets_fee} amount={breakdown.rackets} />
             <PriceRow label={t.checkout_balls_fee} amount={breakdown.ballsOnly} />

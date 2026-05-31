@@ -16,6 +16,7 @@ interface Settings {
   close_hour: string;
   lighting_trigger_hour: string;
   peak_slots: string;
+  slot_duration_minutes: number;
 }
 
 const InputField = ({
@@ -95,7 +96,8 @@ export default function AdminSettingsPage() {
     try {
       const openHour = normalizeHour(form?.open_hour ?? "08:00");
       const closeHour = normalizeHour(form?.close_hour ?? "22:00");
-      const generatedSlots = generateTimeSlots(openHour, closeHour);
+      const duration = Number(form?.slot_duration_minutes || 90);
+      const generatedSlots = generateTimeSlots(openHour, closeHour, duration);
       const peakArr = peakSlotsInput
         .split(",")
         .map((s) => s.trim())
@@ -268,6 +270,27 @@ export default function AdminSettingsPage() {
               id="lighting-trigger"
               {...field("lighting_trigger_hour")}
             />
+            <div>
+              <label htmlFor="slot-duration" className="block text-sm font-medium text-slate-400">
+                {t.admin_settings_duration}
+              </label>
+              <select
+                id="slot-duration"
+                value={form.slot_duration_minutes || 90}
+                onChange={(e) => setForm(prev => ({ ...prev, slot_duration_minutes: Number(e.target.value) }))}
+                className="w-full px-4 py-3 mt-1 rounded-lg text-slate-200 text-sm outline-none transition-all"
+                style={{
+                  background: "#0f172a",
+                  border: "1.5px solid #334155",
+                  fontFamily: "var(--font-body)",
+                }}
+              >
+                <option value={20}>20 min</option>
+                <option value={30}>30 min</option>
+                <option value={60}>60 min</option>
+                <option value={90}>90 min</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -304,7 +327,8 @@ export default function AdminSettingsPage() {
             <p className="text-xs text-slate-500 mt-1.5">
               Créneaux valides: {generateTimeSlots(
                 normalizeHour(form?.open_hour ?? "08:00"),
-                normalizeHour(form?.close_hour ?? "22:00")
+                normalizeHour(form?.close_hour ?? "22:00"),
+                Number(form?.slot_duration_minutes || 90)
               ).join(" · ")}
             </p>
           </div>
