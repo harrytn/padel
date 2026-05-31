@@ -111,6 +111,8 @@ export interface Translations {
   // Admin Actions
   admin_action_checkin: string;
   admin_action_noshow: string;
+  admin_action_restore: string;
+  admin_restore_conflict: string;
 
   // Admin Table Headers
   admin_col_time: string;
@@ -226,6 +228,8 @@ export const translations: Record<Language, Translations> = {
 
     admin_action_checkin: "📍 Check-in",
     admin_action_noshow: "👻 No-show",
+    admin_action_restore: "Restaurer",
+    admin_restore_conflict: "Ce créneau est déjà réservé par un autre client.",
 
     admin_col_time: "Heure",
     admin_col_type: "Type",
@@ -339,6 +343,8 @@ export const translations: Record<Language, Translations> = {
 
     admin_action_checkin: "📍 Check-in",
     admin_action_noshow: "👻 No-show",
+    admin_action_restore: "Restore",
+    admin_restore_conflict: "This slot is already booked by another guest.",
 
     admin_col_time: "Time",
     admin_col_type: "Type",
@@ -452,6 +458,8 @@ export const translations: Record<Language, Translations> = {
 
     admin_action_checkin: "📍 Check-in",
     admin_action_noshow: "👻 No-show",
+    admin_action_restore: "Wiederherstellen",
+    admin_restore_conflict: "Dieser Slot ist bereits von einem anderen Gast gebucht.",
 
     admin_col_time: "Zeit",
     admin_col_type: "Typ",

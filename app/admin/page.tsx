@@ -111,6 +111,25 @@ export default function AdminSchedulePage() {
     }
   };
 
+  const restoreBooking = async (bookingId: string) => {
+    setActionLoading(bookingId);
+    try {
+      const res = await fetch(`/api/bookings/${bookingId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "RESTORE" }),
+      });
+      if (res.ok) {
+        showToast(`✅ ${t.admin_action_restore}`);
+        fetchSchedule(date);
+      } else if (res.status === 409) {
+        showToast(`⚠️ ${t.admin_restore_conflict}`);
+      }
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
   // ── Admin-only actions ────────────────────────────────────────────────────
   const unblockSlot = async (bookingId: string) => {
     setActionLoading(bookingId);
@@ -413,6 +432,22 @@ export default function AdminSchedulePage() {
                               }}
                             >
                               ❌
+                            </button>
+                          )}
+
+                          {/* Restore — Admin only */}
+                          {booking && !isBlock && booking.status === "CANCELLED" && isAdmin && (
+                            <button
+                              onClick={() => restoreBooking(booking.id)}
+                              disabled={busy}
+                              className="text-xs px-[12px] py-[8px] rounded-lg font-medium transition-all"
+                              style={{
+                                background: "rgba(139,92,246,0.1)",
+                                color: "#8b5cf6",
+                                border: "1px solid rgba(139,92,246,0.2)",
+                              }}
+                            >
+                              🔄 {t.admin_action_restore}
                             </button>
                           )}
 

@@ -16,7 +16,35 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { status } = body;
+    const { status, action } = body;
+
+    if (action === "RESTORE") {
+      const adminAuth = await requireAdmin();
+      if (adminAuth instanceof NextResponse) return adminAuth;
+
+      const existing = await prisma.booking.findUnique({ where: { id } });
+      if (!existing || existing.status !== "CANCELLED") {
+        return NextResponse.json({ error: "Booking not cancelled" }, { status: 400 });
+      }
+
+      const conflict = await prisma.booking.findFirst({
+        where: {
+          date: existing.date,
+          slot_start: existing.slot_start,
+          status: { in: ["PENDING_PAYMENT", "PAID", "ARRIVED", "NO_SHOW"] },
+        },
+      });
+
+      if (conflict) {
+        return NextResponse.json({ error: "SLOT_TAKEN" }, { status: 409 });
+      }
+
+      const booking = await prisma.booking.update({
+        where: { id },
+        data: { status: "PENDING_PAYMENT", cancelled_at: null },
+      });
+      return NextResponse.json({ booking });
+    }
 
     const validStatuses = ["PENDING_PAYMENT", "PAID", "CANCELLED", "ARRIVED", "NO_SHOW"];
     if (!validStatuses.includes(status)) {
@@ -36,7 +64,15 @@ export async function PATCH(
 
     const booking = await prisma.booking.update({ where: { id }, data: updateData });
     return NextResponse.json({ booking });
-  } catch (error) {
+  } catch (error: unknown) {
+    if (
+      error &&
+      typeof error === "object" &&
+      "code" in error &&
+      (error as { code: string }).code === "P2002"
+    ) {
+      return NextResponse.json({ error: "SLOT_TAKEN" }, { status: 409 });
+    }
     console.error("PATCH /api/bookings/[id] error:", error);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
