@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center px-4"
+      className="min-h-screen flex items-center justify-center px-[16px]"
       style={{ background: "#0f172a" }}
     >
       {/* Subtle background grid */}
@@ -51,8 +51,8 @@ export default function AdminLoginPage() {
 
       <div className="w-full max-w-sm relative">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4"
+        <div className="text-center mb-[32px]">
+          <div className="inline-flex items-center justify-center w-[64px] h-[64px] rounded-2xl mb-[16px]"
             style={{ background: "linear-gradient(135deg, #0891b2, #14b8a6)", boxShadow: "0 8px 32px rgba(8,145,178,0.3)" }}
           >
             <span className="text-2xl">🎾</span>
@@ -67,9 +67,9 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Role info cards */}
-        <div className="grid grid-cols-2 gap-3 mb-6">
+        <div className="grid grid-cols-2 gap-[12px] mb-[24px]">
           <div
-            className="rounded-xl px-3 py-3 flex items-center gap-2.5"
+            className="rounded-xl px-[12px] py-[12px] flex items-center gap-[10px]"
             style={{ background: "rgba(139,92,246,0.08)", border: "1px solid rgba(139,92,246,0.2)" }}
           >
             <ShieldCheck size={16} className="text-violet-400 shrink-0" />
@@ -79,7 +79,7 @@ export default function AdminLoginPage() {
             </div>
           </div>
           <div
-            className="rounded-xl px-3 py-3 flex items-center gap-2.5"
+            className="rounded-xl px-[12px] py-[12px] flex items-center gap-[10px]"
             style={{ background: "rgba(20,184,166,0.08)", border: "1px solid rgba(20,184,166,0.2)" }}
           >
             <UserRound size={16} className="text-teal-400 shrink-0" />
@@ -92,14 +92,14 @@ export default function AdminLoginPage() {
 
         {/* Login Card */}
         <div
-          className="rounded-2xl p-6"
+          className="rounded-2xl p-[24px]"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
-          <p className="text-slate-400 text-xs text-center mb-5">
+          <p className="text-slate-400 text-xs text-center mb-[20px]">
             Votre rôle est détecté automatiquement selon votre mot de passe.
           </p>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-[16px]">
             <div>
               <label
                 htmlFor="admin-password"
@@ -115,7 +115,7 @@ export default function AdminLoginPage() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full px-4 py-3 pr-11 rounded-xl text-white placeholder-slate-500 outline-none transition-all"
+                  className="w-full px-[16px] py-[12px] pr-[44px] rounded-xl text-white placeholder-slate-500 outline-none transition-all"
                   style={{
                     background: "#0f172a",
                     border: "1.5px solid #334155",
@@ -145,7 +145,7 @@ export default function AdminLoginPage() {
               id="admin-login-btn"
               type="submit"
               disabled={loading || !password}
-              className="w-full py-3 rounded-xl font-bold text-white transition-all"
+              className="w-full py-[12px] rounded-xl font-bold text-white transition-all"
               style={{
                 background:
                   loading || !password
@@ -162,7 +162,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
 
-        <p className="text-center mt-6">
+        <p className="text-center mt-[24px]">
           <a
             href="/book"
             className="text-sm text-slate-500 hover:text-slate-300 transition-colors"

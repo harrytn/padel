@@ -45,5 +45,6 @@ model Booking {
   cancelled_at        DateTime?
   no_show_at          DateTime?
 
-  @@unique([date, slot_start])
+  // Active slot uniqueness is enforced by a PostgreSQL partial unique index 
+  // ("Booking_active_slot_key") migration, not Prisma schema.
 }

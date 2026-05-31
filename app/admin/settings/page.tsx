@@ -184,28 +184,28 @@ export default function AdminSettingsPage() {
         </div>
       )}
 
-      <div className="mb-8">
+      <div className="mb-[32px]">
         <h1
           className="text-2xl font-bold text-white"
           style={{ fontFamily: "var(--font-outfit)" }}
         >
           ⚙️ {t.admin_settings_title}
         </h1>
-        <p className="text-slate-400 mt-1 text-sm">
+        <p className="text-slate-400 mt-[4px] text-sm">
           Mises à jour appliquées immédiatement aux nouvelles réservations.
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-[24px]">
         {/* Pricing Section */}
         <div
-          className="rounded-2xl p-6 md:p-8 space-y-4"
+          className="rounded-2xl p-[24px] md:p-[32px] space-y-[16px]"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider">
             💰 Tarifs (DT)
           </h2>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-[16px]">
             <InputField
               label="Prix de base (court 90 min)"
               id="base-price"
@@ -246,13 +246,13 @@ export default function AdminSettingsPage() {
 
         {/* Schedule Section */}
         <div
-          className="rounded-2xl p-6 md:p-8 space-y-4"
+          className="rounded-2xl p-[24px] md:p-[32px] space-y-[16px]"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider">
             🕐 Horaires
           </h2>
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-[16px]">
             <InputField
               label="Heure d'ouverture (HH:mm)"
               id="open-hour"
@@ -296,7 +296,7 @@ export default function AdminSettingsPage() {
 
         {/* Peak Slots Section */}
         <div
-          className="rounded-2xl p-6 md:p-8 space-y-4"
+          className="rounded-2xl p-[24px] md:p-[32px] space-y-[16px]"
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider">
@@ -307,21 +307,20 @@ export default function AdminSettingsPage() {
               htmlFor="peak-slots"
               className="block text-sm font-medium text-slate-400"
             >
-              Créneaux (séparés par des virgules)
+              Créneaux (HH:mm séparés par des virgules)
             </label>
             <input
               id="peak-slots"
               type="text"
               value={peakSlotsInput}
               onChange={(e) => setPeakSlotsInput(e.target.value)}
-              placeholder="17:00, 18:30, 20:00"
-              className="w-full px-4 py-3 mt-1 rounded-lg text-slate-200 text-sm outline-none"
+              placeholder='Ex: 17:00, 18:30, 20:00'
+              className="w-full px-[16px] py-[12px] mt-[4px] rounded-lg text-slate-200 text-sm outline-none transition-all"
               style={{
                 background: "#0f172a",
                 border: "1.5px solid #334155",
                 fontFamily: "var(--font-mono, monospace)",
               }}
-              onFocus={(e) => (e.target.style.borderColor = "#14b8a6")}
               onBlur={(e) => (e.target.style.borderColor = "#334155")}
             />
             <p className="text-xs text-slate-500 mt-1.5">
@@ -339,7 +338,7 @@ export default function AdminSettingsPage() {
           id="save-settings-btn"
           onClick={handleSave}
           disabled={saving}
-          className="w-full py-3 rounded-xl font-bold text-white transition-all"
+          className="w-full py-[12px] rounded-xl font-bold text-white transition-all"
           style={{
             background: saving
               ? "#334155"

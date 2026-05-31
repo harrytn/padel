@@ -60,15 +60,7 @@ export interface Translations {
   checkout_slot_taken: string;
 
   // Confirmation page
-  confirm_title: string;
-  confirm_pin_label: string;
-  confirm_booking_details: string;
-  confirm_slot: string;
-  confirm_date: string;
-  confirm_total: string;
-  confirm_instruction_title: string;
-  confirm_instruction_body: string;
-  confirm_screenshot_hint: string;
+
   confirm_another_btn: string;
   bookingConfirmed: string;
   reservationConfirmed: string;
@@ -189,17 +181,7 @@ export const translations: Record<Language, Translations> = {
     checkout_slot_taken:
       "Ce créneau vient d'être réservé. Veuillez en choisir un autre.",
 
-    confirm_title: "Réservation Confirmée !",
-    confirm_pin_label: "Votre Code de Réservation",
-    confirm_booking_details: "Détails de la réservation",
-    confirm_slot: "Créneau",
-    confirm_date: "Date",
-    confirm_total: "Montant à payer",
-    confirm_instruction_title: "Comment procéder ?",
-    confirm_instruction_body:
-      "Prenez une capture d'écran de ce code et présentez-vous à la réception **au moins 30 minutes avant** votre créneau pour effectuer le paiement.",
-    confirm_screenshot_hint:
-      "📸 Faites une capture d'écran maintenant pour ne pas perdre ce code.",
+
     confirm_another_btn: "Réserver un autre créneau",
     bookingConfirmed: "Réservation confirmée !",
     reservationConfirmed: "Réservation confirmée",
@@ -312,17 +294,7 @@ export const translations: Record<Language, Translations> = {
     checkout_slot_taken:
       "This slot was just booked. Please select another one.",
 
-    confirm_title: "Booking Confirmed!",
-    confirm_pin_label: "Your Booking PIN",
-    confirm_booking_details: "Booking Details",
-    confirm_slot: "Slot",
-    confirm_date: "Date",
-    confirm_total: "Amount to Pay",
-    confirm_instruction_title: "What's Next?",
-    confirm_instruction_body:
-      "Take a screenshot of this PIN and go to the reception desk **at least 30 minutes before** your slot to complete payment.",
-    confirm_screenshot_hint:
-      "📸 Take a screenshot now so you don't lose this PIN.",
+
     confirm_another_btn: "Book Another Slot",
     bookingConfirmed: "Booking Confirmed!",
     reservationConfirmed: "Reservation confirmed",
@@ -435,17 +407,7 @@ export const translations: Record<Language, Translations> = {
     checkout_slot_taken:
       "Dieser Slot wurde gerade gebucht. Bitte wählen Sie einen anderen.",
 
-    confirm_title: "Buchung Bestätigt!",
-    confirm_pin_label: "Ihre Buchungs-PIN",
-    confirm_booking_details: "Buchungsdetails",
-    confirm_slot: "Slot",
-    confirm_date: "Datum",
-    confirm_total: "Zu zahlender Betrag",
-    confirm_instruction_title: "Wie geht es weiter?",
-    confirm_instruction_body:
-      "Machen Sie einen Screenshot dieser PIN und gehen Sie **mindestens 30 Minuten vor** Ihrem Slot zur Rezeption, um die Zahlung abzuschließen.",
-    confirm_screenshot_hint:
-      "📸 Machen Sie jetzt einen Screenshot, damit Sie diese PIN nicht verlieren.",
+
     confirm_another_btn: "Weiteren Slot buchen",
     bookingConfirmed: "Buchung bestätigt!",
     reservationConfirmed: "Reservierung bestätigt",

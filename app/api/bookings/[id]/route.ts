@@ -32,10 +32,6 @@ export async function PATCH(
     
     if (status === "CANCELLED") {
       updateData.cancelled_at = new Date();
-      const existing = await prisma.booking.findUnique({ where: { id } });
-      if (existing && !existing.slot_start.includes("_CANCELLED")) {
-        updateData.slot_start = `${existing.slot_start}_CANCELLED_${Date.now()}`;
-      }
     }
 
     const booking = await prisma.booking.update({ where: { id }, data: updateData });

@@ -20,11 +20,11 @@ function ConfirmationContent() {
   const duration = params.get("duration") ?? "90";
 
   return (
-    <div className="min-h-screen bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed flex items-center justify-center p-[24px]">
 
       <div className="w-full max-w-2xl">
         {/* Top Navigation */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-[24px]">
           <button
             onClick={() => router.push("/book")}
             className="flex items-center gap-2 text-[11px] font-bold text-white/70 hover:text-white uppercase tracking-[0.15em] transition-colors"
@@ -40,7 +40,7 @@ function ConfirmationContent() {
 
           {/* Status Header */}
           <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 rounded-full bg-[#2CAFC2] flex items-center justify-center mb-5 shadow-lg shadow-[#2CAFC2]/30">
+            <div className="w-[64px] h-[64px] rounded-full bg-[#2CAFC2] flex items-center justify-center mb-[20px] shadow-lg shadow-[#2CAFC2]/30">
               <CheckCircle2 size={32} strokeWidth={1.5} className="text-white" />
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-[#1E2438] tracking-tight mb-1">
@@ -66,7 +66,7 @@ function ConfirmationContent() {
           </div>
 
           {/* Details Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-[32px]">
             <div className="cw-confirmation-section space-y-1.5 p-0">
               <div className="flex items-center gap-2 mb-1">
                 <Calendar size={13} strokeWidth={1.5} className="text-[#DB8248]" />
@@ -91,8 +91,8 @@ function ConfirmationContent() {
           </div>
 
           {/* Instructions Notice */}
-          <div className="cw-confirmation-instructions bg-[#EEBB3B]/20 border border-[#EEBB3B]/50 mt-6">
-            <p className="text-[11px] font-bold text-[#DB8248] uppercase tracking-[0.1em] mb-2">
+          <div className="cw-confirmation-instructions bg-[#EEBB3B]/20 border border-[#EEBB3B]/50 mt-[24px]">
+            <p className="text-[11px] font-bold text-[#DB8248] uppercase tracking-[0.1em] mb-[8px]">
               {t.instructions}
             </p>
             <p className="text-sm font-medium text-[#1E2438] leading-relaxed">
@@ -102,8 +102,8 @@ function ConfirmationContent() {
         </div>
 
         {/* Footer branding */}
-        <div className="mt-8 text-center">
-          <div className="flex items-center justify-center gap-2 opacity-50">
+        <div className="mt-[32px] text-center">
+          <div className="flex items-center justify-center gap-[8px] opacity-50">
             <Image
               src="/logo-no-bg.png"
               alt="Caribbean World Djerba"
