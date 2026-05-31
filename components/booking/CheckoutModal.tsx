@@ -79,7 +79,7 @@ export default function CheckoutModal({
       return;
     }
 
-    const roomRegex = /^\d+$/;
+    const roomRegex = /^\d{4}$/;
     if (!roomRegex.test(rm)) {
       setError(t.error_room_invalid);
       return;
@@ -200,8 +200,9 @@ export default function CheckoutModal({
                 className="cw-input w-full pr-[40px] text-[15px]"
                 placeholder={t.checkout_room_placeholder}
                 value={roomNumber}
-                onChange={(e) => setRoomNumber(e.target.value)}
+                onChange={(e) => setRoomNumber(e.target.value.replace(/\D/g, "").slice(0, 4))}
                 inputMode="numeric"
+                maxLength={4}
               />
               <Home size={16} strokeWidth={1.5} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#1B4332]/40" />
             </div>

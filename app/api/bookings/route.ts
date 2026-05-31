@@ -38,6 +38,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Guard: room number must be exactly 4 digits
+    if (!/^\d{4}$/.test(String(roomNumber).trim())) {
+      return NextResponse.json(
+        { error: "Room number must be exactly 4 digits." },
+        { status: 400 }
+      );
+    }
+
     // Guard: refuse bookings for slots already in the past
     const [slotHours, slotMinutes] = slotStart.split(":").map(Number);
     const slotDateTime = new Date(date + "T12:00:00");
