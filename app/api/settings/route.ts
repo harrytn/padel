@@ -41,6 +41,7 @@ export async function PATCH(request: NextRequest) {
       lighting_trigger_hour,
       peak_slots,
       slot_duration_minutes,
+      currency,
     } = body;
 
     // ── Normalize & validate opening/closing times ───────────────────────────
@@ -70,6 +71,13 @@ export async function PATCH(request: NextRequest) {
     if (![20, 30, 60, 90].includes(duration)) {
       return NextResponse.json(
         { error: "Invalid slot_duration_minutes. Must be 20, 30, 60, or 90." },
+        { status: 400 }
+      );
+    }
+
+    if (currency !== "TND" && currency !== "EUR") {
+      return NextResponse.json(
+        { error: "Invalid currency. Must be TND or EUR." },
         { status: 400 }
       );
     }
@@ -108,6 +116,7 @@ export async function PATCH(request: NextRequest) {
         lighting_trigger_hour,
         peak_slots: peakSlotsJson,
         slot_duration_minutes: duration,
+        currency,
       },
       create: {
         id: 1,
@@ -121,6 +130,7 @@ export async function PATCH(request: NextRequest) {
         lighting_trigger_hour,
         peak_slots: peakSlotsJson,
         slot_duration_minutes: duration,
+        currency,
       },
     });
 

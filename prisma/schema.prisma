@@ -20,6 +20,7 @@ model Settings {
   lighting_trigger_hour String @default("18:30")
   peak_slots            String @default("[\"17:00\",\"18:30\",\"20:00\"]")
   slot_duration_minutes Int    @default(90)
+  currency              String @default("TND")
 }
 
 model Booking {
@@ -36,6 +37,7 @@ model Booking {
   bought_balls_only   Boolean       @default(false)
   needs_lighting      Boolean       @default(false)
   total_price         Float         @default(0)
+  currency            String        @default("TND")
   status              String        @default("PENDING_PAYMENT")
   created_at          DateTime      @default(now())
 

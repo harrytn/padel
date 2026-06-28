@@ -1,12 +1,13 @@
 "use client";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Image from "next/image";
 import { useI18n } from "@/lib/i18n";
 import LanguageToggle from "@/components/ui/LanguageToggle";
 import { CheckCircle2, Calendar, Clock, DollarSign, ArrowLeft, Download } from "lucide-react";
 
 import { formatLocalizedDate } from "@/lib/i18n/date";
+import { formatPrice } from "@/lib/currency";
 
 function ConfirmationContent() {
   const { t, lang } = useI18n();
@@ -18,6 +19,24 @@ function ConfirmationContent() {
   const date = params.get("date") ?? "";
   const total = params.get("total") ?? "0";
   const duration = params.get("duration") ?? "90";
+  const urlCurrency = params.get("currency") ?? "TND";
+
+  const [bookingCurrency, setBookingCurrency] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (pin && pin !== "????") {
+      fetch(`/api/bookings/pin/${pin}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.booking?.currency) {
+            setBookingCurrency(data.booking.currency);
+          }
+        })
+        .catch((err) => console.error("Failed to fetch booking currency", err));
+    }
+  }, [pin]);
+
+  const displayCurrency = bookingCurrency || urlCurrency;
 
   return (
     <div className="min-h-screen bg-[url('/bg-tropical.png')] bg-cover bg-center bg-fixed flex items-center justify-center p-[24px]">
@@ -86,7 +105,7 @@ function ConfirmationContent() {
                 <DollarSign size={13} strokeWidth={1.5} className="text-[#DB8248]" />
                 <span className="text-sm font-semibold text-[#DB8248] uppercase">{t.amountToPay}</span>
               </div>
-              <p className="text-lg font-medium text-[#1E2438]">{total} DT</p>
+              <p className="text-lg font-medium text-[#1E2438]">{formatPrice(Number(total), displayCurrency)}</p>
             </div>
           </div>
 

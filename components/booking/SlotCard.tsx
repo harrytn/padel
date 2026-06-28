@@ -1,6 +1,7 @@
 "use client";
 import { useI18n } from "@/lib/i18n";
 import { Clock, Zap } from "lucide-react";
+import { formatPrice } from "@/lib/currency";
 
 export interface SlotData {
   slotStart: string;
@@ -11,6 +12,7 @@ export interface SlotData {
   basePrice: number;
   peakPremium: number;
   durationMinutes: number;
+  currency?: string;
   isPast?: boolean;
 }
 
@@ -25,8 +27,9 @@ const BASE = "cw-slot-card-root flex text-left transition-all w-full";
 
 export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCardProps) {
   const { t } = useI18n();
-  const { slotStart, isAvailable, isPeak, basePrice, peakPremium, durationMinutes } = slot;
+  const { slotStart, isAvailable, isPeak, basePrice, peakPremium, durationMinutes, currency } = slot;
   const displayPrice = basePrice + (isPeak ? peakPremium : 0);
+  const formattedPrice = formatPrice(displayPrice, currency);
 
   let stateClasses = "";
   let statusOrPrice = "";
@@ -42,11 +45,11 @@ export default function SlotCard({ slot, isSelected, onClick, isPast }: SlotCard
     isOccupied = true;
   } else if (isSelected) {
     stateClasses = "bg-[#E41E2D] border border-red-500 text-white shadow-xl";
-    statusOrPrice = `${displayPrice} DT`;
+    statusOrPrice = formattedPrice;
     showReserveCta = true;
   } else {
     stateClasses = "bg-white/75 border border-cyan-400 text-slate-800 hover:bg-white hover:shadow-xl";
-    statusOrPrice = `${displayPrice} DT`;
+    statusOrPrice = formattedPrice;
     showReserveCta = true;
   }
 

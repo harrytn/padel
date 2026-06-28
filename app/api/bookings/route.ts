@@ -78,7 +78,8 @@ export async function POST(request: NextRequest) {
       close_hour: "22:00",
       lighting_trigger_hour: "18:30",
       peak_slots: "[\"17:00\",\"18:30\",\"20:00\"]",
-      slot_duration_minutes: 90
+      slot_duration_minutes: 90,
+      currency: "TND"
     };
 
     const activeSettings = settings || defaultSettings;
@@ -129,6 +130,7 @@ export async function POST(request: NextRequest) {
         bought_balls_only: Boolean(boughtBallsOnly) && Number(racketCount) === 0,
         needs_lighting: lightingApplicable && Boolean(needsLighting),
         total_price: breakdown.total,
+        currency: activeSettings.currency || "TND",
         status: "PENDING_PAYMENT",
       },
     });

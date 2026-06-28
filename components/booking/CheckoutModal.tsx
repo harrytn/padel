@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useI18n } from "@/lib/i18n";
 import { calculatePrice } from "@/lib/pricing";
+import { formatPrice } from "@/lib/currency";
 import { SlotData } from "./SlotCard";
 import { X, User, Home, Lightbulb, ShoppingBag, ArrowRight } from "lucide-react";
 
@@ -14,6 +15,7 @@ interface CheckoutModalProps {
     balls_only_price: number;
     lighting_price: number;
     peak_premium: number;
+    currency?: string;
   };
   date: string;
   onClose: () => void;
@@ -143,7 +145,7 @@ export default function CheckoutModal({
       >
         <span>{label}</span>
         <span className={highlight ? "text-[#1B4332]" : "text-[#1A1A1A]/80"}>
-          +{amount} DT
+          +{formatPrice(amount, settings.currency)}
         </span>
       </div>
     );
@@ -159,7 +161,7 @@ export default function CheckoutModal({
             <div className="flex items-center gap-[8px] mt-[8px]">
               <span className="text-sm font-medium text-[#1A1A1A]/60">{t.checkout_selected_slot}: {slot.slotStart}</span>
               {slot.isPeak && (
-                <span className="slot-peak-badge">⚡ +{settings.peak_premium} DT {t.book_peak_badge}</span>
+                <span className="slot-peak-badge">⚡ +{formatPrice(settings.peak_premium, settings.currency)} {t.book_peak_badge}</span>
               )}
             </div>
           </div>
@@ -269,7 +271,7 @@ export default function CheckoutModal({
             
             <div className="flex justify-between items-center pt-3 border-t border-[#1B4332]/10">
               <span className="text-sm font-bold text-[#1B4332]">{t.checkout_total}</span>
-              <span className="text-xl font-bold text-[#1B4332]">{breakdown.total} DT</span>
+              <span className="text-xl font-bold text-[#1B4332]">{formatPrice(breakdown.total, settings.currency)}</span>
             </div>
           </div>
 

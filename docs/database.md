@@ -2,6 +2,17 @@
 
 ## Recent Changes
 
+### Currency Display Selector (June 2026)
+We added a currency setting to change the display label of prices without modifying their base numerical values. `npx prisma db push` was used.
+
+**Settings Model:**
+- Added `currency String @default("TND")`.
+- Valid values: `TND`, `EUR`.
+
+**Booking Model:**
+- Added `currency String @default("TND")`.
+- This ensures historical bookings retain the currency label they were booked under, even if the admin changes the global setting later.
+
 ### Configurable Slot Duration (May 2026)
 We added dynamic slot duration support. Because this is a prototype environment, `npx prisma db push` was used to apply these changes instead of a formal migration.
 

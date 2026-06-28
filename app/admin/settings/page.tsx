@@ -17,6 +17,7 @@ interface Settings {
   lighting_trigger_hour: string;
   peak_slots: string;
   slot_duration_minutes: number;
+  currency: string;
 }
 
 const InputField = ({
@@ -203,7 +204,7 @@ export default function AdminSettingsPage() {
           style={{ background: "#1e293b", border: "1px solid #334155" }}
         >
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider">
-            💰 Tarifs (DT)
+            💰 Tarifs
           </h2>
           <div className="grid grid-cols-2 gap-[16px]">
             <InputField
@@ -241,6 +242,25 @@ export default function AdminSettingsPage() {
               step="0.5"
               {...field("lighting_price")}
             />
+            <div>
+              <label htmlFor="currency" className="block text-sm font-medium text-slate-400">
+                {t.admin_settings_currency}
+              </label>
+              <select
+                id="currency"
+                value={form.currency || "TND"}
+                onChange={(e) => setForm(prev => ({ ...prev, currency: e.target.value }))}
+                className="w-full px-4 py-3 mt-1 rounded-lg text-slate-200 text-sm outline-none transition-all"
+                style={{
+                  background: "#0f172a",
+                  border: "1.5px solid #334155",
+                  fontFamily: "var(--font-body)",
+                }}
+              >
+                <option value="TND">{t.admin_settings_currency_tnd}</option>
+                <option value="EUR">{t.admin_settings_currency_eur}</option>
+              </select>
+            </div>
           </div>
         </div>
 

@@ -87,6 +87,9 @@ export interface Translations {
   admin_cancel_booking: string;
   admin_block_slot: string;
   admin_unblock_slot: string;
+  admin_settings_currency: string;
+  admin_settings_currency_tnd: string;
+  admin_settings_currency_eur: string;
 
   // Errors & Validation
   error_validation: string;
@@ -165,11 +168,11 @@ export const translations: Record<Language, Translations> = {
     checkout_last_name_placeholder: "Votre nom",
     checkout_room_placeholder: "Numéro de chambre",
     checkout_rackets_label: "Raquettes (balles incluses)",
-    checkout_rackets_desc: "Nombre de raquettes (+5 DT chacune)",
+    checkout_rackets_desc: "Nombre de raquettes (+5 {currency} chacune)",
     checkout_balls_only_label: "Louer des balles uniquement",
-    checkout_balls_only_desc: "+10 DT — Sans raquette",
+    checkout_balls_only_desc: "+10 {currency} — Sans raquette",
     checkout_lighting_label: "Éclairage du terrain",
-    checkout_lighting_desc: "+20 DT — Recommandé après 18h30",
+    checkout_lighting_desc: "+20 {currency} — Recommandé après 18h30",
     checkout_price_breakdown: "Détail du prix",
     checkout_base: "Court ({count} min)",
     checkout_peak_surcharge: "Supplément heure de pointe",
@@ -208,6 +211,9 @@ export const translations: Record<Language, Translations> = {
     admin_cancel_booking: "Annuler",
     admin_block_slot: "Bloquer",
     admin_unblock_slot: "Débloquer",
+    admin_settings_currency: "Devise",
+    admin_settings_currency_tnd: "Dinar tunisien (TND)",
+    admin_settings_currency_eur: "Euro (€)",
 
     error_validation: "Veuillez remplir tous les champs obligatoires.",
     error_generic: "Une erreur est survenue. Veuillez réessayer.",
@@ -280,11 +286,11 @@ export const translations: Record<Language, Translations> = {
     checkout_last_name_placeholder: "Your last name",
     checkout_room_placeholder: "Room number",
     checkout_rackets_label: "Rackets (balls included)",
-    checkout_rackets_desc: "Number of rackets (+5 DT each)",
+    checkout_rackets_desc: "Number of rackets (+5 {currency} each)",
     checkout_balls_only_label: "Rent balls only",
-    checkout_balls_only_desc: "+10 DT — Without rackets",
+    checkout_balls_only_desc: "+10 {currency} — Without rackets",
     checkout_lighting_label: "Court Lighting",
-    checkout_lighting_desc: "+20 DT — Recommended after 6:30 PM",
+    checkout_lighting_desc: "+20 {currency} — Recommended after 6:30 PM",
     checkout_price_breakdown: "Price Breakdown",
     checkout_base: "Court ({count} min)",
     checkout_peak_surcharge: "Peak hour surcharge",
@@ -323,6 +329,9 @@ export const translations: Record<Language, Translations> = {
     admin_cancel_booking: "Cancel",
     admin_block_slot: "Block Slot",
     admin_unblock_slot: "Unblock",
+    admin_settings_currency: "Currency",
+    admin_settings_currency_tnd: "Tunisian dinar (TND)",
+    admin_settings_currency_eur: "Euro (€)",
 
     error_validation: "Please fill in all required fields.",
     error_generic: "An error occurred. Please try again.",
@@ -395,11 +404,11 @@ export const translations: Record<Language, Translations> = {
     checkout_last_name_placeholder: "Ihr Nachname",
     checkout_room_placeholder: "Zimmernummer",
     checkout_rackets_label: "Schläger (Bälle inklusive)",
-    checkout_rackets_desc: "Anzahl der Schläger (+5 DT pro Schläger)",
+    checkout_rackets_desc: "Anzahl der Schläger (+5 {currency} pro Schläger)",
     checkout_balls_only_label: "Nur Bälle mieten",
-    checkout_balls_only_desc: "+10 DT — Ohne Schläger",
+    checkout_balls_only_desc: "+10 {currency} — Ohne Schläger",
     checkout_lighting_label: "Platzbeleuchtung",
-    checkout_lighting_desc: "+20 DT — Empfohlen nach 18:30 Uhr",
+    checkout_lighting_desc: "+20 {currency} — Empfohlen nach 18:30 Uhr",
     checkout_price_breakdown: "Preisaufschlüsselung",
     checkout_base: "Court ({count} Min.)",
     checkout_peak_surcharge: "Stoßzeit-Zuschlag",
@@ -438,6 +447,9 @@ export const translations: Record<Language, Translations> = {
     admin_cancel_booking: "Stornieren",
     admin_block_slot: "Slot sperren",
     admin_unblock_slot: "Entsperren",
+    admin_settings_currency: "Währung",
+    admin_settings_currency_tnd: "Tunesischer Dinar (TND)",
+    admin_settings_currency_eur: "Euro (€)",
 
     error_validation: "Bitte füllen Sie alle Pflichtfelder aus.",
     error_generic: "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",

@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useI18n } from "@/lib/i18n";
 import { getSlotEnd } from "@/lib/slots";
+import { formatPrice } from "@/lib/currency";
 import { useRole } from "@/lib/role-context";
 
 interface BookingRecord {
@@ -17,6 +18,7 @@ interface BookingRecord {
   bought_balls_only: boolean;
   needs_lighting: boolean;
   total_price: number;
+  currency: string;
   status: string;
 }
 
@@ -311,7 +313,7 @@ export default function AdminSchedulePage() {
                       {/* Price */}
                       <td className="px-[24px] py-[20px]">
                         {booking && !isBlock ? (
-                          <span className="text-[#1E2438] font-bold text-[14px]">{booking.total_price} DT</span>
+                          <span className="text-[#1E2438] font-bold text-[14px]">{formatPrice(booking.total_price, booking.currency || settings?.currency)}</span>
                         ) : (
                           <span className="text-[#1E2438]/40 font-bold">—</span>
                         )}

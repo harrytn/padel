@@ -53,7 +53,8 @@ export async function GET(request: NextRequest) {
     close_hour: "22:00",
     lighting_trigger_hour: "18:30",
     peak_slots: "[\"17:00\",\"18:30\",\"20:00\"]",
-    slot_duration_minutes: 90
+    slot_duration_minutes: 90,
+    currency: "TND"
   };
 
   const activeSettings = settings || defaultSettings;
@@ -76,6 +77,7 @@ export async function GET(request: NextRequest) {
       basePrice: activeSettings.base_price,
       peakPremium: activeSettings.peak_premium,
       durationMinutes: duration,
+      currency: activeSettings.currency || "TND",
     }));
 
     return NextResponse.json({ slots, settings: activeSettings });
